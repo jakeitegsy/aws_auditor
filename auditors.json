@@ -1,0 +1,55 @@
+{
+    "redshift": {
+        "actions": [
+            "redshift:DescribeInstances",
+            "redshift:DescribeVolumes"
+        ]
+    },
+    "rds": {
+        "actions": [
+            "rds:DescribeDBClusters",
+            "rds:DescribeVolumes"
+        ]
+    },
+    "dms": {
+        "actions": [
+            "dms:DescribeInstances",
+            "dms:DescribeVolumes"
+        ]
+    },
+    "dynamodb": {
+        "actions": [
+            "dms:DescribeInstances",
+            "dms:DescribeVolumes"
+        ]
+    },
+    "ec2": {
+        "actions": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeVolumes"
+        ]
+    },
+    "s3": {
+        "actions": [
+            "s3:GetBucketVersioning",
+            "s3:ListAllMyBuckets",
+            "s3:GetEncryptionConfiguration",
+            "cloudwatch:GetMetricStatistics"
+        ]
+    },
+    "ebs": {
+        "actions": [
+            "ec2:DescribeInstances",
+            "ec2:DescribeVolumes",
+            "ec2:DeleteVolume",
+            "ec2:DeleteSnapshot"
+        ],
+        "sort_key": "VolumeId"
+    },
+    "iam_roles": {
+        "actions": ["iam:ListRoles"]
+    },
+    "lambda": {
+        "actions": ["lambda:ListFunctions"]
+    }
+}
