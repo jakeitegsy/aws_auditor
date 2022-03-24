@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "auditrdsLambdaFunctionServiceRole082E6002": {
+    "AuditRdsLambdaFunctionServiceRoleA2E43E80": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -31,7 +31,7 @@
         ]
       }
     },
-    "auditrdsLambdaFunctionServiceRoleDefaultPolicy87839842": {
+    "AuditRdsLambdaFunctionServiceRoleDefaultPolicy53414FE4": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -42,7 +42,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "auditrdsRecordsA64FDAC4",
+                    "AuditRdsDynamoDBTable74592D94",
                     "Arn"
                   ]
                 },
@@ -54,15 +54,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "auditrdsLambdaFunctionServiceRoleDefaultPolicy87839842",
+        "PolicyName": "AuditRdsLambdaFunctionServiceRoleDefaultPolicy53414FE4",
         "Roles": [
           {
-            "Ref": "auditrdsLambdaFunctionServiceRole082E6002"
+            "Ref": "AuditRdsLambdaFunctionServiceRoleA2E43E80"
           }
         ]
       }
     },
-    "auditrdsLambdaFunction16872331": {
+    "AuditRdsLambdaFunction8EBA5413": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
@@ -73,7 +73,7 @@
         },
         "Role": {
           "Fn::GetAtt": [
-            "auditrdsLambdaFunctionServiceRole082E6002",
+            "AuditRdsLambdaFunctionServiceRoleA2E43E80",
             "Arn"
           ]
         },
@@ -82,11 +82,11 @@
         "Runtime": "python3.9"
       },
       "DependsOn": [
-        "auditrdsLambdaFunctionServiceRoleDefaultPolicy87839842",
-        "auditrdsLambdaFunctionServiceRole082E6002"
+        "AuditRdsLambdaFunctionServiceRoleDefaultPolicy53414FE4",
+        "AuditRdsLambdaFunctionServiceRoleA2E43E80"
       ]
     },
-    "auditrdsRecordsA64FDAC4": {
+    "AuditRdsDynamoDBTable74592D94": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [

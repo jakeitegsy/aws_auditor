@@ -14,15 +14,15 @@ class Inventory(aws_cdk.Stack):
 
         # Make Lambda VPC based
         auditor = aws_cdk.aws_lambda.Function(
-            self, utilities.hyphenate(f'{auditor_name}LambdaFunction'),
+            self, utilities.hyphenate(f'{auditor_name.title()}LambdaFunction'),
             runtime=aws_cdk.aws_lambda.Runtime.PYTHON_3_9,
             function_name=auditor_name,
             handler=f'{auditor_name}.handler',
             code=aws_cdk.aws_lambda.Code.from_asset(f'lambda_functions/{auditor_name}'),
         )
 
-        audit_records = aws_cdk.aws_dynamodb.Table(
-            self, utilities.hyphenate(f'{auditor_name}DynamoDBTable'),
+        audit_inventory = aws_cdk.aws_dynamodb.Table(
+            self, utilities.hyphenate(f'{auditor_name.title()}DynamoDBTable'),
             table_name=auditor_name,
             removal_policy=aws_cdk.RemovalPolicy.DESTROY,
             billing_mode=aws_cdk.aws_dynamodb.BillingMode.PAY_PER_REQUEST,
@@ -34,7 +34,8 @@ class Inventory(aws_cdk.Stack):
         )
 
         # add permissions to lambda function role
-        audit_records.grant(auditor, 'dynamodb:PutItem')
+        # auditor.add_to_role_policy(aws_cdk.aws_iam.PolicyStatement())
+        audit_inventory.grant(auditor, 'dynamodb:PutItem')
 
         # add scheduled event to lambda function
 
