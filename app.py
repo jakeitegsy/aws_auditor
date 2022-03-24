@@ -5,14 +5,12 @@ import json
 import os
 import utilities
 
+auditors = utilities.get_auditors()
 app = aws_cdk.App()
-
-with open('auditors.json') as file:
-    auditors = json.load(file)
 
 for auditor_name in auditors:
     auditor.Inventory(
-        app, utilities.hyphenate(auditor_name),
+        app, utilities.hyphenate(f'audit_{auditor_name}'),
         auditor_name=auditor_name,
         actions=auditors[auditor_name].get('actions'),
         sort_key=auditors[auditor_name].get('sort_key'),
