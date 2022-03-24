@@ -11,7 +11,7 @@ class Inventory(aws_cdk.Stack):
         **kwargs
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
-
+        auditor_name = f'audit-{auditor_name}'
         # Make Lambda VPC based
         auditor = aws_cdk.aws_lambda.Function(
             self, utilities.hyphenate(f'{auditor_name}LambdaFunction'),
@@ -33,6 +33,7 @@ class Inventory(aws_cdk.Stack):
             sort_key=self.get_sort_key(sort_key),
         )
 
+        # add permissions to lambda function role
         audit_records.grant(auditor, 'dynamodb:PutItem')
 
         # add scheduled event to lambda function
@@ -40,6 +41,6 @@ class Inventory(aws_cdk.Stack):
     @staticmethod
     def get_sort_key(sort_key):
         return sort_key if sort_key is None else aws_cdk.aws_dynamodb.Attribute(
-                name=sort_key,
-               type=aws_cdk.aws_dynamodb.AttributeType.STRING
+            name=sort_key,
+            type=aws_cdk.aws_dynamodb.AttributeType.STRING
         )
