@@ -16,17 +16,17 @@
         "id": "audit-redshift",
         "path": "audit-redshift",
         "children": {
-          "redshiftLambdaFunction": {
-            "id": "redshiftLambdaFunction",
-            "path": "audit-redshift/redshiftLambdaFunction",
+          "audit-redshiftLambdaFunction": {
+            "id": "audit-redshiftLambdaFunction",
+            "path": "audit-redshift/audit-redshiftLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-redshift/redshiftLambdaFunction/ServiceRole",
+                "path": "audit-redshift/audit-redshiftLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-redshift/redshiftLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-redshift/audit-redshiftLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -65,11 +65,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-redshift/redshiftLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-redshift/audit-redshiftLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-redshift/redshiftLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-redshift/audit-redshiftLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -81,7 +81,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "redshiftRecords5AF73609",
+                                        "auditredshiftRecords05612021",
                                         "Arn"
                                       ]
                                     },
@@ -93,10 +93,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "redshiftLambdaFunctionServiceRoleDefaultPolicyFC9AA0DB",
+                            "policyName": "auditredshiftLambdaFunctionServiceRoleDefaultPolicy10DB1859",
                             "roles": [
                               {
-                                "Ref": "redshiftLambdaFunctionServiceRole5374A9B8"
+                                "Ref": "auditredshiftLambdaFunctionServiceRole30375AAF"
                               }
                             ]
                           }
@@ -120,11 +120,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-redshift/redshiftLambdaFunction/Code",
+                "path": "audit-redshift/audit-redshiftLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-redshift/redshiftLambdaFunction/Code/Stage",
+                    "path": "audit-redshift/audit-redshiftLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -132,7 +132,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-redshift/redshiftLambdaFunction/Code/AssetBucket",
+                    "path": "audit-redshift/audit-redshiftLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -146,7 +146,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-redshift/redshiftLambdaFunction/Resource",
+                "path": "audit-redshift/audit-redshiftLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -154,16 +154,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "ae7cbd2c93796c982c0062d930925809dba5f68ebb3ba2d075b3102f40488fb8.zip"
+                      "s3Key": "a643529b4f604b9ee68734b8914fd3a82835eb2a90d6093f844de45f206d494f.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "redshiftLambdaFunctionServiceRole5374A9B8",
+                        "auditredshiftLambdaFunctionServiceRole30375AAF",
                         "Arn"
                       ]
                     },
-                    "functionName": "redshift",
-                    "handler": "redshift.handler",
+                    "functionName": "audit_redshift",
+                    "handler": "audit_redshift.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -178,13 +178,13 @@
               "version": "2.17.0"
             }
           },
-          "redshiftRecords": {
-            "id": "redshiftRecords",
-            "path": "audit-redshift/redshiftRecords",
+          "audit-redshiftRecords": {
+            "id": "audit-redshiftRecords",
+            "path": "audit-redshift/audit-redshiftRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-redshift/redshiftRecords/Resource",
+                "path": "audit-redshift/audit-redshiftRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -201,7 +201,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "redshift"
+                    "tableName": "audit_redshift"
                   }
                 },
                 "constructInfo": {
@@ -211,7 +211,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-redshift/redshiftRecords/ScalingRole",
+                "path": "audit-redshift/audit-redshiftRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -233,17 +233,17 @@
         "id": "audit-rds",
         "path": "audit-rds",
         "children": {
-          "rdsLambdaFunction": {
-            "id": "rdsLambdaFunction",
-            "path": "audit-rds/rdsLambdaFunction",
+          "audit-rdsLambdaFunction": {
+            "id": "audit-rdsLambdaFunction",
+            "path": "audit-rds/audit-rdsLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-rds/rdsLambdaFunction/ServiceRole",
+                "path": "audit-rds/audit-rdsLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-rds/rdsLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-rds/audit-rdsLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -282,11 +282,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-rds/rdsLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-rds/audit-rdsLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-rds/rdsLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-rds/audit-rdsLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -298,7 +298,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "rdsRecords614F2BF4",
+                                        "auditrdsRecordsA64FDAC4",
                                         "Arn"
                                       ]
                                     },
@@ -310,10 +310,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "rdsLambdaFunctionServiceRoleDefaultPolicyC2CDE858",
+                            "policyName": "auditrdsLambdaFunctionServiceRoleDefaultPolicy87839842",
                             "roles": [
                               {
-                                "Ref": "rdsLambdaFunctionServiceRole36D5A42B"
+                                "Ref": "auditrdsLambdaFunctionServiceRole082E6002"
                               }
                             ]
                           }
@@ -337,11 +337,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-rds/rdsLambdaFunction/Code",
+                "path": "audit-rds/audit-rdsLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-rds/rdsLambdaFunction/Code/Stage",
+                    "path": "audit-rds/audit-rdsLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -349,7 +349,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-rds/rdsLambdaFunction/Code/AssetBucket",
+                    "path": "audit-rds/audit-rdsLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -363,7 +363,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-rds/rdsLambdaFunction/Resource",
+                "path": "audit-rds/audit-rdsLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -371,16 +371,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "6c69f421eddea7103620a033e97ec6707564015818ed8697f42b5eda56d6dbdb.zip"
+                      "s3Key": "27460f633f692b197e3afbb0e1f3464677187d4b06465e27896243af1a9fced5.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "rdsLambdaFunctionServiceRole36D5A42B",
+                        "auditrdsLambdaFunctionServiceRole082E6002",
                         "Arn"
                       ]
                     },
-                    "functionName": "rds",
-                    "handler": "rds.handler",
+                    "functionName": "audit_rds",
+                    "handler": "audit_rds.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -395,13 +395,13 @@
               "version": "2.17.0"
             }
           },
-          "rdsRecords": {
-            "id": "rdsRecords",
-            "path": "audit-rds/rdsRecords",
+          "audit-rdsRecords": {
+            "id": "audit-rdsRecords",
+            "path": "audit-rds/audit-rdsRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-rds/rdsRecords/Resource",
+                "path": "audit-rds/audit-rdsRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -418,7 +418,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "rds"
+                    "tableName": "audit_rds"
                   }
                 },
                 "constructInfo": {
@@ -428,7 +428,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-rds/rdsRecords/ScalingRole",
+                "path": "audit-rds/audit-rdsRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -450,17 +450,17 @@
         "id": "audit-dms",
         "path": "audit-dms",
         "children": {
-          "dmsLambdaFunction": {
-            "id": "dmsLambdaFunction",
-            "path": "audit-dms/dmsLambdaFunction",
+          "audit-dmsLambdaFunction": {
+            "id": "audit-dmsLambdaFunction",
+            "path": "audit-dms/audit-dmsLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-dms/dmsLambdaFunction/ServiceRole",
+                "path": "audit-dms/audit-dmsLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-dms/dmsLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-dms/audit-dmsLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -499,11 +499,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-dms/dmsLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-dms/audit-dmsLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-dms/dmsLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-dms/audit-dmsLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -515,7 +515,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "dmsRecordsD70A20FA",
+                                        "auditdmsRecordsF9DC0761",
                                         "Arn"
                                       ]
                                     },
@@ -527,10 +527,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "dmsLambdaFunctionServiceRoleDefaultPolicy2002824D",
+                            "policyName": "auditdmsLambdaFunctionServiceRoleDefaultPolicy6C385950",
                             "roles": [
                               {
-                                "Ref": "dmsLambdaFunctionServiceRoleAC837899"
+                                "Ref": "auditdmsLambdaFunctionServiceRoleED340D1E"
                               }
                             ]
                           }
@@ -554,11 +554,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-dms/dmsLambdaFunction/Code",
+                "path": "audit-dms/audit-dmsLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-dms/dmsLambdaFunction/Code/Stage",
+                    "path": "audit-dms/audit-dmsLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -566,7 +566,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-dms/dmsLambdaFunction/Code/AssetBucket",
+                    "path": "audit-dms/audit-dmsLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -580,7 +580,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-dms/dmsLambdaFunction/Resource",
+                "path": "audit-dms/audit-dmsLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -588,16 +588,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "5e65c5b7bd9dc202716a47fde2fde192e7f13bc5e9bc5061e6b9b1a73128474b.zip"
+                      "s3Key": "1fef3094f24b14b879eed88e24ec3df216b6abb6c080162d7f2181a4571487f6.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "dmsLambdaFunctionServiceRoleAC837899",
+                        "auditdmsLambdaFunctionServiceRoleED340D1E",
                         "Arn"
                       ]
                     },
-                    "functionName": "dms",
-                    "handler": "dms.handler",
+                    "functionName": "audit_dms",
+                    "handler": "audit_dms.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -612,13 +612,13 @@
               "version": "2.17.0"
             }
           },
-          "dmsRecords": {
-            "id": "dmsRecords",
-            "path": "audit-dms/dmsRecords",
+          "audit-dmsRecords": {
+            "id": "audit-dmsRecords",
+            "path": "audit-dms/audit-dmsRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-dms/dmsRecords/Resource",
+                "path": "audit-dms/audit-dmsRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -635,7 +635,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "dms"
+                    "tableName": "audit_dms"
                   }
                 },
                 "constructInfo": {
@@ -645,7 +645,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-dms/dmsRecords/ScalingRole",
+                "path": "audit-dms/audit-dmsRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -667,17 +667,17 @@
         "id": "audit-dynamodb",
         "path": "audit-dynamodb",
         "children": {
-          "dynamodbLambdaFunction": {
-            "id": "dynamodbLambdaFunction",
-            "path": "audit-dynamodb/dynamodbLambdaFunction",
+          "audit-dynamodbLambdaFunction": {
+            "id": "audit-dynamodbLambdaFunction",
+            "path": "audit-dynamodb/audit-dynamodbLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-dynamodb/dynamodbLambdaFunction/ServiceRole",
+                "path": "audit-dynamodb/audit-dynamodbLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-dynamodb/dynamodbLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-dynamodb/audit-dynamodbLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -716,11 +716,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-dynamodb/dynamodbLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-dynamodb/audit-dynamodbLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-dynamodb/dynamodbLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-dynamodb/audit-dynamodbLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -732,7 +732,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "dynamodbRecords229D9D84",
+                                        "auditdynamodbRecords5BA4131D",
                                         "Arn"
                                       ]
                                     },
@@ -744,10 +744,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "dynamodbLambdaFunctionServiceRoleDefaultPolicy0DD6F5D4",
+                            "policyName": "auditdynamodbLambdaFunctionServiceRoleDefaultPolicyE98E6EDC",
                             "roles": [
                               {
-                                "Ref": "dynamodbLambdaFunctionServiceRoleAC802691"
+                                "Ref": "auditdynamodbLambdaFunctionServiceRole872D8238"
                               }
                             ]
                           }
@@ -771,11 +771,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-dynamodb/dynamodbLambdaFunction/Code",
+                "path": "audit-dynamodb/audit-dynamodbLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-dynamodb/dynamodbLambdaFunction/Code/Stage",
+                    "path": "audit-dynamodb/audit-dynamodbLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -783,7 +783,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-dynamodb/dynamodbLambdaFunction/Code/AssetBucket",
+                    "path": "audit-dynamodb/audit-dynamodbLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -797,7 +797,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-dynamodb/dynamodbLambdaFunction/Resource",
+                "path": "audit-dynamodb/audit-dynamodbLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -805,16 +805,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "15aefce3bc454278af1dece1e291d70298f14f259c39e99f2801bdf0f7fa04f0.zip"
+                      "s3Key": "fafd14e09f1e43cd2cce1f23a1226ee2045948a2c56d42f85fb496e7b7f9daf3.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "dynamodbLambdaFunctionServiceRoleAC802691",
+                        "auditdynamodbLambdaFunctionServiceRole872D8238",
                         "Arn"
                       ]
                     },
-                    "functionName": "dynamodb",
-                    "handler": "dynamodb.handler",
+                    "functionName": "audit_dynamodb",
+                    "handler": "audit_dynamodb.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -829,13 +829,13 @@
               "version": "2.17.0"
             }
           },
-          "dynamodbRecords": {
-            "id": "dynamodbRecords",
-            "path": "audit-dynamodb/dynamodbRecords",
+          "audit-dynamodbRecords": {
+            "id": "audit-dynamodbRecords",
+            "path": "audit-dynamodb/audit-dynamodbRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-dynamodb/dynamodbRecords/Resource",
+                "path": "audit-dynamodb/audit-dynamodbRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -852,7 +852,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "dynamodb"
+                    "tableName": "audit_dynamodb"
                   }
                 },
                 "constructInfo": {
@@ -862,7 +862,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-dynamodb/dynamodbRecords/ScalingRole",
+                "path": "audit-dynamodb/audit-dynamodbRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -884,17 +884,17 @@
         "id": "audit-ec2",
         "path": "audit-ec2",
         "children": {
-          "ec2LambdaFunction": {
-            "id": "ec2LambdaFunction",
-            "path": "audit-ec2/ec2LambdaFunction",
+          "audit-ec2LambdaFunction": {
+            "id": "audit-ec2LambdaFunction",
+            "path": "audit-ec2/audit-ec2LambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-ec2/ec2LambdaFunction/ServiceRole",
+                "path": "audit-ec2/audit-ec2LambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-ec2/ec2LambdaFunction/ServiceRole/Resource",
+                    "path": "audit-ec2/audit-ec2LambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -933,11 +933,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-ec2/ec2LambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-ec2/audit-ec2LambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-ec2/ec2LambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-ec2/audit-ec2LambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -949,7 +949,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "ec2Records4FB52414",
+                                        "auditec2Records65039D13",
                                         "Arn"
                                       ]
                                     },
@@ -961,10 +961,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "ec2LambdaFunctionServiceRoleDefaultPolicyD796A0BC",
+                            "policyName": "auditec2LambdaFunctionServiceRoleDefaultPolicy119A5892",
                             "roles": [
                               {
-                                "Ref": "ec2LambdaFunctionServiceRole2D6D3193"
+                                "Ref": "auditec2LambdaFunctionServiceRole09D47CDB"
                               }
                             ]
                           }
@@ -988,11 +988,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-ec2/ec2LambdaFunction/Code",
+                "path": "audit-ec2/audit-ec2LambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-ec2/ec2LambdaFunction/Code/Stage",
+                    "path": "audit-ec2/audit-ec2LambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -1000,7 +1000,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-ec2/ec2LambdaFunction/Code/AssetBucket",
+                    "path": "audit-ec2/audit-ec2LambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -1014,7 +1014,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-ec2/ec2LambdaFunction/Resource",
+                "path": "audit-ec2/audit-ec2LambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -1022,16 +1022,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "f45cc41bb1ecd83a888364e2472fa33ec4af7fbf0372138a317a3ba85feef2af.zip"
+                      "s3Key": "e9becee6f76b5db17301145bc2f97ab0ac15c5694bcb1e426e20b647a3c36e23.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "ec2LambdaFunctionServiceRole2D6D3193",
+                        "auditec2LambdaFunctionServiceRole09D47CDB",
                         "Arn"
                       ]
                     },
-                    "functionName": "ec2",
-                    "handler": "ec2.handler",
+                    "functionName": "audit_ec2",
+                    "handler": "audit_ec2.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -1046,13 +1046,13 @@
               "version": "2.17.0"
             }
           },
-          "ec2Records": {
-            "id": "ec2Records",
-            "path": "audit-ec2/ec2Records",
+          "audit-ec2Records": {
+            "id": "audit-ec2Records",
+            "path": "audit-ec2/audit-ec2Records",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-ec2/ec2Records/Resource",
+                "path": "audit-ec2/audit-ec2Records/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -1069,7 +1069,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "ec2"
+                    "tableName": "audit_ec2"
                   }
                 },
                 "constructInfo": {
@@ -1079,7 +1079,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-ec2/ec2Records/ScalingRole",
+                "path": "audit-ec2/audit-ec2Records/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -1101,17 +1101,17 @@
         "id": "audit-s3",
         "path": "audit-s3",
         "children": {
-          "s3LambdaFunction": {
-            "id": "s3LambdaFunction",
-            "path": "audit-s3/s3LambdaFunction",
+          "audit-s3LambdaFunction": {
+            "id": "audit-s3LambdaFunction",
+            "path": "audit-s3/audit-s3LambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-s3/s3LambdaFunction/ServiceRole",
+                "path": "audit-s3/audit-s3LambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-s3/s3LambdaFunction/ServiceRole/Resource",
+                    "path": "audit-s3/audit-s3LambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1150,11 +1150,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-s3/s3LambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-s3/audit-s3LambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-s3/s3LambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-s3/audit-s3LambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -1166,7 +1166,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "s3Records96C597ED",
+                                        "audits3Records97EB4A48",
                                         "Arn"
                                       ]
                                     },
@@ -1178,10 +1178,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "s3LambdaFunctionServiceRoleDefaultPolicyDCCA4B9B",
+                            "policyName": "audits3LambdaFunctionServiceRoleDefaultPolicyE262C202",
                             "roles": [
                               {
-                                "Ref": "s3LambdaFunctionServiceRole731E7056"
+                                "Ref": "audits3LambdaFunctionServiceRoleBCBDBB18"
                               }
                             ]
                           }
@@ -1205,11 +1205,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-s3/s3LambdaFunction/Code",
+                "path": "audit-s3/audit-s3LambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-s3/s3LambdaFunction/Code/Stage",
+                    "path": "audit-s3/audit-s3LambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -1217,7 +1217,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-s3/s3LambdaFunction/Code/AssetBucket",
+                    "path": "audit-s3/audit-s3LambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -1231,7 +1231,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-s3/s3LambdaFunction/Resource",
+                "path": "audit-s3/audit-s3LambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -1239,16 +1239,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "375df3141e92869c325791ed303a31343aab04307c45704150559c10282c145f.zip"
+                      "s3Key": "fc72076863b3d1736890a6645730fe5180398609990a149f8a620f930c17ebb0.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "s3LambdaFunctionServiceRole731E7056",
+                        "audits3LambdaFunctionServiceRoleBCBDBB18",
                         "Arn"
                       ]
                     },
-                    "functionName": "s3",
-                    "handler": "s3.handler",
+                    "functionName": "audit_s3",
+                    "handler": "audit_s3.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -1263,13 +1263,13 @@
               "version": "2.17.0"
             }
           },
-          "s3Records": {
-            "id": "s3Records",
-            "path": "audit-s3/s3Records",
+          "audit-s3Records": {
+            "id": "audit-s3Records",
+            "path": "audit-s3/audit-s3Records",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-s3/s3Records/Resource",
+                "path": "audit-s3/audit-s3Records/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -1286,7 +1286,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "s3"
+                    "tableName": "audit_s3"
                   }
                 },
                 "constructInfo": {
@@ -1296,7 +1296,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-s3/s3Records/ScalingRole",
+                "path": "audit-s3/audit-s3Records/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -1318,17 +1318,17 @@
         "id": "audit-ebs",
         "path": "audit-ebs",
         "children": {
-          "ebsLambdaFunction": {
-            "id": "ebsLambdaFunction",
-            "path": "audit-ebs/ebsLambdaFunction",
+          "audit-ebsLambdaFunction": {
+            "id": "audit-ebsLambdaFunction",
+            "path": "audit-ebs/audit-ebsLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-ebs/ebsLambdaFunction/ServiceRole",
+                "path": "audit-ebs/audit-ebsLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-ebs/ebsLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-ebs/audit-ebsLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1367,11 +1367,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-ebs/ebsLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-ebs/audit-ebsLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-ebs/ebsLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-ebs/audit-ebsLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -1383,7 +1383,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "ebsRecords706FFDA7",
+                                        "auditebsRecordsAC96CAA6",
                                         "Arn"
                                       ]
                                     },
@@ -1395,10 +1395,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "ebsLambdaFunctionServiceRoleDefaultPolicy5F7E961B",
+                            "policyName": "auditebsLambdaFunctionServiceRoleDefaultPolicy20D5274C",
                             "roles": [
                               {
-                                "Ref": "ebsLambdaFunctionServiceRoleC1631907"
+                                "Ref": "auditebsLambdaFunctionServiceRole594E68BE"
                               }
                             ]
                           }
@@ -1422,11 +1422,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-ebs/ebsLambdaFunction/Code",
+                "path": "audit-ebs/audit-ebsLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-ebs/ebsLambdaFunction/Code/Stage",
+                    "path": "audit-ebs/audit-ebsLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -1434,7 +1434,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-ebs/ebsLambdaFunction/Code/AssetBucket",
+                    "path": "audit-ebs/audit-ebsLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -1448,7 +1448,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-ebs/ebsLambdaFunction/Resource",
+                "path": "audit-ebs/audit-ebsLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -1456,16 +1456,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "e8b3c14d50e6b02f79e5d8fc941a0f20641ea0f8fbd38f9117d1a6028f02c56a.zip"
+                      "s3Key": "1c759226a7fec4cc35608b29b7b19efabf95505606b3e50d85c980ad1fe51658.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "ebsLambdaFunctionServiceRoleC1631907",
+                        "auditebsLambdaFunctionServiceRole594E68BE",
                         "Arn"
                       ]
                     },
-                    "functionName": "ebs",
-                    "handler": "ebs.handler",
+                    "functionName": "audit_ebs",
+                    "handler": "audit_ebs.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -1480,13 +1480,13 @@
               "version": "2.17.0"
             }
           },
-          "ebsRecords": {
-            "id": "ebsRecords",
-            "path": "audit-ebs/ebsRecords",
+          "audit-ebsRecords": {
+            "id": "audit-ebsRecords",
+            "path": "audit-ebs/audit-ebsRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-ebs/ebsRecords/Resource",
+                "path": "audit-ebs/audit-ebsRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -1511,7 +1511,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "ebs"
+                    "tableName": "audit_ebs"
                   }
                 },
                 "constructInfo": {
@@ -1521,7 +1521,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-ebs/ebsRecords/ScalingRole",
+                "path": "audit-ebs/audit-ebsRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -1543,17 +1543,17 @@
         "id": "audit-iam-roles",
         "path": "audit-iam-roles",
         "children": {
-          "iam-rolesLambdaFunction": {
-            "id": "iam-rolesLambdaFunction",
-            "path": "audit-iam-roles/iam-rolesLambdaFunction",
+          "audit-iam-rolesLambdaFunction": {
+            "id": "audit-iam-rolesLambdaFunction",
+            "path": "audit-iam-roles/audit-iam-rolesLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-iam-roles/iam-rolesLambdaFunction/ServiceRole",
+                "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-iam-roles/iam-rolesLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1592,11 +1592,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-iam-roles/iam-rolesLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-iam-roles/iam-rolesLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -1608,7 +1608,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "iamrolesRecordsB0AF3E61",
+                                        "auditiamrolesRecordsE4666F00",
                                         "Arn"
                                       ]
                                     },
@@ -1620,10 +1620,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "iamrolesLambdaFunctionServiceRoleDefaultPolicyF91D4095",
+                            "policyName": "auditiamrolesLambdaFunctionServiceRoleDefaultPolicy1453B758",
                             "roles": [
                               {
-                                "Ref": "iamrolesLambdaFunctionServiceRoleAF8C7F0F"
+                                "Ref": "auditiamrolesLambdaFunctionServiceRole930E79FC"
                               }
                             ]
                           }
@@ -1647,11 +1647,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-iam-roles/iam-rolesLambdaFunction/Code",
+                "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-iam-roles/iam-rolesLambdaFunction/Code/Stage",
+                    "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -1659,7 +1659,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-iam-roles/iam-rolesLambdaFunction/Code/AssetBucket",
+                    "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -1673,7 +1673,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-iam-roles/iam-rolesLambdaFunction/Resource",
+                "path": "audit-iam-roles/audit-iam-rolesLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -1681,16 +1681,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "3895dbb3aebe18222737a575fc4bcab15e89042a0180459fe72b485d6eb3cde9.zip"
+                      "s3Key": "3479d65a061655948c00286241ccd01aca59be7fe37a66abcd4b64adf46813f1.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "iamrolesLambdaFunctionServiceRoleAF8C7F0F",
+                        "auditiamrolesLambdaFunctionServiceRole930E79FC",
                         "Arn"
                       ]
                     },
-                    "functionName": "iam_roles",
-                    "handler": "iam_roles.handler",
+                    "functionName": "audit_iam_roles",
+                    "handler": "audit_iam_roles.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -1705,13 +1705,13 @@
               "version": "2.17.0"
             }
           },
-          "iam-rolesRecords": {
-            "id": "iam-rolesRecords",
-            "path": "audit-iam-roles/iam-rolesRecords",
+          "audit-iam-rolesRecords": {
+            "id": "audit-iam-rolesRecords",
+            "path": "audit-iam-roles/audit-iam-rolesRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-iam-roles/iam-rolesRecords/Resource",
+                "path": "audit-iam-roles/audit-iam-rolesRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -1728,7 +1728,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "iam_roles"
+                    "tableName": "audit_iam_roles"
                   }
                 },
                 "constructInfo": {
@@ -1738,7 +1738,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-iam-roles/iam-rolesRecords/ScalingRole",
+                "path": "audit-iam-roles/audit-iam-rolesRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"
@@ -1760,17 +1760,17 @@
         "id": "audit-lambda",
         "path": "audit-lambda",
         "children": {
-          "lambdaLambdaFunction": {
-            "id": "lambdaLambdaFunction",
-            "path": "audit-lambda/lambdaLambdaFunction",
+          "audit-lambdaLambdaFunction": {
+            "id": "audit-lambdaLambdaFunction",
+            "path": "audit-lambda/audit-lambdaLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "audit-lambda/lambdaLambdaFunction/ServiceRole",
+                "path": "audit-lambda/audit-lambdaLambdaFunction/ServiceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "audit-lambda/lambdaLambdaFunction/ServiceRole/Resource",
+                    "path": "audit-lambda/audit-lambdaLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1809,11 +1809,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "audit-lambda/lambdaLambdaFunction/ServiceRole/DefaultPolicy",
+                    "path": "audit-lambda/audit-lambdaLambdaFunction/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "audit-lambda/lambdaLambdaFunction/ServiceRole/DefaultPolicy/Resource",
+                        "path": "audit-lambda/audit-lambdaLambdaFunction/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -1825,7 +1825,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "lambdaRecords8CA20283",
+                                        "auditlambdaRecords9A988209",
                                         "Arn"
                                       ]
                                     },
@@ -1837,10 +1837,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "lambdaLambdaFunctionServiceRoleDefaultPolicy08097C11",
+                            "policyName": "auditlambdaLambdaFunctionServiceRoleDefaultPolicyF34161B5",
                             "roles": [
                               {
-                                "Ref": "lambdaLambdaFunctionServiceRoleAF0719CD"
+                                "Ref": "auditlambdaLambdaFunctionServiceRole6E5A33E2"
                               }
                             ]
                           }
@@ -1864,11 +1864,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "audit-lambda/lambdaLambdaFunction/Code",
+                "path": "audit-lambda/audit-lambdaLambdaFunction/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "audit-lambda/lambdaLambdaFunction/Code/Stage",
+                    "path": "audit-lambda/audit-lambdaLambdaFunction/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.17.0"
@@ -1876,7 +1876,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "audit-lambda/lambdaLambdaFunction/Code/AssetBucket",
+                    "path": "audit-lambda/audit-lambdaLambdaFunction/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.17.0"
@@ -1890,7 +1890,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "audit-lambda/lambdaLambdaFunction/Resource",
+                "path": "audit-lambda/audit-lambdaLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -1898,16 +1898,16 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "aa1c3118268b58dc018227a443b15d114c2bc2259cb26a0971a6dca5de0dd5f2.zip"
+                      "s3Key": "4b961d89594ad6e789388007e716c2d8cb950224e2bcbd02fcd38527385263e1.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
-                        "lambdaLambdaFunctionServiceRoleAF0719CD",
+                        "auditlambdaLambdaFunctionServiceRole6E5A33E2",
                         "Arn"
                       ]
                     },
-                    "functionName": "lambda",
-                    "handler": "lambda.handler",
+                    "functionName": "audit_lambda",
+                    "handler": "audit_lambda.handler",
                     "runtime": "python3.9"
                   }
                 },
@@ -1922,13 +1922,13 @@
               "version": "2.17.0"
             }
           },
-          "lambdaRecords": {
-            "id": "lambdaRecords",
-            "path": "audit-lambda/lambdaRecords",
+          "audit-lambdaRecords": {
+            "id": "audit-lambdaRecords",
+            "path": "audit-lambda/audit-lambdaRecords",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "audit-lambda/lambdaRecords/Resource",
+                "path": "audit-lambda/audit-lambdaRecords/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -1945,7 +1945,7 @@
                       }
                     ],
                     "billingMode": "PAY_PER_REQUEST",
-                    "tableName": "lambda"
+                    "tableName": "audit_lambda"
                   }
                 },
                 "constructInfo": {
@@ -1955,7 +1955,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "audit-lambda/lambdaRecords/ScalingRole",
+                "path": "audit-lambda/audit-lambdaRecords/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.17.0"

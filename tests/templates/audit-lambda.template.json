@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "lambdaLambdaFunctionServiceRoleAF0719CD": {
+    "auditlambdaLambdaFunctionServiceRole6E5A33E2": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -31,7 +31,7 @@
         ]
       }
     },
-    "lambdaLambdaFunctionServiceRoleDefaultPolicy08097C11": {
+    "auditlambdaLambdaFunctionServiceRoleDefaultPolicyF34161B5": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -42,7 +42,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "lambdaRecords8CA20283",
+                    "auditlambdaRecords9A988209",
                     "Arn"
                   ]
                 },
@@ -54,39 +54,39 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "lambdaLambdaFunctionServiceRoleDefaultPolicy08097C11",
+        "PolicyName": "auditlambdaLambdaFunctionServiceRoleDefaultPolicyF34161B5",
         "Roles": [
           {
-            "Ref": "lambdaLambdaFunctionServiceRoleAF0719CD"
+            "Ref": "auditlambdaLambdaFunctionServiceRole6E5A33E2"
           }
         ]
       }
     },
-    "lambdaLambdaFunction9A5101C6": {
+    "auditlambdaLambdaFunctionB754CB5C": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "aa1c3118268b58dc018227a443b15d114c2bc2259cb26a0971a6dca5de0dd5f2.zip"
+          "S3Key": "4b961d89594ad6e789388007e716c2d8cb950224e2bcbd02fcd38527385263e1.zip"
         },
         "Role": {
           "Fn::GetAtt": [
-            "lambdaLambdaFunctionServiceRoleAF0719CD",
+            "auditlambdaLambdaFunctionServiceRole6E5A33E2",
             "Arn"
           ]
         },
-        "FunctionName": "lambda",
-        "Handler": "lambda.handler",
+        "FunctionName": "audit_lambda",
+        "Handler": "audit_lambda.handler",
         "Runtime": "python3.9"
       },
       "DependsOn": [
-        "lambdaLambdaFunctionServiceRoleDefaultPolicy08097C11",
-        "lambdaLambdaFunctionServiceRoleAF0719CD"
+        "auditlambdaLambdaFunctionServiceRoleDefaultPolicyF34161B5",
+        "auditlambdaLambdaFunctionServiceRole6E5A33E2"
       ]
     },
-    "lambdaRecords8CA20283": {
+    "auditlambdaRecords9A988209": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [
@@ -102,7 +102,7 @@
           }
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "lambda"
+        "TableName": "audit_lambda"
       },
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete"

@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "redshiftLambdaFunctionServiceRole5374A9B8": {
+    "auditredshiftLambdaFunctionServiceRole30375AAF": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -31,7 +31,7 @@
         ]
       }
     },
-    "redshiftLambdaFunctionServiceRoleDefaultPolicyFC9AA0DB": {
+    "auditredshiftLambdaFunctionServiceRoleDefaultPolicy10DB1859": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -42,7 +42,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "redshiftRecords5AF73609",
+                    "auditredshiftRecords05612021",
                     "Arn"
                   ]
                 },
@@ -54,39 +54,39 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "redshiftLambdaFunctionServiceRoleDefaultPolicyFC9AA0DB",
+        "PolicyName": "auditredshiftLambdaFunctionServiceRoleDefaultPolicy10DB1859",
         "Roles": [
           {
-            "Ref": "redshiftLambdaFunctionServiceRole5374A9B8"
+            "Ref": "auditredshiftLambdaFunctionServiceRole30375AAF"
           }
         ]
       }
     },
-    "redshiftLambdaFunction2DE0E29F": {
+    "auditredshiftLambdaFunctionE67A2E43": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "ae7cbd2c93796c982c0062d930925809dba5f68ebb3ba2d075b3102f40488fb8.zip"
+          "S3Key": "a643529b4f604b9ee68734b8914fd3a82835eb2a90d6093f844de45f206d494f.zip"
         },
         "Role": {
           "Fn::GetAtt": [
-            "redshiftLambdaFunctionServiceRole5374A9B8",
+            "auditredshiftLambdaFunctionServiceRole30375AAF",
             "Arn"
           ]
         },
-        "FunctionName": "redshift",
-        "Handler": "redshift.handler",
+        "FunctionName": "audit_redshift",
+        "Handler": "audit_redshift.handler",
         "Runtime": "python3.9"
       },
       "DependsOn": [
-        "redshiftLambdaFunctionServiceRoleDefaultPolicyFC9AA0DB",
-        "redshiftLambdaFunctionServiceRole5374A9B8"
+        "auditredshiftLambdaFunctionServiceRoleDefaultPolicy10DB1859",
+        "auditredshiftLambdaFunctionServiceRole30375AAF"
       ]
     },
-    "redshiftRecords5AF73609": {
+    "auditredshiftRecords05612021": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [
@@ -102,7 +102,7 @@
           }
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "redshift"
+        "TableName": "audit_redshift"
       },
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete"

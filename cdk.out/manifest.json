@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/88e1f6b0e3e91d5818240b18e5f4c2222acfe63f9253243aa10daf138e9747e3.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5db413a8bdc51687febc56a6d3e081953d863206ef1e0c3244db10bbf03aebf0.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,36 +39,36 @@
         "audit-redshift.assets"
       ],
       "metadata": {
-        "/audit-redshift/redshiftLambdaFunction/ServiceRole/Resource": [
+        "/audit-redshift/audit-redshiftLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "redshiftLambdaFunctionServiceRole5374A9B8"
+            "data": "auditredshiftLambdaFunctionServiceRole30375AAF"
           }
         ],
-        "/audit-redshift/redshiftLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-redshift/audit-redshiftLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "redshiftLambdaFunctionServiceRoleDefaultPolicyFC9AA0DB"
+            "data": "auditredshiftLambdaFunctionServiceRoleDefaultPolicy10DB1859"
           }
         ],
-        "/audit-redshift/redshiftLambdaFunction/Resource": [
+        "/audit-redshift/audit-redshiftLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "redshiftLambdaFunction2DE0E29F"
+            "data": "auditredshiftLambdaFunctionE67A2E43"
           }
         ],
-        "/audit-redshift/redshiftRecords": [
+        "/audit-redshift/audit-redshiftRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "redshiftRecords5AF73609"
+              "Ref": "auditredshiftRecords05612021"
             }
           }
         ],
-        "/audit-redshift/redshiftRecords/Resource": [
+        "/audit-redshift/audit-redshiftRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "redshiftRecords5AF73609"
+            "data": "auditredshiftRecords05612021"
           }
         ],
         "/audit-redshift/BootstrapVersion": [
@@ -102,7 +102,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9638433c9181764563fdd2c7cbb16c68298c78f75f24bbbf608e500ff33e2cad.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2b445a0249f9c49d4cdb3c84db5d91ca90ec78a055b4b2cf175b9e5e7af73c1b.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -118,36 +118,36 @@
         "audit-rds.assets"
       ],
       "metadata": {
-        "/audit-rds/rdsLambdaFunction/ServiceRole/Resource": [
+        "/audit-rds/audit-rdsLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rdsLambdaFunctionServiceRole36D5A42B"
+            "data": "auditrdsLambdaFunctionServiceRole082E6002"
           }
         ],
-        "/audit-rds/rdsLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-rds/audit-rdsLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rdsLambdaFunctionServiceRoleDefaultPolicyC2CDE858"
+            "data": "auditrdsLambdaFunctionServiceRoleDefaultPolicy87839842"
           }
         ],
-        "/audit-rds/rdsLambdaFunction/Resource": [
+        "/audit-rds/audit-rdsLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rdsLambdaFunction49ED1CA0"
+            "data": "auditrdsLambdaFunction16872331"
           }
         ],
-        "/audit-rds/rdsRecords": [
+        "/audit-rds/audit-rdsRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "rdsRecords614F2BF4"
+              "Ref": "auditrdsRecordsA64FDAC4"
             }
           }
         ],
-        "/audit-rds/rdsRecords/Resource": [
+        "/audit-rds/audit-rdsRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rdsRecords614F2BF4"
+            "data": "auditrdsRecordsA64FDAC4"
           }
         ],
         "/audit-rds/BootstrapVersion": [
@@ -181,7 +181,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/8660cbb2579095d8c5296f05bef1f88ef56774a6e908e5c9ac5e432bf89c4fc3.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/12ed01d1c93e205012af6901ce826c3d0abff1c49325980b6169ac42c69069f3.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -197,36 +197,36 @@
         "audit-dms.assets"
       ],
       "metadata": {
-        "/audit-dms/dmsLambdaFunction/ServiceRole/Resource": [
+        "/audit-dms/audit-dmsLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dmsLambdaFunctionServiceRoleAC837899"
+            "data": "auditdmsLambdaFunctionServiceRoleED340D1E"
           }
         ],
-        "/audit-dms/dmsLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-dms/audit-dmsLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dmsLambdaFunctionServiceRoleDefaultPolicy2002824D"
+            "data": "auditdmsLambdaFunctionServiceRoleDefaultPolicy6C385950"
           }
         ],
-        "/audit-dms/dmsLambdaFunction/Resource": [
+        "/audit-dms/audit-dmsLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dmsLambdaFunction76A457C3"
+            "data": "auditdmsLambdaFunctionF0418011"
           }
         ],
-        "/audit-dms/dmsRecords": [
+        "/audit-dms/audit-dmsRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "dmsRecordsD70A20FA"
+              "Ref": "auditdmsRecordsF9DC0761"
             }
           }
         ],
-        "/audit-dms/dmsRecords/Resource": [
+        "/audit-dms/audit-dmsRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dmsRecordsD70A20FA"
+            "data": "auditdmsRecordsF9DC0761"
           }
         ],
         "/audit-dms/BootstrapVersion": [
@@ -260,7 +260,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d7e20fcb18fce2f6ede21634acad1218fc32c162b909175a5d556daf1cf73989.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b779241f5a126871329a1563508b9e8967e273381e3c49ed2b3d339966321778.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -276,36 +276,36 @@
         "audit-dynamodb.assets"
       ],
       "metadata": {
-        "/audit-dynamodb/dynamodbLambdaFunction/ServiceRole/Resource": [
+        "/audit-dynamodb/audit-dynamodbLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dynamodbLambdaFunctionServiceRoleAC802691"
+            "data": "auditdynamodbLambdaFunctionServiceRole872D8238"
           }
         ],
-        "/audit-dynamodb/dynamodbLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-dynamodb/audit-dynamodbLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dynamodbLambdaFunctionServiceRoleDefaultPolicy0DD6F5D4"
+            "data": "auditdynamodbLambdaFunctionServiceRoleDefaultPolicyE98E6EDC"
           }
         ],
-        "/audit-dynamodb/dynamodbLambdaFunction/Resource": [
+        "/audit-dynamodb/audit-dynamodbLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dynamodbLambdaFunctionE60B75DF"
+            "data": "auditdynamodbLambdaFunction34168BB1"
           }
         ],
-        "/audit-dynamodb/dynamodbRecords": [
+        "/audit-dynamodb/audit-dynamodbRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "dynamodbRecords229D9D84"
+              "Ref": "auditdynamodbRecords5BA4131D"
             }
           }
         ],
-        "/audit-dynamodb/dynamodbRecords/Resource": [
+        "/audit-dynamodb/audit-dynamodbRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "dynamodbRecords229D9D84"
+            "data": "auditdynamodbRecords5BA4131D"
           }
         ],
         "/audit-dynamodb/BootstrapVersion": [
@@ -339,7 +339,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3d01558df23cb26ade4d4874a705bceb16fe54108579787f1c900d2b2d6d4595.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1cf028d2158ab8a99c85039887abbc070d78d2a955ece375398d489fd27b28ab.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -355,36 +355,36 @@
         "audit-ec2.assets"
       ],
       "metadata": {
-        "/audit-ec2/ec2LambdaFunction/ServiceRole/Resource": [
+        "/audit-ec2/audit-ec2LambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ec2LambdaFunctionServiceRole2D6D3193"
+            "data": "auditec2LambdaFunctionServiceRole09D47CDB"
           }
         ],
-        "/audit-ec2/ec2LambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-ec2/audit-ec2LambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ec2LambdaFunctionServiceRoleDefaultPolicyD796A0BC"
+            "data": "auditec2LambdaFunctionServiceRoleDefaultPolicy119A5892"
           }
         ],
-        "/audit-ec2/ec2LambdaFunction/Resource": [
+        "/audit-ec2/audit-ec2LambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ec2LambdaFunction3390DA09"
+            "data": "auditec2LambdaFunction825C4E03"
           }
         ],
-        "/audit-ec2/ec2Records": [
+        "/audit-ec2/audit-ec2Records": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "ec2Records4FB52414"
+              "Ref": "auditec2Records65039D13"
             }
           }
         ],
-        "/audit-ec2/ec2Records/Resource": [
+        "/audit-ec2/audit-ec2Records/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ec2Records4FB52414"
+            "data": "auditec2Records65039D13"
           }
         ],
         "/audit-ec2/BootstrapVersion": [
@@ -418,7 +418,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6670c28a488730ee6255e53770526613bf48fb90316e5ce4806e066b17f698ee.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/7c96043f3eae787aadaca415ba132900c668c683e69418be9521619dd5dad327.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -434,36 +434,36 @@
         "audit-s3.assets"
       ],
       "metadata": {
-        "/audit-s3/s3LambdaFunction/ServiceRole/Resource": [
+        "/audit-s3/audit-s3LambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "s3LambdaFunctionServiceRole731E7056"
+            "data": "audits3LambdaFunctionServiceRoleBCBDBB18"
           }
         ],
-        "/audit-s3/s3LambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-s3/audit-s3LambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "s3LambdaFunctionServiceRoleDefaultPolicyDCCA4B9B"
+            "data": "audits3LambdaFunctionServiceRoleDefaultPolicyE262C202"
           }
         ],
-        "/audit-s3/s3LambdaFunction/Resource": [
+        "/audit-s3/audit-s3LambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "s3LambdaFunction16A1FAD3"
+            "data": "audits3LambdaFunctionD63A9E4C"
           }
         ],
-        "/audit-s3/s3Records": [
+        "/audit-s3/audit-s3Records": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "s3Records96C597ED"
+              "Ref": "audits3Records97EB4A48"
             }
           }
         ],
-        "/audit-s3/s3Records/Resource": [
+        "/audit-s3/audit-s3Records/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "s3Records96C597ED"
+            "data": "audits3Records97EB4A48"
           }
         ],
         "/audit-s3/BootstrapVersion": [
@@ -497,7 +497,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bf6cf70ff5fa2709c92143aeac464de7290a9589d5b4e37aee259b289c003209.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0020bb388ff6a557ece6fc48c1d33021b036fe8602bea9406a5f3e466e67367e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -513,36 +513,36 @@
         "audit-ebs.assets"
       ],
       "metadata": {
-        "/audit-ebs/ebsLambdaFunction/ServiceRole/Resource": [
+        "/audit-ebs/audit-ebsLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ebsLambdaFunctionServiceRoleC1631907"
+            "data": "auditebsLambdaFunctionServiceRole594E68BE"
           }
         ],
-        "/audit-ebs/ebsLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-ebs/audit-ebsLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ebsLambdaFunctionServiceRoleDefaultPolicy5F7E961B"
+            "data": "auditebsLambdaFunctionServiceRoleDefaultPolicy20D5274C"
           }
         ],
-        "/audit-ebs/ebsLambdaFunction/Resource": [
+        "/audit-ebs/audit-ebsLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ebsLambdaFunctionBCFA45D8"
+            "data": "auditebsLambdaFunction224C0928"
           }
         ],
-        "/audit-ebs/ebsRecords": [
+        "/audit-ebs/audit-ebsRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "ebsRecords706FFDA7"
+              "Ref": "auditebsRecordsAC96CAA6"
             }
           }
         ],
-        "/audit-ebs/ebsRecords/Resource": [
+        "/audit-ebs/audit-ebsRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ebsRecords706FFDA7"
+            "data": "auditebsRecordsAC96CAA6"
           }
         ],
         "/audit-ebs/BootstrapVersion": [
@@ -576,7 +576,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a4d2d43dd21e23ea3ce024ca784f3388d1c224b0fb82e45a96c23ae6f8442ca9.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/06dff3e7f9ec2bfdf93623cade761cc373e3792e50951824dd83922e92276ae6.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -592,36 +592,36 @@
         "audit-iam-roles.assets"
       ],
       "metadata": {
-        "/audit-iam-roles/iam-rolesLambdaFunction/ServiceRole/Resource": [
+        "/audit-iam-roles/audit-iam-rolesLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "iamrolesLambdaFunctionServiceRoleAF8C7F0F"
+            "data": "auditiamrolesLambdaFunctionServiceRole930E79FC"
           }
         ],
-        "/audit-iam-roles/iam-rolesLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-iam-roles/audit-iam-rolesLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "iamrolesLambdaFunctionServiceRoleDefaultPolicyF91D4095"
+            "data": "auditiamrolesLambdaFunctionServiceRoleDefaultPolicy1453B758"
           }
         ],
-        "/audit-iam-roles/iam-rolesLambdaFunction/Resource": [
+        "/audit-iam-roles/audit-iam-rolesLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "iamrolesLambdaFunction6B2A8818"
+            "data": "auditiamrolesLambdaFunctionEE702FA4"
           }
         ],
-        "/audit-iam-roles/iam-rolesRecords": [
+        "/audit-iam-roles/audit-iam-rolesRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "iamrolesRecordsB0AF3E61"
+              "Ref": "auditiamrolesRecordsE4666F00"
             }
           }
         ],
-        "/audit-iam-roles/iam-rolesRecords/Resource": [
+        "/audit-iam-roles/audit-iam-rolesRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "iamrolesRecordsB0AF3E61"
+            "data": "auditiamrolesRecordsE4666F00"
           }
         ],
         "/audit-iam-roles/BootstrapVersion": [
@@ -655,7 +655,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/7325eafdbc6b5e8e9cb36e1d2f31076111810eb0929e12b6a24d0328353c72e6.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/7725571c1c3ebaaf3ad5d665492adea1bfc3ff059ff32af13980a15e1ea118cd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -671,36 +671,36 @@
         "audit-lambda.assets"
       ],
       "metadata": {
-        "/audit-lambda/lambdaLambdaFunction/ServiceRole/Resource": [
+        "/audit-lambda/audit-lambdaLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "lambdaLambdaFunctionServiceRoleAF0719CD"
+            "data": "auditlambdaLambdaFunctionServiceRole6E5A33E2"
           }
         ],
-        "/audit-lambda/lambdaLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+        "/audit-lambda/audit-lambdaLambdaFunction/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "lambdaLambdaFunctionServiceRoleDefaultPolicy08097C11"
+            "data": "auditlambdaLambdaFunctionServiceRoleDefaultPolicyF34161B5"
           }
         ],
-        "/audit-lambda/lambdaLambdaFunction/Resource": [
+        "/audit-lambda/audit-lambdaLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "lambdaLambdaFunction9A5101C6"
+            "data": "auditlambdaLambdaFunctionB754CB5C"
           }
         ],
-        "/audit-lambda/lambdaRecords": [
+        "/audit-lambda/audit-lambdaRecords": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
-              "Ref": "lambdaRecords8CA20283"
+              "Ref": "auditlambdaRecords9A988209"
             }
           }
         ],
-        "/audit-lambda/lambdaRecords/Resource": [
+        "/audit-lambda/audit-lambdaRecords/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "lambdaRecords8CA20283"
+            "data": "auditlambdaRecords9A988209"
           }
         ],
         "/audit-lambda/BootstrapVersion": [

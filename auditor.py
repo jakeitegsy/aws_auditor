@@ -11,7 +11,7 @@ class Inventory(aws_cdk.Stack):
         **kwargs
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
-        auditor_name = f'audit-{auditor_name}'
+
         # Make Lambda VPC based
         auditor = aws_cdk.aws_lambda.Function(
             self, utilities.hyphenate(f'{auditor_name}LambdaFunction'),
@@ -22,7 +22,7 @@ class Inventory(aws_cdk.Stack):
         )
 
         audit_records = aws_cdk.aws_dynamodb.Table(
-            self, utilities.hyphenate(f'{auditor_name}Records'),
+            self, utilities.hyphenate(f'{auditor_name}DynamoDBTable'),
             table_name=auditor_name,
             removal_policy=aws_cdk.RemovalPolicy.DESTROY,
             billing_mode=aws_cdk.aws_dynamodb.BillingMode.PAY_PER_REQUEST,

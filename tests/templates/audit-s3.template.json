@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "s3LambdaFunctionServiceRole731E7056": {
+    "audits3LambdaFunctionServiceRoleBCBDBB18": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -29,12 +29,9 @@
             ]
           }
         ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "audit-s3/s3LambdaFunction/ServiceRole/Resource"
       }
     },
-    "s3LambdaFunctionServiceRoleDefaultPolicyDCCA4B9B": {
+    "audits3LambdaFunctionServiceRoleDefaultPolicyE262C202": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -45,7 +42,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "s3Records96C597ED",
+                    "audits3Records97EB4A48",
                     "Arn"
                   ]
                 },
@@ -57,48 +54,39 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "s3LambdaFunctionServiceRoleDefaultPolicyDCCA4B9B",
+        "PolicyName": "audits3LambdaFunctionServiceRoleDefaultPolicyE262C202",
         "Roles": [
           {
-            "Ref": "s3LambdaFunctionServiceRole731E7056"
+            "Ref": "audits3LambdaFunctionServiceRoleBCBDBB18"
           }
         ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "audit-s3/s3LambdaFunction/ServiceRole/DefaultPolicy/Resource"
       }
     },
-    "s3LambdaFunction16A1FAD3": {
+    "audits3LambdaFunctionD63A9E4C": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "375df3141e92869c325791ed303a31343aab04307c45704150559c10282c145f.zip"
+          "S3Key": "fc72076863b3d1736890a6645730fe5180398609990a149f8a620f930c17ebb0.zip"
         },
         "Role": {
           "Fn::GetAtt": [
-            "s3LambdaFunctionServiceRole731E7056",
+            "audits3LambdaFunctionServiceRoleBCBDBB18",
             "Arn"
           ]
         },
-        "FunctionName": "s3",
-        "Handler": "s3.handler",
+        "FunctionName": "audit_s3",
+        "Handler": "audit_s3.handler",
         "Runtime": "python3.9"
       },
       "DependsOn": [
-        "s3LambdaFunctionServiceRoleDefaultPolicyDCCA4B9B",
-        "s3LambdaFunctionServiceRole731E7056"
-      ],
-      "Metadata": {
-        "aws:cdk:path": "audit-s3/s3LambdaFunction/Resource",
-        "aws:asset:path": "asset.375df3141e92869c325791ed303a31343aab04307c45704150559c10282c145f",
-        "aws:asset:is-bundled": false,
-        "aws:asset:property": "Code"
-      }
+        "audits3LambdaFunctionServiceRoleDefaultPolicyE262C202",
+        "audits3LambdaFunctionServiceRoleBCBDBB18"
+      ]
     },
-    "s3Records96C597ED": {
+    "audits3Records97EB4A48": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [
@@ -114,217 +102,10 @@
           }
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "s3"
+        "TableName": "audit_s3"
       },
       "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete",
-      "Metadata": {
-        "aws:cdk:path": "audit-s3/s3Records/Resource"
-      }
-    },
-    "CDKMetadata": {
-      "Type": "AWS::CDK::Metadata",
-      "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OwQ6CMBBEv4V7WVEOxqOQeCbonSxtxRVoE9rGkKb/bqEx8TRvJpudOcHxDEWGH5NzMeYT9eDvFvnIYtT5CedeIPibU9ySVqx+qh8HRjiDb/Ukt3jXRk/E180mCsyUHRojrYHrJtFD5fgobYVGMrEqnLWIpQ/s058dQmD7eZwykBpYK412C09Ff1xrJSiNaVb70upQwgWORfY2RPnilKVZQpv0C3fwkpjsAAAA"
-      },
-      "Metadata": {
-        "aws:cdk:path": "audit-s3/CDKMetadata/Default"
-      },
-      "Condition": "CDKMetadataAvailable"
-    }
-  },
-  "Conditions": {
-    "CDKMetadataAvailable": {
-      "Fn::Or": [
-        {
-          "Fn::Or": [
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "af-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-east-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-northeast-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-northeast-2"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-southeast-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-southeast-2"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ca-central-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "cn-north-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "cn-northwest-1"
-              ]
-            }
-          ]
-        },
-        {
-          "Fn::Or": [
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-central-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-north-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-west-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-west-2"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-west-3"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "me-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "sa-east-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-east-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-east-2"
-              ]
-            }
-          ]
-        },
-        {
-          "Fn::Or": [
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-west-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-west-2"
-              ]
-            }
-          ]
-        }
-      ]
+      "DeletionPolicy": "Delete"
     }
   },
   "Parameters": {

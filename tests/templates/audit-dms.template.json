@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "dmsLambdaFunctionServiceRoleAC837899": {
+    "auditdmsLambdaFunctionServiceRoleED340D1E": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -31,7 +31,7 @@
         ]
       }
     },
-    "dmsLambdaFunctionServiceRoleDefaultPolicy2002824D": {
+    "auditdmsLambdaFunctionServiceRoleDefaultPolicy6C385950": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -42,7 +42,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "dmsRecordsD70A20FA",
+                    "auditdmsRecordsF9DC0761",
                     "Arn"
                   ]
                 },
@@ -54,39 +54,39 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "dmsLambdaFunctionServiceRoleDefaultPolicy2002824D",
+        "PolicyName": "auditdmsLambdaFunctionServiceRoleDefaultPolicy6C385950",
         "Roles": [
           {
-            "Ref": "dmsLambdaFunctionServiceRoleAC837899"
+            "Ref": "auditdmsLambdaFunctionServiceRoleED340D1E"
           }
         ]
       }
     },
-    "dmsLambdaFunction76A457C3": {
+    "auditdmsLambdaFunctionF0418011": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "5e65c5b7bd9dc202716a47fde2fde192e7f13bc5e9bc5061e6b9b1a73128474b.zip"
+          "S3Key": "1fef3094f24b14b879eed88e24ec3df216b6abb6c080162d7f2181a4571487f6.zip"
         },
         "Role": {
           "Fn::GetAtt": [
-            "dmsLambdaFunctionServiceRoleAC837899",
+            "auditdmsLambdaFunctionServiceRoleED340D1E",
             "Arn"
           ]
         },
-        "FunctionName": "dms",
-        "Handler": "dms.handler",
+        "FunctionName": "audit_dms",
+        "Handler": "audit_dms.handler",
         "Runtime": "python3.9"
       },
       "DependsOn": [
-        "dmsLambdaFunctionServiceRoleDefaultPolicy2002824D",
-        "dmsLambdaFunctionServiceRoleAC837899"
+        "auditdmsLambdaFunctionServiceRoleDefaultPolicy6C385950",
+        "auditdmsLambdaFunctionServiceRoleED340D1E"
       ]
     },
-    "dmsRecordsD70A20FA": {
+    "auditdmsRecordsF9DC0761": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [
@@ -102,7 +102,7 @@
           }
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "dms"
+        "TableName": "audit_dms"
       },
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete"
