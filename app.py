@@ -10,8 +10,6 @@ with open('auditors.json') as file:
     auditors = json.load(file)
 
 for auditor_name in auditors:
-    print(f'audit_{auditor_name}')
-    print(auditors[auditor_name]['actions'])
     auditor.Inventory(
         app, auditor_name,
         auditor_name=auditor_name,
