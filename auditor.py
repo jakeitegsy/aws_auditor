@@ -19,6 +19,7 @@ class Inventory(aws_cdk.Stack):
             function_name=auditor_name,
             handler=f'{auditor_name}.handler',
             code=aws_cdk.aws_lambda.Code.from_asset(f'lambda_functions/{auditor_name}'),
+            environment={'AWS_REGION': self.region},
         )
 
         audit_inventory = aws_cdk.aws_dynamodb.Table(
@@ -34,7 +35,13 @@ class Inventory(aws_cdk.Stack):
         )
 
         # add permissions to lambda function role
-        # auditor.add_to_role_policy(aws_cdk.aws_iam.PolicyStatement())
+        # auditor.add_policy_to_role(
+        #     aws_iam.PolicyStatement(
+        #         effect=aws_iam.Effect.ALLOW,
+        #         actions=actions,
+        #         resources=["*"],
+        #     )
+        # )
         audit_inventory.grant(auditor, 'dynamodb:PutItem')
 
         # add scheduled event to lambda function

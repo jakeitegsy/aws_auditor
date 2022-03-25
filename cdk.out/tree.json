@@ -162,6 +162,13 @@
                         "Arn"
                       ]
                     },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
+                    },
                     "functionName": "audit_redshift",
                     "handler": "audit_redshift.handler",
                     "runtime": "python3.9"
@@ -378,6 +385,13 @@
                         "AuditRdsLambdaFunctionServiceRoleA2E43E80",
                         "Arn"
                       ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
                     },
                     "functionName": "audit_rds",
                     "handler": "audit_rds.handler",
@@ -596,6 +610,13 @@
                         "Arn"
                       ]
                     },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
+                    },
                     "functionName": "audit_dms",
                     "handler": "audit_dms.handler",
                     "runtime": "python3.9"
@@ -812,6 +833,13 @@
                         "AuditDynamodbLambdaFunctionServiceRoleE5752203",
                         "Arn"
                       ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
                     },
                     "functionName": "audit_dynamodb",
                     "handler": "audit_dynamodb.handler",
@@ -1030,6 +1058,13 @@
                         "Arn"
                       ]
                     },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
+                    },
                     "functionName": "audit_ec2",
                     "handler": "audit_ec2.handler",
                     "runtime": "python3.9"
@@ -1239,13 +1274,20 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "fc72076863b3d1736890a6645730fe5180398609990a149f8a620f930c17ebb0.zip"
+                      "s3Key": "9c90ad2f9cfa4cee68b326d236c759d7f0d1b3b567bf20281818c29ed930bf0d.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
                         "AuditS3LambdaFunctionServiceRoleE48361AD",
                         "Arn"
                       ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
                     },
                     "functionName": "audit_s3",
                     "handler": "audit_s3.handler",
@@ -1463,6 +1505,13 @@
                         "AuditEbsLambdaFunctionServiceRole4F79AB9A",
                         "Arn"
                       ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
                     },
                     "functionName": "audit_ebs",
                     "handler": "audit_ebs.handler",
@@ -1689,6 +1738,13 @@
                         "Arn"
                       ]
                     },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
+                    },
                     "functionName": "audit_iam_roles",
                     "handler": "audit_iam_roles.handler",
                     "runtime": "python3.9"
@@ -1905,6 +1961,13 @@
                         "AuditLambdaLambdaFunctionServiceRoleE4623483",
                         "Arn"
                       ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "AWS_REGION": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
                     },
                     "functionName": "audit_lambda",
                     "handler": "audit_lambda.handler",

@@ -69,13 +69,20 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "fc72076863b3d1736890a6645730fe5180398609990a149f8a620f930c17ebb0.zip"
+          "S3Key": "9c90ad2f9cfa4cee68b326d236c759d7f0d1b3b567bf20281818c29ed930bf0d.zip"
         },
         "Role": {
           "Fn::GetAtt": [
             "AuditS3LambdaFunctionServiceRoleE48361AD",
             "Arn"
           ]
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_REGION": {
+              "Ref": "AWS::Region"
+            }
+          }
         },
         "FunctionName": "audit_s3",
         "Handler": "audit_s3.handler",
@@ -106,40 +113,6 @@
       },
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete"
-    }
-  },
-  "Parameters": {
-    "BootstrapVersion": {
-      "Type": "AWS::SSM::Parameter::Value<String>",
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
-    }
-  },
-  "Rules": {
-    "CheckBootstrapVersion": {
-      "Assertions": [
-        {
-          "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5"
-                  ],
-                  {
-                    "Ref": "BootstrapVersion"
-                  }
-                ]
-              }
-            ]
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
-        }
-      ]
     }
   }
 }
