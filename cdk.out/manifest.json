@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/041561669f3595df8a668270ed4fc1f23f9f251c9b78d00ae9c451524a1230d5.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/156f59393d95df936c582eefe8aa2946af5846bc649f3d6150c941975e810e2f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,6 +39,20 @@
         "audit-redshift.assets"
       ],
       "metadata": {
+        "/audit-redshift/Audit-RedshiftDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditRedshiftDynamoDBTable0917AE61"
+            }
+          }
+        ],
+        "/audit-redshift/Audit-RedshiftDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditRedshiftDynamoDBTable0917AE61"
+          }
+        ],
         "/audit-redshift/Audit-RedshiftLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -55,20 +69,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditRedshiftLambdaFunctionFDC53BC4"
-          }
-        ],
-        "/audit-redshift/Audit-RedshiftDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditRedshiftDynamoDBTable0917AE61"
-            }
-          }
-        ],
-        "/audit-redshift/Audit-RedshiftDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditRedshiftDynamoDBTable0917AE61"
           }
         ]
       },
@@ -90,7 +90,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/41d56768f95c23ad57ceaf962f19afdf2b1e0801bd3bb80ae6aecd72c5a9ae69.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2de7abf52e41e73fc6a034e5b90d70f630aff31993bb5c8d852689649bcd91a9.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -106,6 +106,20 @@
         "audit-rds.assets"
       ],
       "metadata": {
+        "/audit-rds/Audit-RdsDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditRdsDynamoDBTable74592D94"
+            }
+          }
+        ],
+        "/audit-rds/Audit-RdsDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditRdsDynamoDBTable74592D94"
+          }
+        ],
         "/audit-rds/Audit-RdsLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -122,20 +136,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditRdsLambdaFunction8EBA5413"
-          }
-        ],
-        "/audit-rds/Audit-RdsDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditRdsDynamoDBTable74592D94"
-            }
-          }
-        ],
-        "/audit-rds/Audit-RdsDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditRdsDynamoDBTable74592D94"
           }
         ]
       },
@@ -157,7 +157,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/841fc9845711b3d285d062c1d831d5c10b32c6da439bc552c605b0e842da2b35.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d571bf0fc5aff749bdb4e6e18b5bd223791d631166473ccda63266912dfc2b2d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -173,6 +173,20 @@
         "audit-dms.assets"
       ],
       "metadata": {
+        "/audit-dms/Audit-DmsDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditDmsDynamoDBTableD5E00E87"
+            }
+          }
+        ],
+        "/audit-dms/Audit-DmsDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditDmsDynamoDBTableD5E00E87"
+          }
+        ],
         "/audit-dms/Audit-DmsLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -189,20 +203,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditDmsLambdaFunction91577EFE"
-          }
-        ],
-        "/audit-dms/Audit-DmsDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditDmsDynamoDBTableD5E00E87"
-            }
-          }
-        ],
-        "/audit-dms/Audit-DmsDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditDmsDynamoDBTableD5E00E87"
           }
         ]
       },
@@ -224,7 +224,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/379921aca597d27ac4b9eba62b22809f50b97842f10a5a7b46a27e12ab59670a.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/46dfc21d99f7627da31cbdfe32da7d8e6b17f865a3b002de174286e98985825f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -240,6 +240,20 @@
         "audit-dynamodb.assets"
       ],
       "metadata": {
+        "/audit-dynamodb/Audit-DynamodbDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditDynamodbDynamoDBTableC730A54E"
+            }
+          }
+        ],
+        "/audit-dynamodb/Audit-DynamodbDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditDynamodbDynamoDBTableC730A54E"
+          }
+        ],
         "/audit-dynamodb/Audit-DynamodbLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -256,20 +270,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditDynamodbLambdaFunction276A274D"
-          }
-        ],
-        "/audit-dynamodb/Audit-DynamodbDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditDynamodbDynamoDBTableC730A54E"
-            }
-          }
-        ],
-        "/audit-dynamodb/Audit-DynamodbDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditDynamodbDynamoDBTableC730A54E"
           }
         ]
       },
@@ -291,7 +291,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bb9d395059b0303da36c74a20989e5dae8ad4f942c7655bbcb68284f83517a1b.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/22f0def80c6d84f9379504727838ceb9920f57d28f48f5cc74300d0dc22da760.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -307,6 +307,20 @@
         "audit-ec2.assets"
       ],
       "metadata": {
+        "/audit-ec2/Audit-Ec2DynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditEc2DynamoDBTableC1E96B65"
+            }
+          }
+        ],
+        "/audit-ec2/Audit-Ec2DynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditEc2DynamoDBTableC1E96B65"
+          }
+        ],
         "/audit-ec2/Audit-Ec2LambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -323,20 +337,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditEc2LambdaFunction348ED874"
-          }
-        ],
-        "/audit-ec2/Audit-Ec2DynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditEc2DynamoDBTableC1E96B65"
-            }
-          }
-        ],
-        "/audit-ec2/Audit-Ec2DynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditEc2DynamoDBTableC1E96B65"
           }
         ]
       },
@@ -358,7 +358,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/564b0f4a3261bbf21ca7ce69ff804c14bb3eed1a2473ec7313d02a7d1e2261ff.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1848fe72bd964a058e0843e8c214213d8561a8dea0ec0da3263a739ea9b3384.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -374,6 +374,20 @@
         "audit-s3.assets"
       ],
       "metadata": {
+        "/audit-s3/Audit-S3DynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditS3DynamoDBTable3FA5FB02"
+            }
+          }
+        ],
+        "/audit-s3/Audit-S3DynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditS3DynamoDBTable3FA5FB02"
+          }
+        ],
         "/audit-s3/Audit-S3LambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -390,20 +404,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditS3LambdaFunctionBDC74AFC"
-          }
-        ],
-        "/audit-s3/Audit-S3DynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditS3DynamoDBTable3FA5FB02"
-            }
-          }
-        ],
-        "/audit-s3/Audit-S3DynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditS3DynamoDBTable3FA5FB02"
           }
         ]
       },
@@ -425,7 +425,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6900054fcf38fb2d56c1bd23051626387e6777dfd87fbeb941e38af927aa3609.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/7169e04c087cdf8666099c50b75f5d0bd6d059ed031c0922d77023ecab13598b.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -441,6 +441,20 @@
         "audit-ebs.assets"
       ],
       "metadata": {
+        "/audit-ebs/Audit-EbsDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditEbsDynamoDBTableFBA290FE"
+            }
+          }
+        ],
+        "/audit-ebs/Audit-EbsDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditEbsDynamoDBTableFBA290FE"
+          }
+        ],
         "/audit-ebs/Audit-EbsLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -457,20 +471,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditEbsLambdaFunction076434E0"
-          }
-        ],
-        "/audit-ebs/Audit-EbsDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditEbsDynamoDBTableFBA290FE"
-            }
-          }
-        ],
-        "/audit-ebs/Audit-EbsDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditEbsDynamoDBTableFBA290FE"
           }
         ]
       },
@@ -492,7 +492,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/720895e382e87916e55fda14a64babca1988f5a2c97f1821a017d40113030ec1.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/8b8c381a0cafbe21b91b71d15d3b5876f8e23b7082c9e1b5ed7565c906821b51.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -508,6 +508,20 @@
         "audit-iam-roles.assets"
       ],
       "metadata": {
+        "/audit-iam-roles/Audit-Iam-RolesDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditIamRolesDynamoDBTableF6333960"
+            }
+          }
+        ],
+        "/audit-iam-roles/Audit-Iam-RolesDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditIamRolesDynamoDBTableF6333960"
+          }
+        ],
         "/audit-iam-roles/Audit-Iam-RolesLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -524,20 +538,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditIamRolesLambdaFunction0635BB7B"
-          }
-        ],
-        "/audit-iam-roles/Audit-Iam-RolesDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditIamRolesDynamoDBTableF6333960"
-            }
-          }
-        ],
-        "/audit-iam-roles/Audit-Iam-RolesDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditIamRolesDynamoDBTableF6333960"
           }
         ]
       },
@@ -559,7 +559,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ca674b33b2bc9f2cd547272b83b14411db1b2c3fe6362fe6299b846ae90b391c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e5136776bb99955c76c956fa755cf24884a508b22ed46f4944930ef72c0a2d0e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -575,6 +575,20 @@
         "audit-lambda.assets"
       ],
       "metadata": {
+        "/audit-lambda/Audit-LambdaDynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditLambdaDynamoDBTableD225319F"
+            }
+          }
+        ],
+        "/audit-lambda/Audit-LambdaDynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditLambdaDynamoDBTableD225319F"
+          }
+        ],
         "/audit-lambda/Audit-LambdaLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -591,20 +605,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "AuditLambdaLambdaFunctionA6D545AB"
-          }
-        ],
-        "/audit-lambda/Audit-LambdaDynamoDBTable": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "AuditLambdaDynamoDBTableD225319F"
-            }
-          }
-        ],
-        "/audit-lambda/Audit-LambdaDynamoDBTable/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuditLambdaDynamoDBTableD225319F"
           }
         ]
       },

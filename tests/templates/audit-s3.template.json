@@ -1,5 +1,26 @@
 {
   "Resources": {
+    "AuditS3DynamoDBTable3FA5FB02": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "audit_s3"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
     "AuditS3LambdaFunctionServiceRoleE48361AD": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -36,6 +57,16 @@
       "Properties": {
         "PolicyDocument": {
           "Statement": [
+            {
+              "Action": [
+                "s3:GetBucketVersioning",
+                "s3:ListAllMyBuckets",
+                "s3:GetEncryptionConfiguration",
+                "cloudwatch:GetMetricStatistics"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
             {
               "Action": "dynamodb:PutItem",
               "Effect": "Allow",
@@ -81,6 +112,9 @@
           "Variables": {
             "AWS_REGION": {
               "Ref": "AWS::Region"
+            },
+            "INVENTORY_TABLE_NAME": {
+              "Ref": "AuditS3DynamoDBTable3FA5FB02"
             }
           }
         },
@@ -92,27 +126,6 @@
         "AuditS3LambdaFunctionServiceRoleDefaultPolicy14074B5E",
         "AuditS3LambdaFunctionServiceRoleE48361AD"
       ]
-    },
-    "AuditS3DynamoDBTable3FA5FB02": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "KeySchema": [
-          {
-            "AttributeName": "name",
-            "KeyType": "HASH"
-          }
-        ],
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "name",
-            "AttributeType": "S"
-          }
-        ],
-        "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "audit_s3"
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete"
     }
   }
 }

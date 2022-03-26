@@ -1,5 +1,26 @@
 {
   "Resources": {
+    "AuditDynamodbDynamoDBTableC730A54E": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "audit_dynamodb"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
     "AuditDynamodbLambdaFunctionServiceRoleE5752203": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -36,6 +57,14 @@
       "Properties": {
         "PolicyDocument": {
           "Statement": [
+            {
+              "Action": [
+                "dms:DescribeInstances",
+                "dms:DescribeVolumes"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
             {
               "Action": "dynamodb:PutItem",
               "Effect": "Allow",
@@ -81,6 +110,9 @@
           "Variables": {
             "AWS_REGION": {
               "Ref": "AWS::Region"
+            },
+            "INVENTORY_TABLE_NAME": {
+              "Ref": "AuditDynamodbDynamoDBTableC730A54E"
             }
           }
         },
@@ -92,27 +124,6 @@
         "AuditDynamodbLambdaFunctionServiceRoleDefaultPolicy2CB6FF82",
         "AuditDynamodbLambdaFunctionServiceRoleE5752203"
       ]
-    },
-    "AuditDynamodbDynamoDBTableC730A54E": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "KeySchema": [
-          {
-            "AttributeName": "name",
-            "KeyType": "HASH"
-          }
-        ],
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "name",
-            "AttributeType": "S"
-          }
-        ],
-        "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "audit_dynamodb"
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete"
     }
   }
 }

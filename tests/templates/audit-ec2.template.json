@@ -1,5 +1,26 @@
 {
   "Resources": {
+    "AuditEc2DynamoDBTableC1E96B65": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "audit_ec2"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
     "AuditEc2LambdaFunctionServiceRole40763512": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -37,6 +58,14 @@
         "PolicyDocument": {
           "Statement": [
             {
+              "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeVolumes"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
               "Action": "dynamodb:PutItem",
               "Effect": "Allow",
               "Resource": [
@@ -69,7 +98,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "e9becee6f76b5db17301145bc2f97ab0ac15c5694bcb1e426e20b647a3c36e23.zip"
+          "S3Key": "1e97cc0a72ae7b816d7db66f602c10d6452b8cb2742c94b3e661b629c6a44767.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -81,6 +110,9 @@
           "Variables": {
             "AWS_REGION": {
               "Ref": "AWS::Region"
+            },
+            "INVENTORY_TABLE_NAME": {
+              "Ref": "AuditEc2DynamoDBTableC1E96B65"
             }
           }
         },
@@ -92,27 +124,6 @@
         "AuditEc2LambdaFunctionServiceRoleDefaultPolicyCCE77D77",
         "AuditEc2LambdaFunctionServiceRole40763512"
       ]
-    },
-    "AuditEc2DynamoDBTableC1E96B65": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "KeySchema": [
-          {
-            "AttributeName": "name",
-            "KeyType": "HASH"
-          }
-        ],
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "name",
-            "AttributeType": "S"
-          }
-        ],
-        "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "audit_ec2"
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete"
     }
   }
 }

@@ -1,5 +1,26 @@
 {
   "Resources": {
+    "AuditRdsDynamoDBTable74592D94": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "audit_rds"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
     "AuditRdsLambdaFunctionServiceRoleA2E43E80": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -36,6 +57,14 @@
       "Properties": {
         "PolicyDocument": {
           "Statement": [
+            {
+              "Action": [
+                "rds:DescribeDBClusters",
+                "rds:DescribeVolumes"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
             {
               "Action": "dynamodb:PutItem",
               "Effect": "Allow",
@@ -81,6 +110,9 @@
           "Variables": {
             "AWS_REGION": {
               "Ref": "AWS::Region"
+            },
+            "INVENTORY_TABLE_NAME": {
+              "Ref": "AuditRdsDynamoDBTable74592D94"
             }
           }
         },
@@ -92,27 +124,6 @@
         "AuditRdsLambdaFunctionServiceRoleDefaultPolicy53414FE4",
         "AuditRdsLambdaFunctionServiceRoleA2E43E80"
       ]
-    },
-    "AuditRdsDynamoDBTable74592D94": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "KeySchema": [
-          {
-            "AttributeName": "name",
-            "KeyType": "HASH"
-          }
-        ],
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "name",
-            "AttributeType": "S"
-          }
-        ],
-        "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "audit_rds"
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete"
     }
   }
 }

@@ -1,5 +1,26 @@
 {
   "Resources": {
+    "AuditIamRolesDynamoDBTableF6333960": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "audit_iam_roles"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
     "AuditIamRolesLambdaFunctionServiceRoleF492B326": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -37,6 +58,11 @@
         "PolicyDocument": {
           "Statement": [
             {
+              "Action": "iam:ListRoles",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
               "Action": "dynamodb:PutItem",
               "Effect": "Allow",
               "Resource": [
@@ -69,7 +95,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "3479d65a061655948c00286241ccd01aca59be7fe37a66abcd4b64adf46813f1.zip"
+          "S3Key": "7e3df95686de75d16b2073ba0230a34d2c31d5c793e9a9532e7c593381d02ba4.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -81,6 +107,9 @@
           "Variables": {
             "AWS_REGION": {
               "Ref": "AWS::Region"
+            },
+            "INVENTORY_TABLE_NAME": {
+              "Ref": "AuditIamRolesDynamoDBTableF6333960"
             }
           }
         },
@@ -92,27 +121,6 @@
         "AuditIamRolesLambdaFunctionServiceRoleDefaultPolicy475C23A6",
         "AuditIamRolesLambdaFunctionServiceRoleF492B326"
       ]
-    },
-    "AuditIamRolesDynamoDBTableF6333960": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "KeySchema": [
-          {
-            "AttributeName": "name",
-            "KeyType": "HASH"
-          }
-        ],
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "name",
-            "AttributeType": "S"
-          }
-        ],
-        "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "audit_iam_roles"
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete"
     }
   }
 }
