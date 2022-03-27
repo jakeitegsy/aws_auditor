@@ -5,7 +5,7 @@ import diagrams.aws.integration
 import diagrams.aws.security
 
 
-with diagrams.Diagram('Aws Auditor', show=False, director='TB'):
+with diagrams.Diagram('Aws Auditor', show=False, direction='TB'):
     auditor = diagrams.aws.compute.Lambda('AuditorLambdaFunction')
     auditor_role = diagrams.aws.security.IAMRole('AuditorLambdaRole')
     (
@@ -14,7 +14,7 @@ with diagrams.Diagram('Aws Auditor', show=False, director='TB'):
         diagrams.aws.database.DynamodbTable('AuditInventory')
     )
     (
-        auditor <<
-        auditor_role -
-        diagrams.aws.security.IAMPermissions('ResourcePermissions')
+        diagrams.aws.security.IAMPermissions('ResourcePermissions') -
+        auditor_role >>
+        auditor
     )
