@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import aws_cdk
 import auditor
-import os
 import utilities
+import architecture
 
 auditors = utilities.get_auditors()
 app = aws_cdk.App()
