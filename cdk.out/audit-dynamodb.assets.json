@@ -1,0 +1,32 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "fafd14e09f1e43cd2cce1f23a1226ee2045948a2c56d42f85fb496e7b7f9daf3": {
+      "source": {
+        "path": "asset.fafd14e09f1e43cd2cce1f23a1226ee2045948a2c56d42f85fb496e7b7f9daf3",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "fafd14e09f1e43cd2cce1f23a1226ee2045948a2c56d42f85fb496e7b7f9daf3.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "46dfc21d99f7627da31cbdfe32da7d8e6b17f865a3b002de174286e98985825f": {
+      "source": {
+        "path": "audit-dynamodb.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "46dfc21d99f7627da31cbdfe32da7d8e6b17f865a3b002de174286e98985825f.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

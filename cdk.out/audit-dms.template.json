@@ -1,0 +1,129 @@
+{
+  "Resources": {
+    "AuditDmsDynamoDBTableD5E00E87": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "audit_dms"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
+    "AuditDmsLambdaFunctionServiceRoleF65A2988": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "AuditDmsLambdaFunctionServiceRoleDefaultPolicy1858CC26": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dms:DescribeInstances",
+                "dms:DescribeVolumes"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "dynamodb:PutItem",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "AuditDmsDynamoDBTableD5E00E87",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "AuditDmsLambdaFunctionServiceRoleDefaultPolicy1858CC26",
+        "Roles": [
+          {
+            "Ref": "AuditDmsLambdaFunctionServiceRoleF65A2988"
+          }
+        ]
+      }
+    },
+    "AuditDmsLambdaFunction91577EFE": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "1fef3094f24b14b879eed88e24ec3df216b6abb6c080162d7f2181a4571487f6.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "AuditDmsLambdaFunctionServiceRoleF65A2988",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_REGION": {
+              "Ref": "AWS::Region"
+            },
+            "INVENTORY_TABLE_NAME": {
+              "Ref": "AuditDmsDynamoDBTableD5E00E87"
+            }
+          }
+        },
+        "FunctionName": "audit_dms",
+        "Handler": "audit_dms.handler",
+        "Runtime": "python3.9"
+      },
+      "DependsOn": [
+        "AuditDmsLambdaFunctionServiceRoleDefaultPolicy1858CC26",
+        "AuditDmsLambdaFunctionServiceRoleF65A2988"
+      ]
+    }
+  }
+}
