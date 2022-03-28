@@ -2,19 +2,11 @@ import boto3
 import os
 import datetime
 
-session = boto3.session.Session(region_name="us-west-2")
-table = boto3.resource(
-    'dynamodb',
-    endpoint_url='https://dynamodb.us-west-2.amazonaws.com'
-).Table(os.environ.get('INVENTORY_TABLE_NAME'))
-lambda_client = session.client('lambda')
-paginator = lambda_client.get_paginator('list_functions')
-
-
 class Function:
 
-    def __init__(self, dictionary):
-        self.dictionary = dictionary
+    def __init__(self, configuration=None, details=None):
+        self.configuration = configuration
+        self.details = details
 
     def getter(self, dictionary, key):
         try:
@@ -23,7 +15,7 @@ class Function:
             return
 
     def get(self, key):
-        return self.getter(self.dictionary, key)
+        return self.getter(self.configuration, key)
 
     def get_vpc_config(self, key):
         return self.getter(self.get('VpcConfig'), key)
@@ -67,6 +59,12 @@ class Function:
     def encryption(self):
         return self.get('KMSKeyArn')
 
+    def get_tags(self):
+        return self.details.get('Tags')
+
+    def get_code(self):
+        return
+
     def to_dict(self):
         return {
             'Name': self.name(),
@@ -76,17 +74,36 @@ class Function:
             'FunctionArn': self.arn(),
             'CodeSize': self.code_size(),
             'MemorySize': self.memory_size(),
+            'Runtime': self.runtime(),
             'Timeout': self.timeout(),
             'SubnetIds': str(self.subnet_ids()),
             'SecurityGroupIds': str(self.security_group_ids()),
             'VpcId': self.vpc_id(),
+            # 'Tags':
         }
 
+def region():
+    return os.environ.get('AWS_REGION')
 def list_functions():
     return [
-        function for page in paginator.paginate() for function in page['Functions']
+        lambda_function for page in PAGINATED_LIST_OF_FUNCTIONS.paginate()
+        for lambda_function in page['Functions']
     ]
 
 def handler(event, context):
-    for function in list_functions():
-        table.put_item(Item=Function(function).to_dict())
+    for lambda_function in list_functions():
+        TABLE.put_item(
+            Item=Function(
+                configuration=lambda_function,
+                details=lambda_client.get_function(lambda_function)
+            ).to_dict()
+        )
+
+session = boto3.session.Session(region_name=region())
+lambda_client = session.client('lambda')
+
+PAGINATED_LIST_OF_FUNCTIONS = lambda_client.get_paginator('list_functions')
+TABLE = boto3.resource(
+    'dynamodb',
+    endpoint_url=f'https://dynamodb.{region()}.amazonaws.com'
+).Table(os.environ.get('INVENTORY_TABLE_NAME'))

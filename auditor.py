@@ -50,8 +50,6 @@ class Inventory(aws_cdk.Stack):
         )
         audit_inventory.grant(auditor, 'dynamodb:PutItem')
 
-        # add scheduled event to lambda function
-
     @staticmethod
     def get_sort_key(sort_key):
         return sort_key if sort_key is None else aws_cdk.aws_dynamodb.Attribute(
@@ -88,22 +86,22 @@ class Inventory(aws_cdk.Stack):
             schedule=schedule,
         )
 
-    def create_event_bridge_rule(self, rule_name=None, event_pattern=None):
+    def create_event_bridge_rule(self, rule_name=None, event_pattern=None, lambda_function=None):
         '''[optional] Add EventPattern to Invoke this Lambda Function'''
         self.add_event_bridge_rule(
             rule_name=rule_name,
             description=f'Invoke {lambda_function.function_name} to {rule_name}',
             lambda_function=lambda_function,
-            event_pattern=event_pattern
+            event_pattern=event_pattern,
         )
         return self
 
-    def add_schedule(self, schedule):
+    def add_schedule(self, schedule=None, lambda_function=None):
         '''[optional] Set Lambda Function to run at given schedule'''
         self.add_event_bridge_rule(
             rule_name="LambdaSchedule",
             description=f"Invoke Lambda Trigger at {schedule}",
-            lambda_function=lambda_function
+            lambda_function=lambda_function,
             schedule=aws_cdk.aws_events.Schedule.cron(**schedule),
         )
         return self
