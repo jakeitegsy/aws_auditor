@@ -73,3 +73,37 @@ class Inventory(aws_cdk.Stack):
         except jsii.errors.JSIIError:
             'Cannot do context lookup without Environment'
             return None
+
+    def add_event_bridge_rule(
+        self, rule_name=None, description=None, lambda_function=None,
+        event_pattern=None, schedule=None
+    ):
+        '''[optional] Add EventPattern to Invoke this Lambda Function'''
+        aws_cdk.aws_events.Rule(
+            self, rule_name,
+            description=description,
+            enabled=True,
+            targets=[aws_cdk.aws_events_targets.LambdaFunction(lambda_function)],
+            event_pattern=event_pattern,
+            schedule=schedule,
+        )
+
+    def create_event_bridge_rule(self, rule_name=None, event_pattern=None):
+        '''[optional] Add EventPattern to Invoke this Lambda Function'''
+        self.add_event_bridge_rule(
+            rule_name=rule_name,
+            description=f'Invoke {lambda_function.function_name} to {rule_name}',
+            lambda_function=lambda_function,
+            event_pattern=event_pattern
+        )
+        return self
+
+    def add_schedule(self, schedule):
+        '''[optional] Set Lambda Function to run at given schedule'''
+        self.add_event_bridge_rule(
+            rule_name="LambdaSchedule",
+            description=f"Invoke Lambda Trigger at {schedule}",
+            lambda_function=lambda_function
+            schedule=aws_cdk.aws_events.Schedule.cron(**schedule),
+        )
+        return self
