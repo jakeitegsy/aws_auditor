@@ -1,13 +1,14 @@
 import constructs
 import aws_cdk
 import utilities
+import jsii.errors
 
 
 class Inventory(aws_cdk.Stack):
 
     def __init__(
         self, scope: constructs.Construct, construct_id: str,
-        auditor_name=None, actions=None, sort_key=None,
+        auditor_name=None, actions=None, sort_key=None, vpc_id=None,
         **kwargs
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -27,6 +28,7 @@ class Inventory(aws_cdk.Stack):
         # Make Lambda VPC based
         auditor = aws_cdk.aws_lambda.Function(
             self, utilities.hyphenate(f'{auditor_name.title()}LambdaFunction'),
+            vpc=self.get_vpc(),
             runtime=aws_cdk.aws_lambda.Runtime.PYTHON_3_9,
             function_name=auditor_name,
             handler=f'{auditor_name}.handler',
@@ -56,3 +58,18 @@ class Inventory(aws_cdk.Stack):
             name=sort_key,
             type=aws_cdk.aws_dynamodb.AttributeType.STRING
         )
+
+    def get_vpc(self):
+        '''Return VPC object from vpc_id lookup
+           requires credentials to work properly
+           use create_cdk_context.py when you can't do context lookup
+        '''
+        try:
+            return aws_cdk.aws_ec2.Vpc.from_lookup(
+                self, "VPC",
+                vpc_id=self.node.try_get_context('vpc_id'),
+                is_default=False
+            )
+        except jsii.errors.JSIIError:
+            'Cannot do context lookup without Environment'
+            return None
