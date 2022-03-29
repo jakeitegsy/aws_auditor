@@ -19,7 +19,7 @@ resource "aws_dynamodb_table" "inventory" {
   }
 
   tags = {
-    Name = "audit_lambda"
+    Name = "audit_${each.key}"
   }
 }
 
@@ -29,13 +29,13 @@ data "aws_iam_policy_document" "auditor_iam_policy" {
     effect  = "Allow"
     principals {
       type       = "Service"
-      identities = ["lambda.amazonaws.com"]
+      identifiers = ["lambda.amazonaws.com"]
     }
   }
 }
 
 data "archive_file" "auditor_function_package" {
-  for_each    = locals.auditors
+  for_each    = local.auditors
   type        = "zip"
   source_dir  = "lambda_functions/audit_${each.key}"
   output_path = "lambda_functions/audit_lambda/audit_${each.key}.zip"
@@ -43,7 +43,7 @@ data "archive_file" "auditor_function_package" {
 }
 
 resource "aws_iam_role" "auditor_iam_role" {
-  for_each           = locals.auditors
+  for_each           = local.auditors
   name               = "audit_${each.key}_role"
   assume_role_policy = data.aws_iam_policy_document.audit_lambda_policy.json
 }
@@ -54,7 +54,7 @@ resource "aws_iam_role_policy_attachment" "audit_lambda_managed_policy" {
 }
 
 resource "aws_lambda_function" "audit_lambda" {
-  for_each         = locals.auditors
+  for_each         = local.auditors
   description      = each.key
   filename         = data.archive_file.auditor_function_package.output_path
   source_code_hash = data.archive_file.auditor_function_package.output_base64sha256
@@ -70,7 +70,7 @@ resource "aws_lambda_function" "audit_lambda" {
     }
   }
 
-//   tags = {
-//     Name = "audit-${each.key}"
-//   }
+  tags = {
+    Name = "audit-${each.key}"
+  }
 }
