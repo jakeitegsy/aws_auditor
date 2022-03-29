@@ -31,7 +31,7 @@ data "archive_file" "auditor_function_package" {
   excludes    = ["lambda_functions/audit_${each.key}/audit_${each.key}.zip"]
 }
 
-resource "aws_lambda_function" "auditor" {
+resource "aws_lambda_function" "audit" {
   for_each         = local.auditors
   description      = each.key
   filename         = data.archive_file.auditor_function_package[each.key].output_path
