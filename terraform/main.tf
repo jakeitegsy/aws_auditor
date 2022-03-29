@@ -1,4 +1,6 @@
-provider "aws" {}
+provider "aws" {
+    default_tags = merge({"Name": "audit_${each.key}"}, {})
+}
 
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
@@ -18,60 +20,33 @@ resource "aws_dynamodb_table" "inventory" {
     type = "S"
   }
 
-  tags = {
-    Name = "audit_${each.key}"
-  }
-}
-
-data "aws_iam_policy_document" "auditor_iam_policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    effect  = "Allow"
-    principals {
-      type       = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-  }
+  tags = merge({"Name": "audit_${each.key}"}, {})
 }
 
 data "archive_file" "auditor_function_package" {
   for_each    = local.auditors
   type        = "zip"
-  source_dir  = "lambda_functions/audit_${each.key}"
-  output_path = "lambda_functions/audit_lambda/audit_${each.key}.zip"
+  source_dir  = "../lambda_functions/audit_${each.key}"
+  output_path = "../lambda_functions/audit_${each.key}/audit_${each.key}.zip"
   excludes    = ["lambda_functions/audit_${each.key}/audit_${each.key}.zip"]
 }
 
-resource "aws_iam_role" "auditor_iam_role" {
-  for_each           = local.auditors
-  name               = "audit_${each.key}_role"
-  assume_role_policy = data.aws_iam_policy_document.auditor_iam_policy.json
-}
-
-resource "aws_iam_role_policy_attachment" "audit_lambda_managed_policy" {
-    for_each = local.auditors
-  role       = aws_iam_role.auditor_iam_role[each.key].name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-}
-
-resource "aws_lambda_function" "audit_lambda" {
+resource "aws_lambda_function" "auditor" {
   for_each         = local.auditors
   description      = each.key
   filename         = data.archive_file.auditor_function_package[each.key].output_path
   source_code_hash = data.archive_file.auditor_function_package[each.key].output_base64sha256
-  function_name    = "audit_{each.key}"
-  handler          = "audit-${each.key}.handler"
+  function_name    = "audit_${each.key}"
+  handler          = "audit_${each.key}.handler"
   role             = aws_iam_role.auditor_iam_role[each.key].arn
   runtime          = "python3.9"
 
   environment {
     variables = {
-      "AWS_REGION"           = data.aws_region.current,
-      "INVENTORY_TABLE_NAME" = aws_dynamodb_table.audit_lambda.name,
+      "AWS_REGION"           = data.aws_region.current.name,
+      "INVENTORY_TABLE_NAME" = aws_dynamodb_table.inventory[each.key].name,
     }
   }
 
-  tags = {
-    Name = "audit-${each.key}"
-  }
+  tags = merge({"Name": "audit_${each.key}"}, {})
 }
