@@ -194,7 +194,7 @@ class TestAuditLambda(unittest.TestCase):
         self.assertEqual(
             self.function.to_dict(),
             {
-                'Code': 'url',
+                'CodeLocation': 'url',
                 'CodeSize': 1234,
                 'DateAudited': '2022-03-29 09:17:47.433485',
                 'Encrytion': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd',
