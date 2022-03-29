@@ -45,11 +45,12 @@ data "archive_file" "auditor_function_package" {
 resource "aws_iam_role" "auditor_iam_role" {
   for_each           = local.auditors
   name               = "audit_${each.key}_role"
-  assume_role_policy = data.aws_iam_policy_document.audit_lambda_policy.json
+  assume_role_policy = data.aws_iam_policy_document.auditor_iam_policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "audit_lambda_managed_policy" {
-  role       = aws_iam_role.auditor_iam_role.name
+    for_each = local.auditors
+  role       = aws_iam_role.auditor_iam_role[each.key].name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
