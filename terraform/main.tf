@@ -70,7 +70,7 @@ resource "aws_lambda_function" "audit_lambda" {
     }
   }
 
-  tags = {
-    Name = "audit-${each.key}"
-  }
+//   tags = {
+//     Name = "audit-${each.key}"
+//   }
 }
