@@ -1,70 +1,76 @@
-provider "aws" {
-    region = var.aws_region
-}
+provider "aws" {}
 
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
+locals {
+  auditors = jsondecode(file("../auditors.json"))
+}
+
 resource "aws_dynamodb_table" "inventory" {
-    name = "audit_lambda"
-    billing_mode = "PAY_PER_REQUEST"
-    hash_key = "ResourceName"
+  for_each     = local.auditors
+  name         = "audit_${each.key}"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "ResourceName"
 
-    attribute {
-        name="ResourceName"
-        type="S"
-    }
+  attribute {
+    name = "ResourceName"
+    type = "S"
+  }
 
-    tags = {
-        Name = "audit_lambda"
-    }
+  tags = {
+    Name = "audit_lambda"
+  }
 }
 
-data "aws_iam_policy_document" "audit_lambda_policy" {
-    statement {
-        actions = ["sts:AssumeRole"]
-        effect = "Allow"
-        principals {
-            type = "Service"
-            identities = ["lambda.amazonaws.com"]
-        }
+data "aws_iam_policy_document" "auditor_iam_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+    principals {
+      type       = "Service"
+      identities = ["lambda.amazonaws.com"]
     }
+  }
 }
 
-data "archive_file" "audit_lambda_package" {
-    type = "zip"
-    source_dir = "lambda_functions/audit_lambda"
-    output_path = "lambda_functions/audit_lambda/audit_lambda.zip"
-    excludes = ["lambda_functions/audit_lambda/audit_lambda.zip", "lambda_functions/audit_lambda/tests"]
+data "archive_file" "auditor_function_package" {
+  for_each    = locals.auditors
+  type        = "zip"
+  source_dir  = "lambda_functions/audit_${each.key}"
+  output_path = "lambda_functions/audit_lambda/audit_${each.key}.zip"
+  excludes    = ["lambda_functions/audit_${each.key}/audit_${each.key}.zip"]
 }
 
-resource "aws_iam_role" "audit_lambda" {
-    name = "audit_lambda_role"
-    assume_role_policy = data.aws_iam_policy_document.audit_lambda_policy.json
+resource "aws_iam_role" "auditor_iam_role" {
+  for_each           = locals.auditors
+  name               = "audit_${each.key}_role"
+  assume_role_policy = data.aws_iam_policy_document.audit_lambda_policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "audit_lambda_managed_policy" {
-    role = aws_iam_role.audit_lambda_role.name
-    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  role       = aws_iam_role.auditor_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 resource "aws_lambda_function" "audit_lambda" {
-    description = "audit lambda functions"
-    filename = data.archive_file.audit_lambda_package.output_path
-    source_code_hash = data.archive_file.audit_lambda.output_base64sha256
-    function_name = "audit_lambda"
-    handler = "audit_lambda.handler"
-    role = aws_iam_role.audit_lambda_role.arn
-    runtime = "python3.9"
+  for_each         = locals.auditors
+  description      = each.key
+  filename         = data.archive_file.auditor_function_package.output_path
+  source_code_hash = data.archive_file.auditor_function_package.output_base64sha256
+  function_name    = "audit_{each.key}"
+  handler          = "audit-${each.key}.handler"
+  role             = aws_iam_role.audit_lambda_role.arn
+  runtime          = "python3.9"
 
-    environment {
-        variables = {
-            "AWS_REGION" = data.aws_region.current,
-            "INVENTORY_TABLE_NAME" = aws_dynamodb_table.audit_lambda.name,
-        }
+  environment {
+    variables = {
+      "AWS_REGION"           = data.aws_region.current,
+      "INVENTORY_TABLE_NAME" = aws_dynamodb_table.audit_lambda.name,
     }
+  }
 
-    tags = {
-        Name = "audit_lambda"
-    }
+  tags = {
+    Name = "audit-${each.key}"
+  }
 }
