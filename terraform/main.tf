@@ -57,8 +57,8 @@ resource "aws_iam_role_policy_attachment" "audit_lambda_managed_policy" {
 resource "aws_lambda_function" "audit_lambda" {
   for_each         = local.auditors
   description      = each.key
-  filename         = data.archive_file.auditor_function_package.output_path
-  source_code_hash = data.archive_file.auditor_function_package.output_base64sha256
+  filename         = data.archive_file.auditor_function_package[each.key].output_path
+  source_code_hash = data.archive_file.auditor_function_package[each.key].output_base64sha256
   function_name    = "audit_{each.key}"
   handler          = "audit-${each.key}.handler"
   role             = aws_iam_role.audit_lambda_role.arn
