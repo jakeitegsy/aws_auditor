@@ -8,14 +8,7 @@ class TestAuditLambda(unittest.TestCase):
 
     def setUp(self):
         self.function_name = 'function_name'
-        self.function = Function(
-            configuration=self.lambda_function(),
-            details=self.function_details(),
-        )
-
-
-    def lambda_function(self):
-        return {
+        self.configuration = {
             'FunctionName': self.function_name,
             'FunctionArn': f'arn:aws:lambda:REGION:123456789012:function:{self.function_name}',
             'Runtime': 'python3.7',
@@ -30,10 +23,16 @@ class TestAuditLambda(unittest.TestCase):
             'Version': '$LATEST',
             'VpcConfig': {
                 'SubnetIds': [
-                    'subnet-01234ab0c56d7890d', 'subnet-01234ab0c56d7890d'
+                    'subnet-01234ab0c56d7890d',
+                    'subnet-01234ab0c56d7890d',
+                    'subnet-01234ab0c56d7890d',
+                    'subnet-01234ab0c56d7890d',
                 ],
                 'SecurityGroupIds': [
-                    'sg-012a34b56def78901', 'sg-012a34b56def78901'
+                    'sg-012a34b56def78901',
+                    'sg-012a34b56def78901',
+                    'sg-012a34b56def78901',
+                    'sg-012a34b56def78901',
                 ],
                 'VpcId': 'vpc-1a23456a123a456bd'
             },
@@ -41,6 +40,10 @@ class TestAuditLambda(unittest.TestCase):
             'RevisionId': 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
             'KMSKeyArn': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd'
         }
+        self.function = Function(
+            configuration=self.configuration,
+            details=self.function_details(),
+        )
 
     def no_vpc_fixture(self):
         return {
@@ -109,58 +112,68 @@ class TestAuditLambda(unittest.TestCase):
         }
 
     def test_name(self):
-        self.assertEqual(self.function.name(), self.lambda_function()['FunctionName'])
+        self.assertEqual(self.function.name(), self.configuration['FunctionName'])
 
     def test_function_arn(self):
-        self.assertEqual(self.function.arn(), self.lambda_function()['FunctionArn'])
+        self.assertEqual(self.function.arn(), self.configuration['FunctionArn'])
 
     def test_runtime(self):
-        self.assertEqual(self.function.runtime(), self.lambda_function()['Runtime'])
+        self.assertEqual(self.function.runtime(), self.configuration['Runtime'])
 
     def test_role(self):
-        self.assertEqual(self.function.role(), self.lambda_function()['Role'])
+        self.assertEqual(self.function.role(), self.configuration['Role'])
 
     def test_code_size(self):
         self.assertEqual(
-            self.function.code_size(), self.lambda_function()['CodeSize']
+            self.function.code_size(), self.configuration['CodeSize']
         )
 
     def test_encryption(self):
         self.assertEqual(
             self.function.encryption(),
-            self.lambda_function()['KMSKeyArn']
+            self.configuration['KMSKeyArn']
         )
 
     def test_description(self):
         self.assertEqual(
-            self.function.description(), self.lambda_function()['Description']
+            self.function.description(), self.configuration['Description']
         )
 
     def test_memory_size(self):
         self.assertEqual(
             self.function.memory_size(),
-            self.lambda_function()['MemorySize']
+            self.configuration['MemorySize']
         )
 
     def test_timeout(self):
-        self.assertEqual(self.function.timeout(), self.lambda_function()['Timeout'])
+        self.assertEqual(self.function.timeout(), self.configuration['Timeout'])
 
     def test_vpc_id(self):
         self.assertEqual(
             self.function.vpc_id(),
-            self.lambda_function()['VpcConfig']['VpcId']
+            self.configuration['VpcConfig']['VpcId']
         )
 
     def test_subnet_ids(self):
         self.assertEqual(
-            self.function.subnet_ids(),
-            self.lambda_function()['VpcConfig']['SubnetIds']
+            self.function.get_subnet_ids(),
+            {
+                'SubnetId0': 'subnet-01234ab0c56d7890d',
+                'SubnetId1': 'subnet-01234ab0c56d7890d',
+                'SubnetId2': 'subnet-01234ab0c56d7890d',
+                'SubnetId3': 'subnet-01234ab0c56d7890d',
+            }
         )
 
     def test_security_group_ids(self):
         self.assertEqual(
-            self.function.security_group_ids(),
-            self.lambda_function()['VpcConfig']['SecurityGroupIds']
+            self.function.get_security_group_ids(),
+            {
+                'SecurityGroupId0': 'sg-012a34b56def78901',
+                'SecurityGroupId1': 'sg-012a34b56def78901',
+                'SecurityGroupId2': 'sg-012a34b56def78901',
+                'SecurityGroupId3': 'sg-012a34b56def78901',
+            }
         )
 
     def test_code_location(self):
@@ -183,15 +196,17 @@ class TestAuditLambda(unittest.TestCase):
             {
                 'Code': 'url',
                 'CodeSize': 1234,
-                'DateAudited': '2022-03-29 08:28:43.517543',
+                'DateAudited': '2022-03-29 09:17:47.433485',
                 'Encrytion': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd',
                 'FunctionArn': 'arn:aws:lambda:REGION:123456789012:function:function_name',
                 'MemorySize': 123,
                 'ResourceName': 'function_name',
                 'Role': 'arn:aws:iam::123456789012:role/function_name',
                 'Runtime': 'python3.7',
-                'SecurityGroupIds': "['sg-012a34b56def78901', 'sg-012a34b56def78901']",
-                'SubnetIds': "['subnet-01234ab0c56d7890d', 'subnet-01234ab0c56d7890d']",
+                'SecurityGroupId0': 'sg-012a34b56def78901',
+                'SecurityGroupId1': 'sg-012a34b56def78901',
+                'SubnetId0': 'subnet-01234ab0c56d7890d',
+                'SubnetId1': 'subnet-01234ab0c56d7890d',
                 'Timeout': 123,
                 'VpcId': 'vpc-1a23456a123a456bd',
                 'key1': 'value1',
@@ -199,5 +214,4 @@ class TestAuditLambda(unittest.TestCase):
                 'key3': 'value3',
                 'keyN': 'valueN'
             }
-
         )
