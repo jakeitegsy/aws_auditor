@@ -28,13 +28,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -263,13 +263,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -498,13 +498,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -733,13 +733,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -968,13 +968,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -1203,13 +1203,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -1440,7 +1440,7 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       },
                       {
@@ -1450,7 +1450,7 @@
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       },
                       {
@@ -1685,13 +1685,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -1917,13 +1917,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "name",
+                        "attributeName": "ResourceName",
                         "attributeType": "S"
                       }
                     ],
@@ -2093,7 +2093,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "436a03dac4799a629a6722c560837bbeb1816211aa2bb6e289cd33493140bba2.zip"
+                      "s3Key": "1802b3fe7116b446def3f832ea0e69d911b18fbfb1f409065f7837d749747dac.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [

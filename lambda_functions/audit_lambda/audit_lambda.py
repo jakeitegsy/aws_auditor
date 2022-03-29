@@ -62,12 +62,12 @@ class Function:
     def get_tags(self):
         return self.details.get('Tags')
 
-    def get_code(self):
-        return
+    def get_code_location(self):
+        return self.details['Code']['Location']
 
     def to_dict(self):
-        return {
-            'Name': self.name(),
+        result = {
+            'ResourceName': self.name(),
             'DateAudited': str(datetime.datetime.now()),
             'Encrytion': self.encryption(),
             'Role': self.role(),
@@ -79,8 +79,11 @@ class Function:
             'SubnetIds': str(self.subnet_ids()),
             'SecurityGroupIds': str(self.security_group_ids()),
             'VpcId': self.vpc_id(),
-            # 'Tags':
+            'Code': self.get_code_location(),
         }
+        for key, value  in self.get_tags().items():
+            result.update({key: value})
+        return result
 
 def region():
     return os.environ.get('AWS_REGION')
@@ -106,4 +109,6 @@ PAGINATED_LIST_OF_FUNCTIONS = lambda_client.get_paginator('list_functions')
 TABLE = boto3.resource(
     'dynamodb',
     endpoint_url=f'https://dynamodb.{region()}.amazonaws.com'
-).Table(os.environ.get('INVENTORY_TABLE_NAME'))
+).Table(
+    os.environ.get('INVENTORY_TABLE_NAME')
+)

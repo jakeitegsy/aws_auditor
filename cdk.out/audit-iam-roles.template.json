@@ -5,13 +5,13 @@
       "Properties": {
         "KeySchema": [
           {
-            "AttributeName": "name",
+            "AttributeName": "ResourceName",
             "KeyType": "HASH"
           }
         ],
         "AttributeDefinitions": [
           {
-            "AttributeName": "name",
+            "AttributeName": "ResourceName",
             "AttributeType": "S"
           }
         ],
