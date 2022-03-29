@@ -1,7 +1,4 @@
-provider "aws" {
-    default_tags = merge({"Name": "audit_${each.key}"}, {})
-}
-
+provider "aws" {}
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
