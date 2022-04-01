@@ -40,41 +40,7 @@ class TestAuditLambda(unittest.TestCase):
             'RevisionId': 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
             'KMSKeyArn': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd'
         }
-        self.function = Function(
-            configuration=self.configuration,
-            details=self.function_details(),
-        )
-
-    def no_vpc_fixture(self):
-        return {
-            'FunctionName': self.function_name,
-            'FunctionArn': f'arn:aws:lambda:REGION:123456789012:function:{self.function_name}',
-            'Runtime': 'python3.7',
-            'Role': f'arn:aws:iam::123456789012:role/{self.function_name}',
-            'Handler': f'{self.function_name}.handler',
-            'CodeSize': 1234,
-            'Description': 'Description',
-            'Timeout': 123,
-            'MemorySize': 123,
-            'LastModified': '1900-12-12T12:59:59.657+0000',
-            'CodeSha256': 'ABCabCaa0bAbCABcABCaBc1ABcABcaBCA01ABCaBcAB=',
-            'Version': '$LATEST',
-            'VpcConfig': {
-                'SubnetIds': [
-                    'subnet-01234ab0c56d7890d', 'subnet-01234ab0c56d7890d'
-                ],
-                'SecurityGroupIds': [
-                    'sg-012a34b56def78901', 'sg-012a34b56def78901'
-                ],
-                'VpcId': 'vpc-1a23456a123a456bd'
-            },
-            'TracingConfig': {'Mode': 'PassThrough'},
-            'RevisionId': 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
-            'KMSKeyArn': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd'
-        }
-
-    def function_details(self):
-        return {
+        self.details = {
             "Configuration": {
                 "FunctionName": self.function_name,
                 "FunctionArn": f"arn:aws:lambda:REGION:123456789012:function:{self.function_name}",
@@ -109,6 +75,38 @@ class TestAuditLambda(unittest.TestCase):
                 "key3": "value3",
                 "keyN": "valueN",
             }
+        }
+        self.function = Function(
+            configuration=self.configuration,
+            details=self.details,
+        )
+
+    def no_vpc_fixture(self):
+        return {
+            'FunctionName': self.function_name,
+            'FunctionArn': f'arn:aws:lambda:REGION:123456789012:function:{self.function_name}',
+            'Runtime': 'python3.7',
+            'Role': f'arn:aws:iam::123456789012:role/{self.function_name}',
+            'Handler': f'{self.function_name}.handler',
+            'CodeSize': 1234,
+            'Description': 'Description',
+            'Timeout': 123,
+            'MemorySize': 123,
+            'LastModified': '1900-12-12T12:59:59.657+0000',
+            'CodeSha256': 'ABCabCaa0bAbCABcABCaBc1ABcABcaBCA01ABCaBcAB=',
+            'Version': '$LATEST',
+            'VpcConfig': {
+                'SubnetIds': [
+                    'subnet-01234ab0c56d7890d', 'subnet-01234ab0c56d7890d'
+                ],
+                'SecurityGroupIds': [
+                    'sg-012a34b56def78901', 'sg-012a34b56def78901'
+                ],
+                'VpcId': 'vpc-1a23456a123a456bd'
+            },
+            'TracingConfig': {'Mode': 'PassThrough'},
+            'RevisionId': 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
+            'KMSKeyArn': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd'
         }
 
     def test_name(self):
@@ -179,13 +177,13 @@ class TestAuditLambda(unittest.TestCase):
     def test_code_location(self):
         self.assertEqual(
             self.function.get_code_location(),
-            self.function_details()['Code']['Location']
+            self.details['Code']['Location']
         )
 
     def test_tags(self):
         self.assertEqual(
             self.function.get_tags(),
-            self.function_details()['Tags']
+            self.details['Tags']
         )
 
     @unittest.expectedFailure
