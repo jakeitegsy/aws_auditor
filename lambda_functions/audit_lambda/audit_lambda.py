@@ -75,6 +75,7 @@ class Function:
         return result
 
     def get_code_location(self):
+        print(self.details)
         return self.details['Code']['Location']
 
     def to_dict(self):
@@ -113,7 +114,9 @@ def handler(event, context):
         TABLE.put_item(
             Item=Function(
                 configuration=lambda_function,
-                details=lambda_client.get_function(lambda_function)
+                details=lambda_client.get_function(
+                    FunctionName=lambda_function
+                )
             ).to_dict()
         )
 

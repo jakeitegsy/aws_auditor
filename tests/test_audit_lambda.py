@@ -41,6 +41,7 @@ class TestAuditLambda(unittest.TestCase):
             'KMSKeyArn': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd'
         }
         self.details = {
+            "ResponseMetadata": None,
             "Configuration": {
                 "FunctionName": self.function_name,
                 "FunctionArn": f"arn:aws:lambda:REGION:123456789012:function:{self.function_name}",
@@ -186,15 +187,16 @@ class TestAuditLambda(unittest.TestCase):
             self.details['Tags']
         )
 
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_dictionary(self):
         self.maxDiff = None
+        actual = self.function.to_dict()
+        actual.pop('DateAudited')
         self.assertEqual(
-            self.function.to_dict(),
+            actual,
             {
                 'CodeLocation': 'url',
                 'CodeSize': 1234,
-                'DateAudited': '2022-03-29 09:17:47.433485',
                 'Encrytion': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd',
                 'FunctionArn': 'arn:aws:lambda:REGION:123456789012:function:function_name',
                 'MemorySize': 123,
@@ -203,8 +205,12 @@ class TestAuditLambda(unittest.TestCase):
                 'Runtime': 'python3.7',
                 'SecurityGroupId0': 'sg-012a34b56def78901',
                 'SecurityGroupId1': 'sg-012a34b56def78901',
+                'SecurityGroupId2': 'sg-012a34b56def78901',
+                'SecurityGroupId3': 'sg-012a34b56def78901',
                 'SubnetId0': 'subnet-01234ab0c56d7890d',
                 'SubnetId1': 'subnet-01234ab0c56d7890d',
+                'SubnetId2': 'subnet-01234ab0c56d7890d',
+                'SubnetId3': 'subnet-01234ab0c56d7890d',
                 'Timeout': 123,
                 'VpcId': 'vpc-1a23456a123a456bd',
                 'key1': 'value1',
