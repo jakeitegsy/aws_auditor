@@ -52,17 +52,23 @@ class Function:
 
     def get_subnet_ids(self):
         subnet_ids = self.get_vpc_config('SubnetIds')
-        return {
-            f'SubnetId{number}': subnet_ids[number]
-            for number in range(len(subnet_ids))
-        }
+        try:
+            return {
+                f'SubnetId{number}': subnet_ids[number]
+                for number in range(len(subnet_ids))
+            }
+        except AttributeError:
+            return {}
 
     def get_security_group_ids(self):
         security_group_ids = self.get_vpc_config('SecurityGroupIds')
-        return {
-            f'SecurityGroupId{number}': security_group_ids[number]
-            for number in range(len(security_group_ids))
-        }
+        try:
+            return {
+                f'SecurityGroupId{number}': security_group_ids[number]
+                for number in range(len(security_group_ids))
+            }
+        except AttributeError:
+            return {}
 
     def encryption(self):
         return self.configuration.get('KMSKeyArn', 'aws:lambda')
@@ -73,7 +79,7 @@ class Function:
                 key: value for key, value in self.details.get('Tags').items()
             }
         except AttributeError:
-            return
+            return {}
 
     def get_code_location(self):
         return self.details['Code']['Location']
