@@ -68,11 +68,12 @@ class Function:
         return self.configuration.get('KMSKeyArn', 'aws:lambda')
 
     def get_tags(self):
-        tags =  self.details.get('Tags')
-        result = {}
-        for key, value in tags.items():
-            result.update({key: value})
-        return result
+        try:
+            return {
+                key: value for key, value in self.details.get('Tags').items()
+            }
+        except AttributeError:
+            return
 
     def get_code_location(self):
         return self.details['Code']['Location']
