@@ -1,9 +1,8 @@
 import boto3
+import os
 
-session = boto3.session.Session(region_name="us-west-2")
-iam = session.client("iam")
-paginator = iam.get_paginator("list_roles")
-dynamodb = session.resource('dynamodb', endpoint_url='https://dynamodb.us-west-2.amazonaws.com')
+def region():
+    return os.environ.get('AWS_REGION')
 
 
 class Role:
@@ -42,13 +41,24 @@ class Role:
         )
 
 def list_roles():
-    return [role for page in paginator.paginate() for role in page["Roles"]]
+    return [role for page in PAGINATOR.paginate() for role in page["Roles"]]
 
 def write_to_dynamodb():
-    table = dynamodb.Table("cdm_audit_iam_roles")
-    with table.batch_writer() as batch:
-        for role in list_roles():
-            batch.put_item(Item=Role(role).to_dict())
+    for role in list_roles():
+        TABLE.put_item(
+            Item=Role(role).to_dict()
+        )
 
 def handler(event, context):
     write_to_dynamodb()
+
+session = boto3.session.Session(region_name=region())
+IAM = session.client("iam")
+PAGINATOR = IAM.get_paginator("list_roles")
+
+TABLE = boto3.resource(
+    'dynamodb',
+    endpoint_url=f'https://dynamodb.{region()}.amazonaws.com'
+).Table(
+    os.environ.get('INVENTORY_TABLE_NAME')
+)

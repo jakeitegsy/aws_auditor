@@ -101,6 +101,7 @@ class Function:
 
 def region():
     return os.environ.get('AWS_REGION')
+
 def list_functions():
     return [
         lambda_function for page in PAGINATED_LIST_OF_FUNCTIONS.paginate()
