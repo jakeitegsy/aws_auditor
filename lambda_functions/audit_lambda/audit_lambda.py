@@ -57,7 +57,7 @@ class Function:
                 f'SubnetId{number}': subnet_ids[number]
                 for number in range(len(subnet_ids))
             }
-        except AttributeError:
+        except (AttributeError, TypeError):
             return {}
 
     def get_security_group_ids(self):
@@ -67,7 +67,7 @@ class Function:
                 f'SecurityGroupId{number}': security_group_ids[number]
                 for number in range(len(security_group_ids))
             }
-        except AttributeError:
+        except (AttributeError, TypeError):
             return {}
 
     def encryption(self):
@@ -78,7 +78,7 @@ class Function:
             return {
                 key: value for key, value in self.details.get('Tags').items()
             }
-        except AttributeError:
+        except (AttributeError, TypeError):
             return {}
 
     def get_code_location(self):
