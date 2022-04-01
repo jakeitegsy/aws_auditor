@@ -1,10 +1,6 @@
 import boto3
 import os
 
-def region():
-    return os.environ.get('AWS_REGION')
-
-
 class Role:
 
     def __init__(self, role):
@@ -39,6 +35,9 @@ class Role:
             DateCreated=self.date_created(),
             MaxSessionDuration=self.max_session_duration()
         )
+
+def region():
+    return os.environ.get('AWS_REGION')
 
 def list_roles():
     return [role for page in PAGINATOR.paginate() for role in page["Roles"]]

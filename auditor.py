@@ -36,7 +36,7 @@ class Inventory(aws_cdk.Stack):
                 f'lambda_functions/{auditor_name}'
             ),
             environment={
-                'AWS_REGION': self.region,
+                'REGION': self.region,
                 'INVENTORY_TABLE_NAME': audit_inventory.table_name,
             },
         )
