@@ -75,7 +75,6 @@ class Function:
         return result
 
     def get_code_location(self):
-        print(self.details)
         return self.details['Code']['Location']
 
     def to_dict(self):
@@ -114,16 +113,14 @@ def handler(event, context):
         TABLE.put_item(
             Item=Function(
                 configuration=lambda_function,
-                details=lambda_client.get_function(
-                    FunctionName=lambda_function
-                )
+                details=LAMBDA.get_function(
+                    FunctionName=lambda_function['FunctionName']
+                ),
             ).to_dict()
         )
 
-session = boto3.session.Session(region_name=region())
-lambda_client = session.client('lambda')
-
-PAGINATED_LIST_OF_FUNCTIONS = lambda_client.get_paginator('list_functions')
+LAMBDA = boto3.session.Session(region_name=region()).client('lambda')
+PAGINATED_LIST_OF_FUNCTIONS = LAMBDA.get_paginator('list_functions')
 TABLE = boto3.resource(
     'dynamodb',
     endpoint_url=f'https://dynamodb.{region()}.amazonaws.com'
