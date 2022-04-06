@@ -28,13 +28,13 @@
                   "aws:cdk:cloudformation:props": {
                     "keySchema": [
                       {
-                        "attributeName": "ResourceName",
+                        "attributeName": "Name",
                         "keyType": "HASH"
                       }
                     ],
                     "attributeDefinitions": [
                       {
-                        "attributeName": "ResourceName",
+                        "attributeName": "Name",
                         "attributeType": "S"
                       }
                     ],
@@ -204,7 +204,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "9e96b7b2406113f8238eaa70a0a9a145273c179d82b75ba5388cac2c58eb9e88.zip"
+                      "s3Key": "ef11d7ad46ff5565d7b048cbae9eae09279b847790a6a49bbb71691fadb0fd59.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -214,7 +214,7 @@
                     },
                     "environment": {
                       "variables": {
-                        "AWS_REGION": {
+                        "REGION": {
                           "Ref": "AWS::Region"
                         },
                         "INVENTORY_TABLE_NAME": {

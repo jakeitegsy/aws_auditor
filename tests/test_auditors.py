@@ -4,7 +4,7 @@ import unittest
 
 class TestAuditors(tests.utilities.TestTemplates):
 
-    @unittest.skip
+    # @unittest.skip
     def test_auditors(self):
         for auditor in utilities.get_auditors():
             with self.subTest(i=auditor):
