@@ -187,7 +187,6 @@ class TestAuditLambda(unittest.TestCase):
             self.details['Tags']
         )
 
-    # @unittest.expectedFailure
     def test_dictionary(self):
         self.maxDiff = None
         actual = self.function.to_dict()

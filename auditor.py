@@ -19,7 +19,7 @@ class Inventory(aws_cdk.Stack):
             removal_policy=aws_cdk.RemovalPolicy.DESTROY,
             billing_mode=aws_cdk.aws_dynamodb.BillingMode.PAY_PER_REQUEST,
             partition_key=aws_cdk.aws_dynamodb.Attribute(
-                name='ResourceName',
+                name='Name',
                 type=aws_cdk.aws_dynamodb.AttributeType.STRING
             ),
             sort_key=self.get_sort_key(sort_key),

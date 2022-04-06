@@ -117,11 +117,13 @@ def list_functions():
 
 def handler(event, context):
     for lambda_function in list_functions():
+        lambda_function_name = lambda_function['FunctionName']
+        print('Auditing Lambda Function: {lambda_function_name}')
         TABLE.put_item(
             Item=Function(
                 configuration=lambda_function,
                 details=LAMBDA.get_function(
-                    FunctionName=lambda_function['FunctionName']
+                    FunctionName=lambda_function_name
                 ),
             ).to_dict()
         )
