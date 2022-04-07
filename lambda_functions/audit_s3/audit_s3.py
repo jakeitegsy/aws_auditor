@@ -92,13 +92,13 @@ class Bucket:
         return S3.get_bucket_location(Bucket=self.name())['LocationConstraint']
 
     def get_tags(self):
+        print(S3.get_bucket_tagging(Bucket=self.name()).get('TagSet'))
         try:
             return {
-                key: value for key, value in S3.get_bucket_tagging(
-                    Bucket=self.name()
-                ).get('TagSet')
+                tag['Key']: tag['Value']
+                for tag in S3.get_bucket_tagging(Bucket=self.name()).get('TagSet')
             }
-        except (AttributeError, TypeError):
+        except (KeyError, TypeError):
             return {}
 
     def to_dict(self):
