@@ -1,7 +1,12 @@
-import unittest
+import sys
 import os
+sys.path.insert(0, os.path.abspath('..'))
+import mock_boto3
+
+sys.modules['boto3'] = mock_boto3
 os.environ['INVENTORY_TABLE_NAME'] = 'audit-lambda'
-from lambda_functions.audit_lambda.audit_lambda import Function
+import unittest
+import lambda_functions.audit_lambda.audit_lambda
 
 
 class TestAuditLambda(unittest.TestCase):
@@ -77,7 +82,7 @@ class TestAuditLambda(unittest.TestCase):
                 "keyN": "valueN",
             }
         }
-        self.function = Function(
+        self.function = lambda_functions.audit_lambda.audit_lambda.Function(
             configuration=self.configuration,
             details=self.details,
         )

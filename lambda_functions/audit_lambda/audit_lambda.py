@@ -6,7 +6,10 @@ class Function:
 
     def __init__(self, configuration=None, details=None):
         self.configuration = configuration
-        self.details = details
+        self.details = self.get_details(self.name())
+
+    def get_details(self):
+        return LAMBDA.get_function(FunctionName=self.name())
 
     def getter(self, dictionary, key):
         try:
@@ -111,12 +114,15 @@ def list_functions():
         for lambda_function in page['Functions']
     ]
 
+def write_to_dynamodb(data):
+    return TABLE.put_item(Item=data)
+
 def handler(event, context):
     for lambda_function in list_functions():
         lambda_function_name = lambda_function['FunctionName']
-        print('Auditing Lambda Function: {lambda_function_name}')
-        TABLE.put_item(
-            Item=Function(
+        print(f'Auditing Lambda Function: {lambda_function_name}')
+        write_to_dynamodb(
+            Function(
                 configuration=lambda_function,
                 details=LAMBDA.get_function(
                     FunctionName=lambda_function_name
