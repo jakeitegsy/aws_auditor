@@ -54,7 +54,7 @@ class Bucket:
         )
 
     def get_size_in_gib(self):
-        return float(self.get_size()) / 1074000000.0
+        return float(self.get_size()) / (2 ** 30)
 
     def get_number_of_objects(self):
         return self.get_metric_statistics(
