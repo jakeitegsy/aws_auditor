@@ -19,21 +19,11 @@ class Bucket:
     def get(self, key):
         return self.getter(self.dictionary, key)
 
-    def get_bucket_attribute(self, getter):
-        try:
-            return getter(Bucket=self.name())
-        except botocore.exceptions.ClientError as error:
-            print(f'Cannot get information for {self.name()} because {error}')
-            return {}
-
     def get_bucket_encryption(self):
         try:
             return S3.get_bucket_encryption(Bucket=self.name())['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
         except (IndexError, KeyError):
             return {}
-
-    def get_bucket_versioning(self):
-        return self.get_bucket_attribute(S3.get_bucket_versioning)
 
     def name(self):
         return self.get('Name')
@@ -87,6 +77,9 @@ class Bucket:
 
     def kms_key_id(self):
         return self.encryption.get("KMSMasterKeyID")
+
+    def get_bucket_versioning(self):
+        return S3.get_bucket_versioning(Bucket=self.name())
 
     def get_bucket_location(self):
         return S3.get_bucket_location(Bucket=self.name())['LocationConstraint']
