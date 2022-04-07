@@ -4,7 +4,7 @@ import datetime
 
 class Function:
 
-    def __init__(self, configuration=None, details=None):
+    def __init__(self, configuration):
         self.configuration = configuration
         self.details = self.get_details()
 
@@ -122,12 +122,7 @@ def handler(event, context):
         lambda_function_name = lambda_function['FunctionName']
         print(f'Auditing Lambda Function: {lambda_function_name}')
         write_to_dynamodb(
-            Function(
-                configuration=lambda_function,
-                details=LAMBDA.get_function(
-                    FunctionName=lambda_function_name
-                ),
-            ).to_dict()
+            Function(lambda_function).to_dict()
         )
 
 LAMBDA = boto3.session.Session(region_name=region()).client('lambda')

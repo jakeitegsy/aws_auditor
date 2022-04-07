@@ -84,7 +84,6 @@ class TestAuditLambda(unittest.TestCase):
         }
         self.function = lambda_functions.audit_lambda.audit_lambda.Function(
             configuration=self.configuration,
-            # details=self.details,
         )
 
     def no_vpc_fixture(self):
