@@ -92,7 +92,6 @@ class Bucket:
         return S3.get_bucket_location(Bucket=self.name())['LocationConstraint']
 
     def get_tags(self):
-        print(S3.get_bucket_tagging(Bucket=self.name()).get('TagSet'))
         try:
             return {
                 tag['Key']: tag['Value']
