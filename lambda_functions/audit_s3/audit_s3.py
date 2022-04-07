@@ -92,9 +92,22 @@ class Bucket:
         return
         return self.encryption.get("KMSMasterKeyID")
 
+    def get_bucket_location(self):
+        return S3.get_bucket_location(Bucket=self.name())['LocationConstraint']
+
+    def get_tags(self):
+        try:
+            return {
+                key: value for key, value in S3.get_bucket_tagging(
+                    Bucket=self.name()
+                ).get('TagSet')
+            }
+        except (AttributeError, TypeError):
+            return {}
+
     def to_dict(self):
-        return {
-            "Name": self.name(),
+        result = {
+            "ResourceName": self.name(),
             "SizeInBytes" : str(self.get_size()),
             "SizeInGiB" : str(self.size_in_gib()),
             "CreationDate" : self.created(),
@@ -103,8 +116,14 @@ class Bucket:
             'KmsKeyId': self.kms_key_id(),
             'VersioningStatus': self.versioning_status(),
             'MFADelete': self.mfa_delete(),
-            'DateAudited': str(datetime.datetime.now())
+            'DateAudited': str(datetime.datetime.now()),
+            'BucketLocation': self.get_bucket_location(),
         }
+        for dictionary in (
+            self.get_tags(),
+        ):
+            result.update(dictionary)
+        return result
 
 def now():
     return datetime.datetime.now(datetime.timezone.utc)
