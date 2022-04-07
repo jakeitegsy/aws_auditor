@@ -42,7 +42,7 @@ class Bucket:
                 Unit=unit,
                 Period=86400,
                 Statistics=["Maximum"]
-                )["Datapoints"][0].get("Maximum", 0)
+            )["Datapoints"][0].get("Maximum", 0)
         except IndexError:
             return "0"
 
