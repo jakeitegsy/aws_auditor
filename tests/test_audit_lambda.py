@@ -45,43 +45,43 @@ class TestAuditLambda(unittest.TestCase):
             'RevisionId': 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
             'KMSKeyArn': 'arn:aws:kms:REGION:123456789012:key/12ab3456-c789-0123-45d6-78e9f0a12bcd'
         }
-        # self.details = {
-        #     "ResponseMetadata": None,
-        #     "Configuration": {
-        #         "FunctionName": self.function_name,
-        #         "FunctionArn": f"arn:aws:lambda:REGION:123456789012:function:{self.function_name}",
-        #         "Runtime": "python3.8",
-        #         "Role": f'arn:aws:iam::123456789012:role/{self.function_name}',
-        #         "Handler": f'{self.function_name}.handler',
-        #         "CodeSize": 1234,
-        #         "Description": 'Description',
-        #         "Timeout": 123,
-        #         "MemorySize": 123,
-        #         "LastModified": '1900-12-12T12:59:59.657+0000',
-        #         "CodeSha256": 'ABCabCaa0bAbCABcABCaBc1ABcABcaBCA01ABCaBcAB=',
-        #         "Version": "$LATEST",
-        #         "TracingConfig": {
-        #             "Mode": "PassThrough"
-        #         },
-        #         "RevisionId": 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
-        #         "State": "Active",
-        #         "LastUpdateStatus": "Successful",
-        #         "PackageType": "Zip",
-        #         "Architectures": [
-        #             "x86_64"
-        #         ]
-        #     },
-        #     "Code": {
-        #         "RepositoryType": "S3",
-        #         "Location": 'url'
-        #     },
-        #     "Tags": {
-        #         "key1": "value1",
-        #         "key2": "value2",
-        #         "key3": "value3",
-        #         "keyN": "valueN",
-        #     }
-        # }
+        self.details = {
+            "ResponseMetadata": None,
+            "Configuration": {
+                "FunctionName": self.function_name,
+                "FunctionArn": f"arn:aws:lambda:REGION:123456789012:function:{self.function_name}",
+                "Runtime": "python3.8",
+                "Role": f'arn:aws:iam::123456789012:role/{self.function_name}',
+                "Handler": f'{self.function_name}.handler',
+                "CodeSize": 1234,
+                "Description": 'Description',
+                "Timeout": 123,
+                "MemorySize": 123,
+                "LastModified": '1900-12-12T12:59:59.657+0000',
+                "CodeSha256": 'ABCabCaa0bAbCABcABCaBc1ABcABcaBCA01ABCaBcAB=',
+                "Version": "$LATEST",
+                "TracingConfig": {
+                    "Mode": "PassThrough"
+                },
+                "RevisionId": 'fba95d87-de7b-4a20-99d1-5fe4780acdc7',
+                "State": "Active",
+                "LastUpdateStatus": "Successful",
+                "PackageType": "Zip",
+                "Architectures": [
+                    "x86_64"
+                ]
+            },
+            "Code": {
+                "RepositoryType": "S3",
+                "Location": 'url'
+            },
+            "Tags": {
+                "key1": "value1",
+                "key2": "value2",
+                "key3": "value3",
+                "keyN": "valueN",
+            }
+        }
         self.function = lambda_functions.audit_lambda.audit_lambda.Function(
             configuration=self.configuration,
         )
