@@ -73,10 +73,16 @@ class Bucket:
     def get_enforce_ssl(self):
         bucket_policy_statements = S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']
         for statement in bucket_policy_statements:
-            if statement['Effect'] == 'Deny':
-                if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
-                    return True
+            try:
+                if statement['Effect'] == 'Deny':
+                    if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
+                        return True
+            except KeyError:
+                continue
         return False
+
+    def get_public_access_configuration(self):
+        return S3.get_public_access_block(Bucket=self.bucket_name())
 
     def get_tags(self):
         try:
@@ -101,6 +107,7 @@ class Bucket:
             'DateAudited': str(datetime.datetime.now()),
             'BucketLocation': self.get_bucket_location(),
             'EnforceSSL': self.get_enforce_ssl(),
+            **self.get_public_access_configuration(),
             **self.get_tags(),
         }
 
