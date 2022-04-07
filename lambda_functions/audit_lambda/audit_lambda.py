@@ -85,7 +85,7 @@ class Function:
         return self.details['Code']['Location']
 
     def to_dict(self):
-        result = {
+        return {
             'ResourceName': self.name(),
             'DateAudited': str(datetime.datetime.now()),
             'Encrytion': self.encryption(),
@@ -97,14 +97,10 @@ class Function:
             'Timeout': self.timeout(),
             'VpcId': self.vpc_id(),
             'CodeLocation': self.get_code_location(),
+            **self.get_security_group_ids(),
+            **self.get_subnet_ids(),
+            **self.get_tags(),
         }
-        for dictionary in (
-            self.get_security_group_ids(),
-            self.get_subnet_ids(),
-            self.get_tags(),
-        ):
-            result.update(dictionary)
-        return result
 
 def region():
     return os.environ.get('REGION')
