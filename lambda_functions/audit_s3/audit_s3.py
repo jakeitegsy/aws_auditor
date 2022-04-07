@@ -101,7 +101,7 @@ class Bucket:
             return {}
 
     def to_dict(self):
-        result = {
+        return {
             "ResourceName": self.name(),
             "SizeInBytes" : str(self.get_size()),
             "SizeInGiB" : str(self.size_in_gib()),
@@ -113,12 +113,8 @@ class Bucket:
             'MFADelete': self.mfa_delete(),
             'DateAudited': str(datetime.datetime.now()),
             'BucketLocation': self.get_bucket_location(),
+            **self.get_tags(),
         }
-        for dictionary in (
-            self.get_tags(),
-        ):
-            result.update(dictionary)
-        return result
 
 def now():
     return datetime.datetime.now(datetime.timezone.utc)
