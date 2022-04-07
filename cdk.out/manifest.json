@@ -73,6 +73,73 @@
         ]
       },
       "displayName": "audit-lambda"
+    },
+    "audit-s3.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "audit-s3.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "audit-s3": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "audit-s3.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d3f4ee0cf1f980b6d075d6adc175faee74cf20be5acc82d6ffbf2a5260ea5cf3.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "audit-s3.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "audit-s3.assets"
+      ],
+      "metadata": {
+        "/audit-s3/Audit-S3DynamoDBTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "AuditS3DynamoDBTable3FA5FB02"
+            }
+          }
+        ],
+        "/audit-s3/Audit-S3DynamoDBTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditS3DynamoDBTable3FA5FB02"
+          }
+        ],
+        "/audit-s3/Audit-S3LambdaFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditS3LambdaFunctionServiceRoleE48361AD"
+          }
+        ],
+        "/audit-s3/Audit-S3LambdaFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditS3LambdaFunctionServiceRoleDefaultPolicy14074B5E"
+          }
+        ],
+        "/audit-s3/Audit-S3LambdaFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditS3LambdaFunctionBDC74AFC"
+          }
+        ]
+      },
+      "displayName": "audit-s3"
     }
   }
 }

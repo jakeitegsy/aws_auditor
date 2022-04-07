@@ -1,5 +1,13 @@
 {
     "lambda": {
         "actions": ["lambda:ListFunctions"]
+    },
+    "s3": {
+        "actions": [
+            "s3:GetBucketVersioning",
+            "s3:ListAllMyBuckets",
+            "s3:GetEncryptionConfiguration",
+            "cloudwatch:GetMetricStatistics"
+        ]
     }
 }

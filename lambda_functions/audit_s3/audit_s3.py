@@ -106,22 +106,40 @@ class Bucket:
             'DateAudited': str(datetime.datetime.now())
         }
 
+def now():
+    return datetime.datetime.now(datetime.timezone.utc)
+
+def get_metric_statistics(bucket_name=None, metric_name=None, storage_type=None, unit=None):
+    try:
+        return CLOUDWATCH.get_metric_statistics(
+            Namespace="AWS/S3",
+            MetricName=metric_name,
+            Dimensions=[
+                dict(Name="BucketName", Value=bucket_name),
+                dict(Name="StorageType", Value=storage_type)
+            ],
+            StartTime=now()-datetime.timedelta(days=2),
+            EndTime=now(),
+            Unit=unit,
+            Period=86400,
+            Statistics=["Maximum"]
+        )["Datapoints"][0].get("Maximum", 0)
+    except IndexError:
+        return "0"
+
 def region():
     return os.environ.get('AWS_REGION', 'us-east-1')
 
 def endpoint_url(service):
-    return
     return f"https://{service}.{region()}.amazonaws.com"
 
-def create_resource(service):
-    return session.resource(
+def create_client(service):
+    return SESSION.client(
         service, endpoint_url=endpoint_url(service)
     )
 
-def create_client(service):
-    return session.client(
-        service, endpoint_url=endpoint_url(service)
-    )
+def list_buckets():
+    return (bucket for bucket in S3.list_buckets()['Buckets'])
 
 def handler(event, context):
     for bucket in list_buckets():
@@ -129,10 +147,7 @@ def handler(event, context):
             Item=Bucket(bucket).to_dict()
         )
 
-def list_buckets():
-    return (bucket for bucket in S3.list_buckets()['Buckets'])
-
-session = boto3.session.Session(region_name=region())
+SESSION = boto3.session.Session(region_name=region())
 S3 = create_client("s3")
 CLOUDWATCH = create_client("cloudwatch")
 TABLE = boto3.resource(

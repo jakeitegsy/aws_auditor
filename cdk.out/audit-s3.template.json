@@ -5,13 +5,13 @@
       "Properties": {
         "KeySchema": [
           {
-            "AttributeName": "ResourceName",
+            "AttributeName": "Name",
             "KeyType": "HASH"
           }
         ],
         "AttributeDefinitions": [
           {
-            "AttributeName": "ResourceName",
+            "AttributeName": "Name",
             "AttributeType": "S"
           }
         ],
@@ -100,7 +100,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "9c90ad2f9cfa4cee68b326d236c759d7f0d1b3b567bf20281818c29ed930bf0d.zip"
+          "S3Key": "c3234866b44c81e25749ebea5c7de0e5ef4065e443ff74c71d884ed0ba5ecd20.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -110,7 +110,7 @@
         },
         "Environment": {
           "Variables": {
-            "AWS_REGION": {
+            "REGION": {
               "Ref": "AWS::Region"
             },
             "INVENTORY_TABLE_NAME": {
