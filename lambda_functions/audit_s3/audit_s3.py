@@ -7,8 +7,8 @@ class Bucket:
 
     def __init__(self, dictionary):
         self.dictionary = dictionary
-        # self.encryption = self.get_bucket_encryption()
-        # self.versioning = self.get_bucket_versioning()
+        self.encryption = self.get_bucket_encryption()
+        self.versioning = self.get_bucket_versioning()
 
     def getter(self, dictionary, key):
         try:
@@ -29,11 +29,10 @@ class Bucket:
     def get_bucket_encryption(self):
         try:
             return S3.get_bucket_encryption(Bucket=self.name())['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
-        except Exception:
+        except (IndexError, KeyError):
             return {}
 
     def get_bucket_versioning(self):
-        return
         return self.get_bucket_attribute(S3.get_bucket_versioning)
 
     def name(self):
@@ -43,7 +42,6 @@ class Bucket:
         return self.get('CreationDate').strftime("%Y-%m-%dT%H:%M:%SZ")
 
     def get_metric_statistics(self, metric_name=None, storage_type=None, unit=None):
-        return 0
         try:
             return CLOUDWATCH.get_metric_statistics(
                 Namespace="AWS/S3",
@@ -85,11 +83,9 @@ class Bucket:
         return self.versioning.get('MFADelete')
 
     def encryption_algorithm(self):
-        return
         return self.encryption.get('SSEAlgorithm')
 
     def kms_key_id(self):
-        return
         return self.encryption.get("KMSMasterKeyID")
 
     def get_bucket_location(self):

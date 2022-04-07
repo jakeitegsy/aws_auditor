@@ -4,12 +4,12 @@
     },
     "s3": {
         "actions": [
+            "cloudwatch:GetMetricStatistics",
             "s3:GetBucketVersioning",
-            "s3:ListAllMyBuckets",
-            "s3:GetEncryptionConfiguration",
             "s3:GetBucketTagging",
             "s3:GetBucketLocation",
-            "cloudwatch:GetMetricStatistics"
+            "s3:GetEncryptionConfiguration",
+            "s3:ListAllMyBuckets"
         ]
     }
 }
