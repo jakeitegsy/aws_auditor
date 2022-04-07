@@ -77,7 +77,6 @@ class Bucket:
                 if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
                     return True
         return False
-        # return Effect is Deny and Condition Bool aws:SecureTransport is True from json.loads(S3.get_bucket_policy(Bucket=self.bucket_name())['Policy'])
 
     def get_tags(self):
         try:
