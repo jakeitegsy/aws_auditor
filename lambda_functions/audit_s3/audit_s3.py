@@ -106,7 +106,7 @@ class Bucket:
             "ResourceName": self.name(),
             "SizeInBytes" : str(self.get_size()),
             "SizeInGiB" : str(self.size_in_gib()),
-            "CreationDate" : self.created(),
+            "LastModified" : self.created(),
             "NumberOfObjects" : str(self.get_number_of_objects()),
             "Encryption": self.encryption_algorithm(),
             'KmsKeyId': self.kms_key_id(),

@@ -5,6 +5,7 @@
     "s3": {
         "actions": [
             "cloudwatch:GetMetricStatistics",
+            "s3:GetBucketEncryption",
             "s3:GetBucketVersioning",
             "s3:GetBucketTagging",
             "s3:GetBucketLocation",
