@@ -50,8 +50,8 @@ class Bucket:
                     dict(Name="BucketName", Value=self.name()),
                     dict(Name="StorageType", Value=storage_type)
                 ],
-                StartTime=datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(days=2),
-                EndTime=datetime.datetime.now(datetime.timezone.utc),
+                StartTime=now() - datetime.timedelta(days=2),
+                EndTime=now(),
                 Unit=unit,
                 Period=86400,
                 Statistics=["Maximum"]
@@ -118,24 +118,6 @@ class Bucket:
 
 def now():
     return datetime.datetime.now(datetime.timezone.utc)
-
-def get_metric_statistics(bucket_name=None, metric_name=None, storage_type=None, unit=None):
-    try:
-        return CLOUDWATCH.get_metric_statistics(
-            Namespace="AWS/S3",
-            MetricName=metric_name,
-            Dimensions=[
-                dict(Name="BucketName", Value=bucket_name),
-                dict(Name="StorageType", Value=storage_type)
-            ],
-            StartTime=now()-datetime.timedelta(days=2),
-            EndTime=now(),
-            Unit=unit,
-            Period=86400,
-            Statistics=["Maximum"]
-        )["Datapoints"][0].get("Maximum", 0)
-    except IndexError:
-        return "0"
 
 def region():
     return os.environ.get('AWS_REGION', 'us-east-1')
