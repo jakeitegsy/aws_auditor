@@ -82,7 +82,7 @@ class Bucket:
         return False
 
     def get_public_access_configuration(self):
-        return S3.get_public_access_block(Bucket=self.bucket_name())
+        return S3.get_public_access_block(Bucket=self.bucket_name()).get('PublicAccessBlockConfiguration', {})
 
     def get_tags(self):
         try:
