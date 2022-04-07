@@ -6,7 +6,7 @@ class Function:
 
     def __init__(self, configuration=None, details=None):
         self.configuration = configuration
-        self.details = self.get_details(self.name())
+        self.details = self.get_details()
 
     def get_details(self):
         return LAMBDA.get_function(FunctionName=self.name())
