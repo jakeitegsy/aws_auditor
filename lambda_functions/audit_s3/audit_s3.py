@@ -10,25 +10,22 @@ class Bucket:
         self.encryption = self.get_bucket_encryption()
         self.versioning = self.get_bucket_versioning()
 
-    def getter(self, dictionary, key):
-        try:
-            return dictionary[key]
-        except KeyError:
-            return
-
-    def get(self, key):
-        return self.getter(self.dictionary, key)
-
     def get_bucket_encryption(self):
         try:
-            return S3.get_bucket_encryption(Bucket=self.name())['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
+            return S3.get_bucket_encryption(Bucket=self.bucket_name())['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
         except (IndexError, KeyError):
             return {}
 
-    def name(self):
+    def bucket_name(self):
         return self.get('Name')
 
-    def created(self):
+    def get(self, key):
+        try:
+            return self.dictionary[key]
+        except KeyError:
+            return
+
+    def get_last_modified_date(self):
         return self.get('CreationDate').strftime("%Y-%m-%dT%H:%M:%SZ")
 
     def get_metric_statistics(self, metric_name=None, storage_type=None, unit=None):
@@ -37,7 +34,7 @@ class Bucket:
                 Namespace="AWS/S3",
                 MetricName=metric_name,
                 Dimensions=[
-                    dict(Name="BucketName", Value=self.name()),
+                    dict(Name="BucketName", Value=self.bucket_name()),
                     dict(Name="StorageType", Value=storage_type)
                 ],
                 StartTime=now() - datetime.timedelta(days=2),
@@ -56,7 +53,7 @@ class Bucket:
             unit="Bytes",
         )
 
-    def size_in_gib(self):
+    def get_size_in_gib(self):
         return float(self.get_size()) / 1074000000.0
 
     def get_number_of_objects(self):
@@ -66,44 +63,32 @@ class Bucket:
             unit="Count"
         )
 
-    def versioning_status(self):
-        return self.versioning.get('Status')
-
-    def mfa_delete(self):
-        return self.versioning.get('MFADelete')
-
-    def encryption_algorithm(self):
-        return self.encryption.get('SSEAlgorithm')
-
-    def kms_key_id(self):
-        return self.encryption.get("KMSMasterKeyID")
-
     def get_bucket_versioning(self):
-        return S3.get_bucket_versioning(Bucket=self.name())
+        return S3.get_bucket_versioning(Bucket=self.bucket_name())
 
     def get_bucket_location(self):
-        return S3.get_bucket_location(Bucket=self.name())['LocationConstraint']
+        return S3.get_bucket_location(Bucket=self.bucket_name())['LocationConstraint']
 
     def get_tags(self):
         try:
             return {
                 tag['Key']: tag['Value']
-                for tag in S3.get_bucket_tagging(Bucket=self.name()).get('TagSet')
+                for tag in S3.get_bucket_tagging(Bucket=self.bucket_name()).get('TagSet')
             }
         except (KeyError, TypeError):
             return {}
 
     def to_dict(self):
         return {
-            "ResourceName": self.name(),
+            "ResourceName": self.bucket_name(),
             "SizeInBytes" : str(self.get_size()),
-            "SizeInGiB" : str(self.size_in_gib()),
-            "LastModified" : self.created(),
+            "SizeInGiB" : str(self.get_size_in_gib()),
+            "LastModified" : self.get_last_modified_date(),
             "NumberOfObjects" : str(self.get_number_of_objects()),
-            "Encryption": self.encryption_algorithm(),
-            'KmsKeyId': self.kms_key_id(),
-            'VersioningStatus': self.versioning_status(),
-            'MFADelete': self.mfa_delete(),
+            "Encryption": self.encryption.get('SSEAlgorithm'),
+            'KmsKeyId': self.encryption.get("KMSMasterKeyID"),
+            'VersioningStatus': self.versioning.get('Status'),
+            'MFADelete': self.versioning.get('MFADelete'),
             'DateAudited': str(datetime.datetime.now()),
             'BucketLocation': self.get_bucket_location(),
             **self.get_tags(),
