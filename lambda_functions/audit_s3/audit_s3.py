@@ -1,6 +1,7 @@
 import boto3
 import os
 import datetime
+import json
 import botocore.exceptions
 
 class Bucket:
@@ -69,6 +70,15 @@ class Bucket:
     def get_bucket_location(self):
         return S3.get_bucket_location(Bucket=self.bucket_name())['LocationConstraint']
 
+    def get_enforce_ssl(self):
+        bucket_policy_statements = S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']
+        for statement in bucket_policy_statements:
+            if statement['Effect'] == 'Deny':
+                if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
+                    return True
+        return False
+        # return Effect is Deny and Condition Bool aws:SecureTransport is True from json.loads(S3.get_bucket_policy(Bucket=self.bucket_name())['Policy'])
+
     def get_tags(self):
         try:
             return {
@@ -91,6 +101,7 @@ class Bucket:
             'MFADelete': self.versioning.get('MFADelete'),
             'DateAudited': str(datetime.datetime.now()),
             'BucketLocation': self.get_bucket_location(),
+            'EnforceSSL': self.get_enforce_ssl(),
             **self.get_tags(),
         }
 
