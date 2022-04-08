@@ -102,8 +102,27 @@ class Bucket:
     def get_bucket_logging(self):
         return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name())
 
+    def stringify(topic, arn, result, key):
+        return ','.join(topic['TopicArn'] for topic in result[key])
+
     def get_bucket_notification_configuration(self):
-        return S3.get_bucket_notification_configuration(Bucket=self.bucket_name())
+        configuration = S3.get_bucket_notification_configuration(Bucket=self.bucket_name())
+        result = {
+            'LambdaFunctionNotifications': {},
+            'SQSQueueNotifications': {},
+            'SNSTopicNotifications': {},
+            'EventBridgeNotifications': {},
+        }
+        for key in configuration:
+            if key == 'TopicConfigurations':
+                result['SNSTopicNotifications'] = ','.join(topic['TopicArn'] for topic in configuration[key])
+            if key == 'LambdaFunctionConfigurations':
+                result['LambdaFunctionNotifications'] = ','.join(function['LambdaFunctionArn'] for function in configuration[key])
+            if key == 'QueueConfigurations':
+                result['SQSQueueNotifications'] = ','.join(queue['QueueArn'] for queue in configuration[key])
+            if key == 'EventBridgeConfiguration':
+                result['EventBridgeNotifications'] = ','.join(event['EventBridgeArn'] for event in configuration[key])
+        return result
 
     def get_tags(self):
         try:
@@ -130,7 +149,7 @@ class Bucket:
             'EnforceSSL': self.get_enforce_ssl(),
             'ObjectLockConfiguration': self.get_object_lock_configuration(),
             'AccessLogging': self.get_bucket_logging(),
-            'NotificationConfiguration': self.get_bucket_notification_configuration(),
+            **self.get_bucket_notification_configuration(),
             **self.get_public_access_configuration(),
             **self.get_tags(),
         }

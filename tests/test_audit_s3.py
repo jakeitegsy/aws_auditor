@@ -29,7 +29,7 @@ class TestAuditS3(unittest.TestCase):
         self.assertEqual(
             expected,
             {
-                'BucketLocation': 'region',
+                'Location': 'region',
                 'LastModified': '2021-03-04T19:41:00Z',
                 'Encryption': 'aws:kms',
                 'KmsKeyId': 'KmsKeyId',
@@ -50,6 +50,9 @@ class TestAuditS3(unittest.TestCase):
                 'Key2': 'Value2',
                 'Key3': 'Value3',
                 'Key4': 'Value4',
-
+                'LambdaFunctionNotifications': 'LambdaFunctionArn',
+                'SQSQueueNotifications': 'QueueArn',
+                'SNSTopicNotifications': 'TopicArn',
+                'EventBridgeNotifications': '',
             }
         )
