@@ -5,8 +5,8 @@
 import boto3
 import os
 import datetime
-import json
 import botocore.exceptions
+import multiprocessing
 
 class Bucket:
 
@@ -172,6 +172,7 @@ def list_buckets():
     return (bucket for bucket in S3.list_buckets()['Buckets'])
 
 def handler(event, context):
+    # with multiprocessing.Pool() as pool:
     for bucket in list_buckets():
         TABLE.put_item(
             Item=Bucket(bucket).to_dict()
