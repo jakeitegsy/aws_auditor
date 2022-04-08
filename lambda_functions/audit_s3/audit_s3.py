@@ -171,12 +171,14 @@ def create_client(service):
 def list_buckets():
     return (bucket for bucket in S3.list_buckets()['Buckets'])
 
+def write_to_dynamodb(bucket):
+    return TABLE.put_item(
+        Item=Bucket(bucket).to_dict()
+    )
+
 def handler(event, context):
-    # with multiprocessing.Pool() as pool:
-    for bucket in list_buckets():
-        TABLE.put_item(
-            Item=Bucket(bucket).to_dict()
-        )
+    with multiprocessing.Pool() as pool:
+        pool.map(write_to_dynamodb, list_buckets())
 
 SESSION = boto3.session.Session(region_name=region())
 S3 = create_client("s3")
