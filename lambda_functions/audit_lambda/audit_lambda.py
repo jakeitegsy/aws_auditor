@@ -118,6 +118,8 @@ def write_to_dynamodb(data):
     return TABLE.put_item(Item=data)
 
 def handler(event, context):
+    for page in PAGINATED_LIST_OF_FUNCTIONS.paginate():
+        print(page)
     for lambda_function in list_functions():
         lambda_function_name = lambda_function['FunctionName']
         print(f'Auditing Lambda Function: {lambda_function_name}')

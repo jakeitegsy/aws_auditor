@@ -143,3 +143,5 @@ TABLE = boto3.resource(
 ).Table(
     os.environ.get('INVENTORY_TABLE_NAME')
 )
+
+
