@@ -38,15 +38,18 @@ class TestAuditS3(unittest.TestCase):
                 'ResourceName': 'BucketName',
                 'SizeInBytes': '123.0',
                 'SizeInGiB': '1.1455267667770386e-07',
-                'VersioningStatus': 'Enabled',
+                'Versioning': 'Enabled',
                 'BlockPublicAcls': True,
                 'IgnorePublicAcls': True,
                 'BlockPublicPolicy': True,
                 'RestrictPublicBuckets': True,
                 'EnforceSSL': True,
+                'ObjectLock': 'Enabled',
+                'AccessLogging': 'Enabled',
                 'Key1': 'Value1',
                 'Key2': 'Value2',
                 'Key3': 'Value3',
                 'Key4': 'Value4',
+
             }
         )
