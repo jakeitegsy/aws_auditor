@@ -1,3 +1,7 @@
+""" Get an inventory of all s3 buckets with additional attributes
+    Writes data to dynamodb table
+"""
+
 import boto3
 import os
 import datetime
@@ -70,6 +74,12 @@ class Bucket:
     def get_bucket_location(self):
         return S3.get_bucket_location(Bucket=self.bucket_name())['LocationConstraint']
 
+    def get_object_lock_configuration(self):
+        try:
+            return S3.get_object_lock_configuration(Bucket=self.bucket_name())['ObjectLockConfiguration']['Rule']
+        except KeyError:
+            return 'Disabled'
+
     def get_enforce_ssl(self):
         bucket_policy_statements = S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']
         for statement in bucket_policy_statements:
@@ -82,7 +92,18 @@ class Bucket:
         return False
 
     def get_public_access_configuration(self):
-        return S3.get_public_access_block(Bucket=self.bucket_name()).get('PublicAccessBlockConfiguration', {})
+        try:
+            return S3.get_public_access_block(Bucket=self.bucket_name()).get('PublicAccessBlockConfiguration', {})
+        except botocore.exceptions.ClientError:
+            return {
+                key: False for key in (
+                    'BlockPublicAcls', 'BlockPublicPolicy',
+                    'IgnorePublicAcls', 'RestrictPublicBuckets'
+                )
+            }
+
+    def get_bucket_logging(self):
+        return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name())
 
     def get_tags(self):
         try:
@@ -102,11 +123,13 @@ class Bucket:
             "NumberOfObjects" : str(self.get_number_of_objects()),
             "Encryption": self.encryption.get('SSEAlgorithm'),
             'KmsKeyId': self.encryption.get("KMSMasterKeyID"),
-            'VersioningStatus': self.versioning.get('Status'),
+            'Versioning': self.versioning.get('Status'),
             'MFADelete': self.versioning.get('MFADelete'),
             'DateAudited': str(datetime.datetime.now()),
             'BucketLocation': self.get_bucket_location(),
             'EnforceSSL': self.get_enforce_ssl(),
+            'ObjectLockConfiguration': self.get_object_lock_configuration(),
+            'AccessLogging': self.get_bucket_logging(),
             **self.get_public_access_configuration(),
             **self.get_tags(),
         }
@@ -143,5 +166,3 @@ TABLE = boto3.resource(
 ).Table(
     os.environ.get('INVENTORY_TABLE_NAME')
 )
-
-

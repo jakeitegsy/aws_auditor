@@ -10,7 +10,9 @@
             "s3:GetBucketTagging",
             "s3:GetBucketLocation",
             "s3:GetEncryptionConfiguration",
-            "s3:GetBucketPolicyStatus",
+            "s3:GetBucketPolicy",
+            "s3:GetBucketLogging",
+            "s3:GetObjectLockConfiguration",
             "s3:ListAllMyBuckets"
         ]
     }
