@@ -126,10 +126,11 @@ class Bucket:
             'Versioning': self.versioning.get('Status'),
             'MFADelete': self.versioning.get('MFADelete'),
             'DateAudited': str(datetime.datetime.now()),
-            'BucketLocation': self.get_bucket_location(),
+            'Location': self.get_bucket_location(),
             'EnforceSSL': self.get_enforce_ssl(),
             'ObjectLockConfiguration': self.get_object_lock_configuration(),
             'AccessLogging': self.get_bucket_logging(),
+            'NotificationConfiguration': self.get_bucket_notification_configuration(),
             **self.get_public_access_configuration(),
             **self.get_tags(),
         }
