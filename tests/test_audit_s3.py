@@ -44,7 +44,7 @@ class TestAuditS3(unittest.TestCase):
                 'BlockPublicPolicy': True,
                 'RestrictPublicBuckets': True,
                 'EnforceSSL': True,
-                'ObjectLock': 'Enabled',
+                'ObjectLockConfiguration': 'Enabled',
                 'AccessLogging': True,
                 'Key1': 'Value1',
                 'Key2': 'Value2',

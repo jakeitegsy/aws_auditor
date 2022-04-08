@@ -13,6 +13,7 @@
             "s3:GetBucketPolicy",
             "s3:GetBucketLogging",
             "s3:GetObjectLockConfiguration",
+            "s3:GetObjectNotificationConfiguration",
             "s3:ListAllMyBuckets"
         ]
     }

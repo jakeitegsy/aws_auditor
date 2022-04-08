@@ -75,10 +75,7 @@ class Bucket:
         return S3.get_bucket_location(Bucket=self.bucket_name())['LocationConstraint']
 
     def get_object_lock_configuration(self):
-        try:
-            return S3.get_object_lock_configuration(Bucket=self.bucket_name())['ObjectLockConfiguration']['Rule']
-        except KeyError:
-            return 'Disabled'
+        return S3.get_object_lock_configuration(Bucket=self.bucket_name())['ObjectLockConfiguration']['ObjectLockEnabled']
 
     def get_enforce_ssl(self):
         bucket_policy_statements = S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']
@@ -104,6 +101,9 @@ class Bucket:
 
     def get_bucket_logging(self):
         return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name())
+
+    def get_bucket_notification_configuration(self):
+        return S3.get_bucket_notification_configuration(Bucket=self.bucket_name())
 
     def get_tags(self):
         try:
