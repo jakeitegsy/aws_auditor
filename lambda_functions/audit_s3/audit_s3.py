@@ -84,15 +84,13 @@ class Bucket:
             return 'Disabled'
 
     def get_enforce_ssl(self):
-        bucket_policy_statements = S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']
-        for statement in bucket_policy_statements:
-            try:
+        try:
+            for statement in S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']:
                 if statement['Effect'] == 'Deny':
                     if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
                         return True
-            except KeyError:
-                continue
-        return False
+        except KeyError:
+            return False
 
     def get_public_access_configuration(self):
         try:
