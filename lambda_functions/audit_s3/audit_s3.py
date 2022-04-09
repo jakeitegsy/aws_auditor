@@ -102,9 +102,6 @@ class Bucket:
     def get_bucket_logging(self):
         return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name())
 
-    def stringify(resource, arn, result, key):
-        return ','.join(resource[arn] for resource in result[key])
-
     def get_bucket_notification_configuration(self):
         configuration = S3.get_bucket_notification_configuration(Bucket=self.bucket_name())
         result = {
