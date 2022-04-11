@@ -115,10 +115,10 @@ class Bucket:
 
     def get_bucket_notification_configuration(self):
         result = {
-            'LambdaFunctionNotifications': {},
-            'SQSQueueNotifications': {},
-            'SNSTopicNotifications': {},
-            'EventBridgeNotifications': {},
+            'LambdaFunctionNotifications': None,
+            'SQSQueueNotifications': None,
+            'SNSTopicNotifications': None,
+            'EventBridgeNotifications': None,
         }
         for key, configuration in S3.get_bucket_notification_configuration(Bucket=self.bucket_name()).items():
             if key == 'TopicConfigurations':
