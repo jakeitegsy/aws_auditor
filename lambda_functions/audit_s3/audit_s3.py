@@ -7,6 +7,8 @@ import os
 import datetime
 import botocore.exceptions
 import concurrent.futures
+import traceback
+import sys
 
 
 class Bucket:
@@ -183,8 +185,9 @@ def display_results(executions):
     for execution in concurrent.futures.as_completed(executions):
         try:
             print(f'{executions[execution]} succeeded: {execution.result()}')
-        except Exception as error:
-            print(f'{executions[execution]} failed: {error}')
+        except Exception:
+            print(f'{executions[execution]} failed:')
+            traceback.print_exception(*sys.exc_info())
 
 def handler(event, context):
     with concurrent.futures.ThreadPoolExecutor() as executor:
