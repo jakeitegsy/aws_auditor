@@ -130,7 +130,7 @@ class Bucket:
                     result['SQSQueueNotifications'] = ','.join(queue['QueueArn'] for queue in configuration)
                 if key == 'EventBridgeConfiguration':
                     result['EventBridgeNotifications'] = ','.join(event['EventBridgeArn'] for event in configuration)
-        except KeyError as error:
+        except (KeyError, botocore.exceptions.ClientError) as error:
             print('get_bucket_notification_configuration raised error: ', error)
         return result
 
