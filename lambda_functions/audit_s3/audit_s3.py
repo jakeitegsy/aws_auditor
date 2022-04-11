@@ -120,15 +120,18 @@ class Bucket:
             'SNSTopicNotifications': None,
             'EventBridgeNotifications': None,
         }
-        for key, configuration in S3.get_bucket_notification_configuration(Bucket=self.bucket_name()).items():
-            if key == 'TopicConfigurations':
-                result['SNSTopicNotifications'] = ','.join(topic['TopicArn'] for topic in configuration)
-            if key == 'LambdaFunctionConfigurations':
-                result['LambdaFunctionNotifications'] = ','.join(function['LambdaFunctionArn'] for function in configuration)
-            if key == 'QueueConfigurations':
-                result['SQSQueueNotifications'] = ','.join(queue['QueueArn'] for queue in configuration)
-            if key == 'EventBridgeConfiguration':
-                result['EventBridgeNotifications'] = ','.join(event['EventBridgeArn'] for event in configuration)
+        try:
+            for key, configuration in S3.get_bucket_notification_configuration(Bucket=self.bucket_name()).items():
+                if key == 'TopicConfigurations':
+                    result['SNSTopicNotifications'] = ','.join(topic['TopicArn'] for topic in configuration)
+                if key == 'LambdaFunctionConfigurations':
+                    result['LambdaFunctionNotifications'] = ','.join(function['LambdaFunctionArn'] for function in configuration)
+                if key == 'QueueConfigurations':
+                    result['SQSQueueNotifications'] = ','.join(queue['QueueArn'] for queue in configuration)
+                if key == 'EventBridgeConfiguration':
+                    result['EventBridgeNotifications'] = ','.join(event['EventBridgeArn'] for event in configuration)
+        except KeyError as error:
+            print('get_bucket_notification_configuration raised error: ', error)
         return result
 
     def get_tags(self):
