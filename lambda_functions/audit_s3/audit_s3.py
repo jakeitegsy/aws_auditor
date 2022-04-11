@@ -94,7 +94,8 @@ class Bucket:
                 if statement['Effect'] == 'Deny':
                     if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
                         return True
-        except (KeyError, botocore.exceptions.ClientError):
+        except (KeyError, botocore.exceptions.ClientError) as error:
+            print('get_public_access_configuration raised error: ', error)
             return False
 
     def get_public_access_configuration(self):
@@ -113,14 +114,13 @@ class Bucket:
         return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name())
 
     def get_bucket_notification_configuration(self):
-        configuration = S3.get_bucket_notification_configuration(Bucket=self.bucket_name())
         result = {
             'LambdaFunctionNotifications': {},
             'SQSQueueNotifications': {},
             'SNSTopicNotifications': {},
             'EventBridgeNotifications': {},
         }
-        for key in configuration:
+        for key, configuration in S3.get_bucket_notification_configuration(Bucket=self.bucket_name()).items():
             if key == 'TopicConfigurations':
                 result['SNSTopicNotifications'] = ','.join(topic['TopicArn'] for topic in configuration[key])
             if key == 'LambdaFunctionConfigurations':
