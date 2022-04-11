@@ -85,6 +85,8 @@ class Bucket:
             return S3.get_object_lock_configuration(Bucket=self.bucket_name())['ObjectLockConfiguration']['ObjectLockEnabled']
         except KeyError:
             return 'Disabled'
+        except botocore.exceptions.ClientError:
+            return 'Access Denied'
 
     def get_enforce_ssl(self):
         try:
@@ -92,7 +94,7 @@ class Bucket:
                 if statement['Effect'] == 'Deny':
                     if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
                         return True
-        except KeyError:
+        except (KeyError, botocore.exceptions.ClientError):
             return False
 
     def get_public_access_configuration(self):
