@@ -6,6 +6,7 @@ import boto3
 import os
 import datetime
 import botocore.exceptions
+import concurrent.futures
 
 
 class Bucket:
@@ -178,9 +179,22 @@ def write_to_dynamodb(bucket):
         Item=Bucket(bucket).to_dict()
     )
 
+def display_results(executions):
+    for execution in concurrent.futures.as_completed(executions):
+        try:
+            print(f'{executions[execution]} succeeded: {execution.result()}')
+        except Exception as error:
+            print(f'{executions[execution]} failed: {error}')
+
 def handler(event, context):
-    for bucket in list_buckets():
-        write_to_dynamodb(bucket)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        display_results({
+            executor.submit(
+                write_to_dynamodb,
+                bucket
+            ): f'processing {bucket["Name"]}'
+            for bucket in list_buckets()
+        })
 
 SESSION = boto3.session.Session(region_name=region())
 S3 = create_client("s3")
