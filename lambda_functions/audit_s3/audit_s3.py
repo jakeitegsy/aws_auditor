@@ -100,7 +100,8 @@ class Bucket:
     def get_public_access_configuration(self):
         try:
             return S3.get_public_access_block(Bucket=self.bucket_name()).get('PublicAccessBlockConfiguration', {})
-        except botocore.exceptions.ClientError:
+        except botocore.exceptions.ClientError as error:
+            print('get_public_access_configuration raised error: ', error)
             return {
                 key: False for key in (
                     'BlockPublicAcls', 'BlockPublicPolicy',
