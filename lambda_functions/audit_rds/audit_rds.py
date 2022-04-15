@@ -24,6 +24,7 @@ class Database(object):
         return {}
 
     def get_iam_roles(self):
+        return ', '.join(role['RoleArn'] for role in self.get('AssociatedRoles'))
         result = []
         for role in self.get('AssociatedRoles'):
             result.append(role['RoleArn'])
