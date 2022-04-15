@@ -32,7 +32,7 @@ class Database(object):
     def get_tags(self):
         try:
             return {
-                key: value for key, value in self.get('TagList')
+                tag['Key']: tag['Value'] for tag in self.get('TagList')
             }
         except (AttributeError, TypeError):
             return {}
