@@ -116,7 +116,7 @@ class TestAuditRds(unittest.TestCase):
                 'DatapointsToAlarm': 123,
                 'EvaluationPeriods': 123,
                 'InsufficientDataActions': 'InsufficientDataAction1, InsufficientDataActionN',
-                'LastModified': datetime.datetime(2015, 1, 1, 0, 0),
+                'LastModified': str(datetime.datetime(2015, 1, 1, 0, 0)),
                 'MetricName': 'string',
                 'Namespace': 'string',
                 'OKActions': 'OKAction1, OKActionN',
