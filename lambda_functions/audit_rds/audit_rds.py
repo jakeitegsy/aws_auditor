@@ -3,6 +3,7 @@ import os
 import datetime
 import concurrent.futures
 import traceback
+import sys
 
 
 class Database(object):
@@ -67,7 +68,7 @@ def get_list_of_databases():
     )
 
 def write_to_dynamodb(data):
-    return TABLE.put_item(Item=data.to_dict())
+    return TABLE.put_item(Item=Database(data).to_dict())
 
 def display_results(executions):
     for execution in concurrent.futures.as_completed(executions):
