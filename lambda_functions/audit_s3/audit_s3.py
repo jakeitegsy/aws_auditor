@@ -15,12 +15,13 @@ class Bucket:
 
     def __init__(self, dictionary):
         self.dictionary = dictionary
+        self.bucket_name = self.get('Name')
         self.encryption = self.get_bucket_encryption()
         self.versioning = self.get_bucket_versioning()
 
     def get_bucket_encryption(self):
         try:
-            return S3.get_bucket_encryption(Bucket=self.bucket_name())['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
+            return S3.get_bucket_encryption(Bucket=self.bucket_name)['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
         except (IndexError, KeyError):
             return {}
 
@@ -29,9 +30,6 @@ class Bucket:
             return self.dictionary[key]
         except KeyError:
             return
-
-    def bucket_name(self):
-        return self.get('Name')
 
     def get_last_modified_date(self):
         return self.get('CreationDate').strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -42,7 +40,7 @@ class Bucket:
                 Namespace="AWS/S3",
                 MetricName=metric_name,
                 Dimensions=[
-                    dict(Name="BucketName", Value=self.bucket_name()),
+                    dict(Name="BucketName", Value=self.bucket_name),
                     dict(Name="StorageType", Value=storage_type)
                 ],
                 StartTime=now() - datetime.timedelta(days=2),
@@ -72,17 +70,17 @@ class Bucket:
         )
 
     def get_bucket_versioning(self):
-        return S3.get_bucket_versioning(Bucket=self.bucket_name())
+        return S3.get_bucket_versioning(Bucket=self.bucket_name)
 
     def get_bucket_location(self):
         try:
-            return S3.get_bucket_location(Bucket=self.bucket_name())['LocationConstraint']
+            return S3.get_bucket_location(Bucket=self.bucket_name)['LocationConstraint']
         except KeyError:
             return
 
     def get_object_lock_configuration(self):
         try:
-            return S3.get_object_lock_configuration(Bucket=self.bucket_name())['ObjectLockConfiguration']['ObjectLockEnabled']
+            return S3.get_object_lock_configuration(Bucket=self.bucket_name)['ObjectLockConfiguration']['ObjectLockEnabled']
         except KeyError:
             return 'Disabled'
         except botocore.exceptions.ClientError:
@@ -90,19 +88,19 @@ class Bucket:
 
     def get_enforce_ssl(self):
         try:
-            for statement in S3.get_bucket_policy(Bucket=self.bucket_name())['Statement']:
+            for statement in S3.get_bucket_policy(Bucket=self.bucket_name)['Statement']:
                 if statement['Effect'] == 'Deny':
                     if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
                         return True
-        except (KeyError, botocore.exceptions.ClientError) as error:
-            print('get_public_access_configuration raised error: ', error)
+        except Exception as error:
+            print(f'{self.bucket_name}: get_public_access_configuration raised error:')
             return False
 
     def get_public_access_configuration(self):
         try:
-            return S3.get_public_access_block(Bucket=self.bucket_name()).get('PublicAccessBlockConfiguration', {})
-        except botocore.exceptions.ClientError as error:
-            print('get_public_access_configuration raised error: ', error)
+            return S3.get_public_access_block(Bucket=self.bucket_name).get('PublicAccessBlockConfiguration', {})
+        except Exception as error:
+            print(f'{self.bucket_name}: get_public_access_configuration raised error: ')
             return {
                 key: False for key in (
                     'BlockPublicAcls', 'BlockPublicPolicy',
@@ -111,7 +109,7 @@ class Bucket:
             }
 
     def get_bucket_logging(self):
-        return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name())
+        return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name)
 
     def get_bucket_notification_configuration(self):
         result = {
@@ -121,7 +119,7 @@ class Bucket:
             'EventBridgeNotifications': None,
         }
         try:
-            for key, configuration in S3.get_bucket_notification_configuration(Bucket=self.bucket_name()).items():
+            for key, configuration in S3.get_bucket_notification_configuration(Bucket=self.bucket_name).items():
                 if key == 'TopicConfigurations':
                     result['SNSTopicNotifications'] = ','.join(topic['TopicArn'] for topic in configuration)
                 if key == 'LambdaFunctionConfigurations':
@@ -130,22 +128,22 @@ class Bucket:
                     result['SQSQueueNotifications'] = ','.join(queue['QueueArn'] for queue in configuration)
                 if key == 'EventBridgeConfiguration':
                     result['EventBridgeNotifications'] = ','.join(event['EventBridgeArn'] for event in configuration)
-        except (KeyError, botocore.exceptions.ClientError) as error:
-            print('get_bucket_notification_configuration raised error: ', error)
+        except Exception as error:
+            print(f'{self.bucket_name}: get_bucket_notification_configuration raised error')
         return result
 
     def get_tags(self):
         try:
             return {
                 tag['Key']: tag['Value']
-                for tag in S3.get_bucket_tagging(Bucket=self.bucket_name()).get('TagSet')
+                for tag in S3.get_bucket_tagging(Bucket=self.bucket_name).get('TagSet')
             }
         except (KeyError, TypeError):
             return {}
 
     def to_dict(self):
         return {
-            "ResourceName": self.bucket_name(),
+            "ResourceName": self.bucket_name,
             "SizeInBytes" : str(self.get_size()),
             "SizeInGiB" : str(self.get_size_in_gib()),
             "LastModified" : self.get_last_modified_date(),
