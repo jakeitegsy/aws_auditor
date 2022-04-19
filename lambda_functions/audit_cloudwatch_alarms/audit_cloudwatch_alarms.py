@@ -45,7 +45,7 @@ class MetricAlarm:
             'EvaluationPeriods': self.get('EvaluationPeriods'),
             'Unit': self.get('Unit'),
             'DatapointsToAlarm': self.get('DatapointsToAlarm'),
-            'Threshold': self.get('Threshold'),
+            'Threshold': str(self.get('Threshold')),
             'ComparisonOperator': self.get('ComparisonOperator'),
         }
 
@@ -65,7 +65,7 @@ def write_to_dynamodb(data):
 def display_results(executions):
     for execution in concurrent.futures.as_completed(executions):
         try:
-            print(f'{executions[execution]} succeeded: {execution.result()}')
+            f'{executions[execution]} succeeded: {execution.result()}'
         except Exception:
             print(f'{executions[execution]} failed: ')
             traceback.print_exception(*sys.exc_info())

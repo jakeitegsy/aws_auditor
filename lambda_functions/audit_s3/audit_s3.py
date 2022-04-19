@@ -190,7 +190,7 @@ def write_to_dynamodb(bucket):
 def display_results(executions):
     for execution in concurrent.futures.as_completed(executions):
         try:
-            print(f'{executions[execution]} succeeded: {execution.result()}')
+            f'{executions[execution]} succeeded: {execution.result()}'
         except Exception:
             print(f'{executions[execution]} failed:')
             traceback.print_exception(*sys.exc_info())
