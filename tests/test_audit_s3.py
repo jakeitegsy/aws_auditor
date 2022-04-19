@@ -20,7 +20,7 @@ class TestAuditS3(unittest.TestCase):
         self.tester = audit_s3.Bucket(self.bucket_info)
 
     def test_bucket_name(self):
-        self.assertEqual(self.tester.bucket_name(), self.bucket_info['Name'])
+        self.assertEqual(self.tester.bucket_name, self.bucket_info['Name'])
 
     def test_dict(self):
         self.maxDiff = None
