@@ -124,7 +124,7 @@ class TestAuditRds(unittest.TestCase):
                 'Period': 123,
                 'ResourceName': 'AlarmName',
                 'Statistic': 'Sum',
-                'Threshold': 123.0,
+                'Threshold': str(123.0),
                 'Unit': 'Bits'
             }
         )
