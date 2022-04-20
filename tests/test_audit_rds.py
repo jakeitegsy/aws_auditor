@@ -15,49 +15,38 @@ class TestAuditRds(unittest.TestCase):
 
     def setUp(self):
         self.fixture = {
-            'AllocatedStorage': 123,
-            'AvailabilityZones': [
-                'string',
-            ],
-            'BackupRetentionPeriod': 123,
-            'CharacterSetName': 'string',
-            'DatabaseName': 'string',
-            'DBClusterIdentifier': 'string',
-            'DBClusterParameterGroup': 'string',
-            'DBSubnetGroup': 'string',
-            'Status': 'string',
-            'AutomaticRestartTime': datetime.datetime(2015, 1, 1),
-            'PercentProgress': 'string',
-            'EarliestRestorableTime': datetime.datetime(2015, 1, 1),
-            'Endpoint': 'string',
-            'ReaderEndpoint': 'string',
-            'CustomEndpoints': [
-                'string',
-            ],
-            'MultiAZ': True|False,
+            'DBInstanceIdentifier': 'string',
+            'DBInstanceClass': 'string',
             'Engine': 'string',
-            'EngineVersion': 'string',
-            'LatestRestorableTime': datetime.datetime(2015, 1, 1),
-            'Port': 123,
+            'DBInstanceStatus': 'string',
+            'AutomaticRestartTime': datetime.datetime(2015, 1, 1),
             'MasterUsername': 'string',
-            'DBClusterOptionGroupMemberships': [
+            'DBName': 'string',
+            'Endpoint': {
+                'Address': 'string',
+                'Port': 123,
+                'HostedZoneId': 'string'
+            },
+            'AllocatedStorage': 123,
+            'InstanceCreateTime': datetime.datetime(2015, 1, 1),
+            'PreferredBackupWindow': 'string',
+            'BackupRetentionPeriod': 123,
+            'DBSecurityGroups': [
                 {
-                    'DBClusterOptionGroupName': 'string',
+                    'DBSecurityGroupName': 'SecurityGroupId1',
                     'Status': 'string'
                 },
-            ],
-            'PreferredBackupWindow': 'string',
-            'PreferredMaintenanceWindow': 'string',
-            'ReplicationSourceIdentifier': 'string',
-            'ReadReplicaIdentifiers': [
-                'string',
-            ],
-            'DBClusterMembers': [
                 {
-                    'DBInstanceIdentifier': 'string',
-                    'IsClusterWriter': True,
-                    'DBClusterParameterGroupStatus': 'string',
-                    'PromotionTier': 123
+                    'DBSecurityGroupName': 'SecurityGroupId2',
+                    'Status': 'string'
+                },
+                {
+                    'DBSecurityGroupName': 'SecurityGroupId3',
+                    'Status': 'string'
+                },
+                {
+                    'DBSecurityGroupName': 'SecurityGroupIdN',
+                    'Status': 'string'
                 },
             ],
             'VpcSecurityGroups': [
@@ -69,51 +58,114 @@ class TestAuditRds(unittest.TestCase):
                     'VpcSecurityGroupId': 'SecurityGroupId2',
                     'Status': 'string'
                 },
-            ],
-            'HostedZoneId': 'string',
-            'StorageEncrypted': True,
-            'KmsKeyId': 'string',
-            'DbClusterResourceId': 'string',
-            'DBClusterArn': 'string',
-            'AssociatedRoles': [
                 {
-                    'RoleArn': 'RoleArn1',
-                    'Status': 'string',
-                    'FeatureName': 'string'
+                    'VpcSecurityGroupId': 'SecurityGroupId3',
+                    'Status': 'string'
                 },
                 {
-                    'RoleArn': 'RoleArn2',
-                    'Status': 'string',
-                    'FeatureName': 'string'
+                    'VpcSecurityGroupId': 'SecurityGroupIdN',
+                    'Status': 'string'
                 },
             ],
-            'IAMDatabaseAuthenticationEnabled': True,
-            'CloneGroupId': 'string',
-            'ClusterCreateTime': datetime.datetime(2015, 1, 1),
-            'EarliestBacktrackTime': datetime.datetime(2015, 1, 1),
-            'BacktrackWindow': 123,
-            'BacktrackConsumedChangeRecords': 123,
-            'EnabledCloudwatchLogsExports': [
+            'DBParameterGroups': [
+                {
+                    'DBParameterGroupName': 'string',
+                    'ParameterApplyStatus': 'string'
+                },
+            ],
+            'AvailabilityZone': 'string',
+            'DBSubnetGroup': {
+                'DBSubnetGroupName': 'string',
+                'DBSubnetGroupDescription': 'string',
+                'VpcId': 'string',
+                'SubnetGroupStatus': 'string',
+                'Subnets': [
+                    {
+                        'SubnetIdentifier': 'string',
+                        'SubnetAvailabilityZone': {
+                            'Name': 'string'
+                        },
+                        'SubnetOutpost': {
+                            'Arn': 'string'
+                        },
+                        'SubnetStatus': 'string'
+                    },
+                ],
+                'DBSubnetGroupArn': 'string'
+            },
+            'PreferredMaintenanceWindow': 'string',
+            'PendingModifiedValues': {
+                'DBInstanceClass': 'string',
+                'AllocatedStorage': 123,
+                'MasterUserPassword': 'string',
+                'Port': 123,
+                'BackupRetentionPeriod': 123,
+                'MultiAZ': True,
+                'EngineVersion': 'string',
+                'LicenseModel': 'string',
+                'Iops': 123,
+                'DBInstanceIdentifier': 'string',
+                'StorageType': 'string',
+                'CACertificateIdentifier': 'string',
+                'DBSubnetGroupName': 'string',
+                'PendingCloudwatchLogsExports': {
+                    'LogTypesToEnable': [
+                        'string',
+                    ],
+                    'LogTypesToDisable': [
+                        'string',
+                    ]
+                },
+                'ProcessorFeatures': [
+                    {
+                        'Name': 'string',
+                        'Value': 'string'
+                    },
+                ],
+                'IAMDatabaseAuthenticationEnabled': True,
+                'AutomationMode': 'full',
+                'ResumeFullAutomationModeTime': datetime.datetime(2015, 1, 1)
+            },
+            'LatestRestorableTime': datetime.datetime(2015, 1, 1),
+            'MultiAZ': True,
+            'EngineVersion': 'string',
+            'AutoMinorVersionUpgrade': True,
+            'ReadReplicaSourceDBInstanceIdentifier': 'string',
+            'ReadReplicaDBInstanceIdentifiers': [
                 'string',
             ],
-            'Capacity': 123,
-            'EngineMode': 'string',
-            'ScalingConfigurationInfo': {
-                'MinCapacity': 123,
-                'MaxCapacity': 123,
-                'AutoPause': True|False,
-                'SecondsUntilAutoPause': 123,
-                'TimeoutAction': 'string',
-                'SecondsBeforeTimeout': 123
-            },
-            'DeletionProtection': True,
-            'HttpEndpointEnabled': True,
-            'ActivityStreamMode': 'sync',
-            'ActivityStreamStatus': 'started',
-            'ActivityStreamKmsKeyId': 'string',
-            'ActivityStreamKinesisStreamName': 'string',
-            'CopyTagsToSnapshot': True,
-            'CrossAccountClone': True,
+            'ReadReplicaDBClusterIdentifiers': [
+                'string',
+            ],
+            'ReplicaMode': 'open-read-only',
+            'LicenseModel': 'string',
+            'Iops': 123,
+            'OptionGroupMemberships': [
+                {
+                    'OptionGroupName': 'string',
+                    'Status': 'string'
+                },
+            ],
+            'CharacterSetName': 'string',
+            'NcharCharacterSetName': 'string',
+            'SecondaryAvailabilityZone': 'string',
+            'PubliclyAccessible': True,
+            'StatusInfos': [
+                {
+                    'StatusType': 'string',
+                    'Normal': True,
+                    'Status': 'string',
+                    'Message': 'string'
+                },
+            ],
+            'StorageType': 'string',
+            'TdeCredentialArn': 'string',
+            'DbInstancePort': 123,
+            'DBClusterIdentifier': 'string',
+            'StorageEncrypted': True,
+            'KmsKeyId': 'string',
+            'DbiResourceId': 'string',
+            'CACertificateIdentifier': 'string',
             'DomainMemberships': [
                 {
                     'Domain': 'string',
@@ -122,6 +174,55 @@ class TestAuditRds(unittest.TestCase):
                     'IAMRoleName': 'string'
                 },
             ],
+            'CopyTagsToSnapshot': True,
+            'MonitoringInterval': 123,
+            'EnhancedMonitoringResourceArn': 'string',
+            'MonitoringRoleArn': 'string',
+            'PromotionTier': 123,
+            'DBInstanceArn': 'string',
+            'Timezone': 'string',
+            'IAMDatabaseAuthenticationEnabled': True,
+            'PerformanceInsightsEnabled': True,
+            'PerformanceInsightsKMSKeyId': 'string',
+            'PerformanceInsightsRetentionPeriod': 123,
+            'EnabledCloudwatchLogsExports': [
+                'string',
+            ],
+            'ProcessorFeatures': [
+                {
+                    'Name': 'string',
+                    'Value': 'string'
+                },
+            ],
+            'DeletionProtection': True,
+            'AssociatedRoles': [
+                {
+                    'RoleArn': 'RoleArn1',
+                    'FeatureName': 'string',
+                    'Status': 'string'
+                },
+                {
+                    'RoleArn': 'RoleArn2',
+                    'FeatureName': 'string',
+                    'Status': 'string'
+                },
+                {
+                    'RoleArn': 'RoleArn3',
+                    'FeatureName': 'string',
+                    'Status': 'string'
+                },
+                {
+                    'RoleArn': 'RoleArnN',
+                    'FeatureName': 'string',
+                    'Status': 'string'
+                },
+            ],
+            'ListenerEndpoint': {
+                'Address': 'string',
+                'Port': 123,
+                'HostedZoneId': 'string'
+            },
+            'MaxAllocatedStorage': 123,
             'TagList': [
                 {
                     'Key': 'Key1',
@@ -140,32 +241,22 @@ class TestAuditRds(unittest.TestCase):
                     'Value': 'ValueN'
                 },
             ],
-            'GlobalWriteForwardingStatus': 'enabled',
-            'GlobalWriteForwardingRequested': True,
-            'PendingModifiedValues': {
-                'PendingCloudwatchLogsExports': {
-                    'LogTypesToEnable': [
-                        'string',
-                    ],
-                    'LogTypesToDisable': [
-                        'string',
-                    ]
+            'DBInstanceAutomatedBackupsReplications': [
+                {
+                    'DBInstanceAutomatedBackupsArn': 'string'
                 },
-                'DBClusterIdentifier': 'string',
-                'MasterUserPassword': 'string',
-                'IAMDatabaseAuthenticationEnabled': True,
-                'EngineVersion': 'string'
-            },
-            'DBClusterInstanceClass': 'string',
-            'StorageType': 'string',
-            'Iops': 123,
-            'PubliclyAccessible': False,
-            'AutoMinorVersionUpgrade': True,
-            'MonitoringInterval': 123,
-            'MonitoringRoleArn': 'string',
-            'PerformanceInsightsEnabled': True,
-            'PerformanceInsightsKMSKeyId': 'string',
-            'PerformanceInsightsRetentionPeriod': 123
+            ],
+            'CustomerOwnedIpEnabled': True,
+            'AwsBackupRecoveryPointArn': 'string',
+            'ActivityStreamStatus': 'stopped',
+            'ActivityStreamKmsKeyId': 'string',
+            'ActivityStreamKinesisStreamName': 'string',
+            'ActivityStreamMode': 'sync',
+            'ActivityStreamEngineNativeAuditFieldsIncluded': True|False,
+            'AutomationMode': 'full',
+            'ResumeFullAutomationModeTime': datetime.datetime(2015, 1, 1),
+            'CustomIamInstanceProfile': 'string',
+            'BackupTarget': 'string'
         }
         self.database = lambda_functions.audit_rds.audit_rds.Database(
             self.fixture
@@ -174,7 +265,7 @@ class TestAuditRds(unittest.TestCase):
     def test_database_name(self):
         self.assertEqual(
             self.database.database_name(),
-            self.fixture['DatabaseName']
+            self.fixture['DBName']
         )
 
     def test_dictionary(self):
@@ -184,7 +275,7 @@ class TestAuditRds(unittest.TestCase):
         self.assertEqual(
             actual,
             {
-                'AssociatedIamRoles': 'RoleArn1, RoleArn2',
+                'AssociatedIamRoles': 'RoleArn1, RoleArn2, RoleArn3, RoleArnN',
                 'AutoMinorVersionUpgrade': True,
                 'AvailabilityZones': 'string',
                 'ClusterIdentifier': 'string',
@@ -205,7 +296,8 @@ class TestAuditRds(unittest.TestCase):
                 'PreferredBackupWindow': 'string',
                 'ResourceName': 'string',
                 'StorageType': 'string',
-                'SecurityGroupIds': 'SecurityGroupId1, SecurityGroupId2',
+                'VPCSecurityGroupIds': 'SecurityGroupId1, SecurityGroupId2, SecurityGroupId3, SecurityGroupIdN',
+                'DBSecurityGroupIds': 'SecurityGroupId1, SecurityGroupId2, SecurityGroupId3, SecurityGroupIdN',
             }
         )
 

@@ -12,16 +12,22 @@ class Database(object):
         return self.database.get(key, default)
 
     def database_name(self):
-        return self.get('DatabaseName')
+        return self.get('DBName')
 
     def get_availability_zones(self):
-        return ", ".join(self.get('AvailabilityZones'))
+        return self.get('AvailabilityZone')
 
-    def get_security_group_ids(self):
+    def get_vpc_security_group_ids(self):
+        return ', '.join(security_group['VpcSecurityGroupId'] for security_group in self.get('VpcSecurityGroups'))
+
+    def get_db_security_group_ids(self):
         return ', '.join(security_group['VpcSecurityGroupId'] for security_group in self.get('VpcSecurityGroups'))
 
     def get_iam_roles(self):
         return ', '.join(role['RoleArn'] for role in self.get('AssociatedRoles'))
+
+    def get_endpoint(self):
+        return self.get('Endpoint', {}).get('Address')
 
     def get_tags(self):
         try:
@@ -37,7 +43,7 @@ class Database(object):
             'DateAudited': str(datetime.datetime.now()),
             'ClusterIdentifier': self.get('DBClusterIdentifier'),
             'AvailabilityZones': self.get_availability_zones(),
-            'Endpoint': self.get('Endpoint'),
+            'Endpoint': self.get_endpoint(),
             'MultiAZ': self.get('MultiAZ'),
             'Engine': self.get('Engine'),
             'LastRestorableTime': self.get('LatestRestorableTime'),
@@ -47,11 +53,12 @@ class Database(object):
             'AssociatedIamRoles': self.get_iam_roles(),
             'IAMDatabaseAuthenticationEnabled': self.get('IAMDatabaseAuthenticationEnabled'),
             'DeletionProtection': self.get('DeletionProtection'),
-            'DbInstanceClass': self.get('DBClusterInstanceClass'),
+            'DbInstanceClass': self.get('DBInstanceClass'),
             'PerformanceInsightsEnabled': self.get('PerformanceInsightsEnabled'),
             'AutoMinorVersionUpgrade': self.get('AutoMinorVersionUpgrade'),
             'StorageType': self.get('StorageType'),
-            'SecurityGroupIds': self.get_security_group_ids(),
+            'VPCSecurityGroupIds': self.get_vpc_security_group_ids(),
+            'DBSecurityGroupIds': self.get_db_security_group_ids(),
             **self.get_tags(),
         }
 
