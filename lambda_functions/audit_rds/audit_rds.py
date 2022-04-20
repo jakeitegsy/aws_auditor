@@ -1,3 +1,6 @@
+""" Get an inventory of all RDS DB Instances and write to dynamodb table
+"""
+
 import boto3
 import os
 import datetime
@@ -62,14 +65,7 @@ class Database(object):
             **self.get_tags(),
         }
 
-def region():
-    return os.environ.get('REGION')
-
 def get_databases():
-    (
-        database for database
-        in RDS.describe_db_instances()['DBInstances']
-    )
     return (
         database for database
         in RDS.describe_db_instances()['DBInstances']
@@ -77,12 +73,12 @@ def get_databases():
 
 def handler(event, context):
     for database in get_databases():
+        print(f'auditing {database["DBInstanceIdentifier"]}')
         TABLE.put_item(Item=Database(database).to_dict())
 
-RDS = boto3.session.Session(region_name=region()).client('rds')
+RDS = boto3.session.Session().client('rds')
 TABLE = boto3.resource(
     'dynamodb',
-    endpoint_url=f'https://dynamodb.{region()}.amazonaws.com'
 ).Table(
     os.environ.get('INVENTORY_TABLE_NAME')
 )

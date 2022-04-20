@@ -15,7 +15,7 @@ class TestAuditRds(unittest.TestCase):
 
     def setUp(self):
         self.fixture = {
-            'DBInstanceIdentifier': 'string',
+            'DBInstanceIdentifier': 'DBInstanceIdentifier',
             'DBInstanceClass': 'string',
             'Engine': 'string',
             'DBInstanceStatus': 'string',
@@ -265,7 +265,7 @@ class TestAuditRds(unittest.TestCase):
     def test_database_name(self):
         self.assertEqual(
             self.database.database_name(),
-            self.fixture['DBName']
+            self.fixture['DBInstanceIdentifier']
         )
 
     def test_dictionary(self):
@@ -294,7 +294,7 @@ class TestAuditRds(unittest.TestCase):
                 'MultiAZ': True,
                 'PerformanceInsightsEnabled': True,
                 'PreferredBackupWindow': 'string',
-                'ResourceName': 'string',
+                'ResourceName': 'DBInstanceIdentifier',
                 'StorageType': 'string',
                 'VPCSecurityGroupIds': 'SecurityGroupId1, SecurityGroupId2, SecurityGroupId3, SecurityGroupIdN',
                 'DBSecurityGroupIds': 'SecurityGroupId1, SecurityGroupId2, SecurityGroupId3, SecurityGroupIdN',
