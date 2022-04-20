@@ -46,7 +46,7 @@ class Database(object):
             'Endpoint': self.get_endpoint(),
             'MultiAZ': self.get('MultiAZ'),
             'Engine': self.get('Engine'),
-            'LastRestorableTime': self.get('LatestRestorableTime'),
+            'LastRestorableTime': str(self.get('LatestRestorableTime')),
             'PreferredBackupWindow': self.get('PreferredBackupWindow'),
             'EncryptedStorage': self.get('StorageEncrypted'),
             'KmsKeyId': self.get('KmsKeyId'),
