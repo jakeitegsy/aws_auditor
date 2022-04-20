@@ -121,26 +121,12 @@ def list_functions():
         for lambda_function in page['Functions']
     ]
 
-def write_to_dynamodb(data):
-    return TABLE.put_item(Item=Function(data).to_dict())
-
-def display_results(executions):
-    for execution in concurrent.futures.as_completed(executions):
-        try:
-            f'{executions[execution]} succeeded: {execution.result()}'
-        except Exception:
-            print(f'{executions[execution]} failed: ')
-            traceback.print_exception(*sys.exc_info())
-
 def handler(event, context):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        display_results({
-            executor.submit(
-                write_to_dynamodb,
-                lambda_function,
-            ): f'auditing {lambda_function["FunctionName"]}'
-            for lambda_function in list_functions()
-        })
+    for lambda_function in list_functions():
+        TABLE.put_item(
+            Item=Function(lambda_function).to_dict()
+        )
+
 
 LAMBDA = boto3.session.Session(region_name=region()).client('lambda')
 PAGINATED_LIST_OF_FUNCTIONS = LAMBDA.get_paginator('list_functions')

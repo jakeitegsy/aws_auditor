@@ -1,9 +1,6 @@
 import boto3
-import concurrent.futures
 import datetime
 import os
-import traceback
-import sys
 
 
 class MetricAlarm:
@@ -30,17 +27,17 @@ class MetricAlarm:
             'DateAudited': str(datetime.datetime.now()),
             'AlarmArn': self.get('AlarmArn'),
             'AlarmDescription': self.get('AlarmDescription'),
-            'LastModified': str(self.get('AlarmConfigurationUpdatedTimestamp')),
+            'AlarmConfigurationUpdatedTimestamp': str(self.get('AlarmConfigurationUpdatedTimestamp')),
             'ActionsEnabled': self.get('ActionsEnabled'),
             'AlarmActions': self.stringify(self.get('AlarmActions')),
             'OKActions': self.stringify(self.get('OKActions')),
             'InsufficientDataActions': self.stringify(self.get('InsufficientDataActions')),
-            'CurrentAlarmState': self.get('StateValue'),
-            'CurrentAlarmReason': self.get('StateReason'),
+            'StateValue': self.get('StateValue'),
+            'StateReason': self.get('StateReason'),
             'MetricName': self.get('MetricName'),
             'Namespace': self.get('Namespace'),
             'Statistic': self.get('Statistic'),
-            'PercentileStatistic': self.get('ExtendedStatistic'),
+            'ExtendedStatistic': self.get('ExtendedStatistic'),
             'Period': self.get('Period'),
             'EvaluationPeriods': self.get('EvaluationPeriods'),
             'Unit': self.get('Unit'),
@@ -54,31 +51,19 @@ def region():
     return os.environ.get('REGION')
 
 def list_alarms():
-    return [
+    return (
         alarm for page in PAGINATED_LIST_OF_ALARMS.paginate()
         for alarm in page['MetricAlarms']
-    ]
+    )
 
 def write_to_dynamodb(data):
     return TABLE.put_item(Item=MetricAlarm(data).to_dict())
 
-def display_results(executions):
-    for execution in concurrent.futures.as_completed(executions):
-        try:
-            f'{executions[execution]} succeeded: {execution.result()}'
-        except Exception:
-            print(f'{executions[execution]} failed: ')
-            traceback.print_exception(*sys.exc_info())
-
 def handler(event, context):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        display_results({
-            executor.submit(
-                write_to_dynamodb,
-                cloudwatch_alarm,
-            ): f'auditing {cloudwatch_alarm["AlarmName"]}'
-            for cloudwatch_alarm in list_alarms()
-        })
+    for alarm in list_alarms():
+        TABLE.put_item(
+            Item=MetricAlarm(alarm).to_dict()
+        )
 
 CLOUDWATCH = boto3.client("cloudwatch")
 PAGINATED_LIST_OF_ALARMS = CLOUDWATCH.get_paginator("describe_alarms")

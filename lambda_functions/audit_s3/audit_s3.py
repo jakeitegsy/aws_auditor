@@ -1,5 +1,4 @@
-""" Get an inventory of all s3 buckets with additional attributes
-    Writes data to dynamodb table
+""" Get an inventory of all s3 buckets with additional attributes to dynamodb table
 """
 
 import boto3
@@ -22,7 +21,7 @@ class Bucket:
     def get_bucket_encryption(self):
         try:
             return S3.get_bucket_encryption(Bucket=self.bucket_name)['ServerSideEncryptionConfiguration']['Rules'][0]['ApplyServerSideEncryptionByDefault']
-        except (IndexError, KeyError):
+        except Exception:
             return {}
 
     def get(self, key):
@@ -69,14 +68,23 @@ class Bucket:
             unit="Count"
         )
 
+    @staticmethod
+    def access_denied():
+        return 'Access Denied'
+
     def get_bucket_versioning(self):
-        return S3.get_bucket_versioning(Bucket=self.bucket_name)
+        try:
+            return S3.get_bucket_versioning(Bucket=self.bucket_name)
+        except botocore.exceptions.ClientError:
+            return {}
 
     def get_bucket_location(self):
         try:
             return S3.get_bucket_location(Bucket=self.bucket_name)['LocationConstraint']
         except KeyError:
             return
+        except botocore.exceptions.ClientError:
+            return self.access_denied()
 
     def get_object_lock_configuration(self):
         try:
@@ -84,7 +92,7 @@ class Bucket:
         except KeyError:
             return 'Disabled'
         except botocore.exceptions.ClientError:
-            return 'Access Denied'
+            return self.access_denied()
 
     def get_enforce_ssl(self):
         try:
@@ -93,14 +101,14 @@ class Bucket:
                     if statement['Condition']['Bool']['aws:SecureTransport'] == 'false':
                         return True
         except Exception as error:
-            print(f'{self.bucket_name}: get_public_access_configuration raised error:')
+            print(f'{self.bucket_name}: get_public_access_configuration raised an error')
             return False
 
     def get_public_access_configuration(self):
         try:
             return S3.get_public_access_block(Bucket=self.bucket_name).get('PublicAccessBlockConfiguration', {})
         except Exception as error:
-            print(f'{self.bucket_name}: get_public_access_configuration raised error: ')
+            print(f'{self.bucket_name}: get_public_access_configuration raised an error')
             return {
                 key: False for key in (
                     'BlockPublicAcls', 'BlockPublicPolicy',
@@ -109,7 +117,10 @@ class Bucket:
             }
 
     def get_bucket_logging(self):
-        return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name)
+        try:
+            return 'LoggingEnabled' in S3.get_bucket_logging(Bucket=self.bucket_name)
+        except botocore.exceptions.ClientError:
+            return
 
     def get_bucket_notification_configuration(self):
         result = {
@@ -129,7 +140,7 @@ class Bucket:
                 if key == 'EventBridgeConfiguration':
                     result['EventBridgeNotifications'] = ','.join(event['EventBridgeArn'] for event in configuration)
         except Exception as error:
-            print(f'{self.bucket_name}: get_bucket_notification_configuration raised error')
+            print(f'{self.bucket_name}: get_bucket_notification_configuration raised an error')
         return result
 
     def get_tags(self):
@@ -138,7 +149,7 @@ class Bucket:
                 tag['Key']: tag['Value']
                 for tag in S3.get_bucket_tagging(Bucket=self.bucket_name).get('TagSet')
             }
-        except (KeyError, TypeError):
+        except Exception:
             return {}
 
     def to_dict(self):
@@ -168,44 +179,19 @@ def now():
 def region():
     return os.environ.get('AWS_REGION', 'us-east-1')
 
-def endpoint_url(service):
-    return
-    return f"https://{service}.{region()}.amazonaws.com"
-
-def create_client(service):
-    return SESSION.client(
-        service, endpoint_url=endpoint_url(service)
-    )
-
 def list_buckets():
     return (bucket for bucket in S3.list_buckets()['Buckets'])
 
-def write_to_dynamodb(bucket):
-    return TABLE.put_item(
-        Item=Bucket(bucket).to_dict()
-    )
-
-def display_results(executions):
-    for execution in concurrent.futures.as_completed(executions):
-        try:
-            f'{executions[execution]} succeeded: {execution.result()}'
-        except Exception:
-            print(f'{executions[execution]} failed:')
-            traceback.print_exception(*sys.exc_info())
-
 def handler(event, context):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        display_results({
-            executor.submit(
-                write_to_dynamodb,
-                bucket
-            ): f'processing {bucket["Name"]}'
-            for bucket in list_buckets()
-        })
+    for bucket in list_buckets():
+        TABLE.put_item(
+            Item=Bucket(bucket).to_dict()
+        )
+
 
 SESSION = boto3.session.Session(region_name=region())
-S3 = create_client("s3")
-CLOUDWATCH = create_client("cloudwatch")
+S3 = boto3.client("s3")
+CLOUDWATCH = boto3.client("cloudwatch")
 TABLE = boto3.resource(
     'dynamodb',
     endpoint_url=f'https://dynamodb.{region()}.amazonaws.com'

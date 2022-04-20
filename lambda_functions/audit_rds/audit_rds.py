@@ -1,9 +1,6 @@
 import boto3
 import os
 import datetime
-import concurrent.futures
-import traceback
-import sys
 
 
 class Database(object):
@@ -61,32 +58,15 @@ class Database(object):
 def region():
     return os.environ.get('REGION')
 
-def get_list_of_databases():
+def get_databases():
     return (
         database for database
-        in RDS.describe_db_clusters()['DBClusters']
+        in RDS.describe_db_instances()['DBInstances']
     )
 
-def write_to_dynamodb(data):
-    return TABLE.put_item(Item=Database(data).to_dict())
-
-def display_results(executions):
-    for execution in concurrent.futures.as_completed(executions):
-        try:
-            f'{executions[execution]} succeeded: {execution.result()}'
-        except Exception:
-            print(f'{executions[execution]} failed: {execution.exception()}')
-            traceback.print_exception(*sys.exc_info())
-
 def handler(event, context):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        display_results({
-            executor.submit(
-                write_to_dynamodb,
-                database,
-            ): f'auditing {database["DatabaseName"]}'
-            for database in get_list_of_databases()
-        })
+    for database in get_databases():
+        TABLE.put_item(Item=Database(database).to_dict())
 
 RDS = boto3.session.Session(region_name=region()).client('rds')
 TABLE = boto3.resource(
