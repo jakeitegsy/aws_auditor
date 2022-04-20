@@ -290,7 +290,7 @@ class TestAuditRds(unittest.TestCase):
                 'Key3': 'Value3',
                 'KeyN': 'ValueN',
                 'KmsKeyId': 'string',
-                'LastRestorableTime': datetime.datetime(2015, 1, 1, 0, 0),
+                'LastRestorableTime': str(datetime.datetime(2015, 1, 1, 0, 0)),
                 'MultiAZ': True,
                 'PerformanceInsightsEnabled': True,
                 'PreferredBackupWindow': 'string',
