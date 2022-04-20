@@ -12,7 +12,7 @@ class Database(object):
         return self.database.get(key, default)
 
     def database_name(self):
-        return self.get('DBName')
+        return self.get('DBInstanceIdentifier')
 
     def get_availability_zones(self):
         return self.get('AvailabilityZone')
@@ -66,6 +66,10 @@ def region():
     return os.environ.get('REGION')
 
 def get_databases():
+    (
+        database for database
+        in RDS.describe_db_instances()['DBInstances']
+    )
     return (
         database for database
         in RDS.describe_db_instances()['DBInstances']
