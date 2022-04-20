@@ -23,7 +23,7 @@
     },
     "rds": {
         "actions": [
-            "rds:DescribeDBClusters"
+            "rds:DescribeDBInstances"
         ]
     },
     "cloudwatch": {
