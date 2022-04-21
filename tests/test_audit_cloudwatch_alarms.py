@@ -77,16 +77,15 @@ class TestAuditRds(unittest.TestCase):
             ],
             "ThresholdMetricId": "string",
         }
-        self.metric_alarm = lambda_functions.audit_cloudwatch_alarms.audit_cloudwatch_alarms.MetricAlarm(
-            self.fixture
+        self.metric_alarm = (
+            lambda_functions.audit_cloudwatch_alarms.audit_cloudwatch_alarms.to_dict(
+                self.fixture
+            )
         )
-
-    def test_database_name(self):
-        self.assertEqual(self.metric_alarm.alarm_name(), self.fixture["AlarmName"])
 
     def test_dictionary(self):
         self.maxDiff = None
-        actual = self.metric_alarm.to_dict()
+        actual = self.metric_alarm
         actual.pop("DateAudited")
         self.assertEqual(
             actual,
@@ -94,7 +93,9 @@ class TestAuditRds(unittest.TestCase):
                 "AlarmName": "AlarmName",
                 "AlarmArn": "AlarmArn",
                 "AlarmDescription": "AlarmDescription",
-                "AlarmConfigurationUpdatedTimestamp": str(datetime.datetime(2015, 1, 1)),
+                "AlarmConfigurationUpdatedTimestamp": str(
+                    datetime.datetime(2015, 1, 1)
+                ),
                 "ActionsEnabled": True,
                 "OKActions": [
                     "OKAction1",
