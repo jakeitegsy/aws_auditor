@@ -73,7 +73,6 @@ def get_databases():
 
 def handler(event, context):
     for database in get_databases():
-        print(f'auditing {database["DBInstanceIdentifier"]}')
         TABLE.put_item(Item=Database(database).to_dict())
 
 RDS = boto3.session.Session().client('rds')

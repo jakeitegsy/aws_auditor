@@ -1,3 +1,6 @@
+""" Get an inventory of all CloudWatch Alarms  and write to dynamodb table
+"""
+
 import boto3
 import datetime
 import os
